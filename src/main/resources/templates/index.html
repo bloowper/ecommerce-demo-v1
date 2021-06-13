@@ -9,14 +9,22 @@
 </head>
 <body>
 
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <nav th:replace="fragments/navbar :: nav"></nav>
 
-    <div class="alert-warning" th:if="${exception != null}" th:text="${exception}">Exception</div>
-
-
-    <a th:href="@{/login}">login</a>
-    <a th:href="@{/index}">index</a>
-    <a th:href="@{/item/create}">item/create</a>
-
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="alert alert-warning" role="alert" th:if="${exception != null}" th:text="${exception}">Exception</div>
+            </div>
+        </div>
+        <a th:href="@{/login}">login</a>
+        <a th:href="@{/index}">index</a>
+        <a th:href="@{/item/create}">item/create</a>
+    </div>
 
 
     <script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>

@@ -45,11 +45,13 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
             authorize
                     .antMatchers("/h2-console/**").permitAll() //do not use in production!
                     .antMatchers("/", "/login", "/resources/**").permitAll()
-                    .antMatchers("/css/**", "/js/**", "/webjars/**").permitAll();
+                    .antMatchers("/css/**", "/js/**", "/webjars/**","**/webjars/**").permitAll();
         }).
                 httpBasic().
                 and().csrf().ignoringAntMatchers("/h2-console/**")
-                .and().headers().frameOptions().sameOrigin();
+                .and().headers().frameOptions().sameOrigin().and();
+
+
 
         //Loggin
         http.formLogin(configurer ->{

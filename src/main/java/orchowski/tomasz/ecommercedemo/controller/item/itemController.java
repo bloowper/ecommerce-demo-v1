@@ -20,6 +20,7 @@ public class itemController {
 
 
     @PermissionStoreItemRead
+    @GetMapping("/show")
     public String itemRead(Model model) {
 
         return "item/show";

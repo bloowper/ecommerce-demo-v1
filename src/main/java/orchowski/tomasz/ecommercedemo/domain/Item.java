@@ -20,6 +20,10 @@ public class Item {
     @Length(min = 20, max = 1000,message = "description must be greater than 200 and smaller than 1000 characters")
     String description;
 
+    @NotNull
+    Double price;
 
+    @NotNull
+    Integer stock;
 
 }

@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -43,7 +44,8 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
         http.authorizeRequests(authorize -> {
             authorize
                     .antMatchers("/h2-console/**").permitAll() //do not use in production!
-                    .antMatchers("/", "/webjars/**", "/login", "/resources/**").permitAll();
+                    .antMatchers("/", "/login", "/resources/**").permitAll()
+                    .antMatchers("/css/**", "/js/**", "/webjars/**").permitAll();
         }).
                 httpBasic().
                 and().csrf().ignoringAntMatchers("/h2-console/**")
@@ -65,6 +67,15 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
             permitAll();
         } );
     }
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        super.configure(web);
+        web.
+        ignoring().
+        antMatchers("/resources/**", "/static/**","/webjars/**");
+    }
+
 
     @Bean
     PasswordEncoder passwordEncoder() {

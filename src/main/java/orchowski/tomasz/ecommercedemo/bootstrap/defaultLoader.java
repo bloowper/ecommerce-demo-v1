@@ -38,8 +38,16 @@ public class defaultLoader implements CommandLineRunner {
         var storeItemDelete = authorityRepository.save(Authority.builder().permission("store.item.delete").build());
 
 
-        var admin = roleRepository.save(Role.builder().authority(storeItemCreate).authority(storeItemDelete).authority(storeItemUpdate).authority(storeItemDelete).name("ADMIN").build());
-        var customer = roleRepository.save(Role.builder().authority(storeItemRead).name("CUSTOMER").build());
+        var admin = roleRepository.save(Role.builder().
+                authority(storeItemCreate).
+                authority(storeItemRead).
+                authority(storeItemUpdate).
+                authority(storeItemDelete).
+                name("ADMIN").build());
+        var customer = roleRepository.save(Role.builder().
+            authority(storeItemRead).
+            name("CUSTOMER").
+            build());
 
         userRepository.save(User.builder().
                 role(admin).

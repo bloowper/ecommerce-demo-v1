@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 
 @Slf4j
 @ControllerAdvice
@@ -15,7 +14,7 @@ public class exceptionController {
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(AccessDeniedException.class)
-    public RedirectView AccessDeniedException(Exception exception) {
+    public ModelAndView AccessDeniedException(Exception exception) {
 
         log.error("handling forbidden exception");
         ModelAndView modelAndView = new ModelAndView();

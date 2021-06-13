@@ -16,7 +16,7 @@
         <input type="submit" value="login in">
     </form>
     <div sec:authorize="isAuthenticated()">
-        <p>You have log in<br></p>
+        <p>You have alredy login<br></p>
         <a th:href="@{/}">Back to home page</a>
     </div>
 </body>

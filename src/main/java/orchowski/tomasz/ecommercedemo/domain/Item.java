@@ -1,12 +1,20 @@
 package orchowski.tomasz.ecommercedemo.domain;
 
-import com.sun.istack.NotNull;
+
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.*;
 import org.hibernate.annotations.BatchSize;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 public class Item {
 
@@ -16,14 +24,15 @@ public class Item {
 
     //TODO
     // need validation for save html
-    @NotNull
-    @Length(min = 20, max = 1000,message = "description must be greater than 200 and smaller than 1000 characters")
+    @Length(min = 20, max = 1000, message = "description must be greater than 200 and smaller than 1000 characters")
+    @Lob
     String description;
 
-    @NotNull
+    @NotNull(message = "Price can't be null")
     Double price;
 
-    @NotNull
+    @NotNull(message = "Stock can't be null")
+    @Min(value = 0, message = "Min stock value is 0")
     Integer stock;
 
 }

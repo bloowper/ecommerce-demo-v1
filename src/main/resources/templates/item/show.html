@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>store</title>
     <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.0.1/css/bootstrap.min.css}">
-
+    <link th:rel="stylesheet" th:href="@{/static/css/default.css}">
 </head>
 <body>
 
@@ -16,8 +16,27 @@
         </div>
     </div>
 
-    <div class="alert alert-warning" role="alert">Tudududu</div>
-    <h1>Lista</h1>
+    <div class="row">
+        <div class="col-sm-12" th:each="item : ${items}">
+            <!--@thymesVar id="item" type="orchowski.tomasz.ecommercedemo.domain.Item"-->
+            <div class="row">
+                <div class="col-sm-2">
+
+                    <p th:text="'Price : '+${item.price}"></p>
+                    <p th:text="'Stock : '+${item.stock}"></p>
+                </div>
+                <div class="col-sm-10">
+                    <p th:text="${#strings.substring(item.description,0,250) + '...'}"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <p th:text="${pageNumber}"></p>
+    <p th:text="${pageSize}"></p>
+
 </div>
 
 

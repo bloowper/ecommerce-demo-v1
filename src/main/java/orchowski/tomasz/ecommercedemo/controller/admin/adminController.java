@@ -15,7 +15,13 @@ public class adminController {
 
     @GetMapping("/homepage")
     public String adminHomePage(Model model) {
-
+        //TODO
         return "admin/homepage";
+    }
+
+    @GetMapping("/userlist")
+    public String adminUserList(Model model) {
+        //TODO
+        return "";
     }
 }

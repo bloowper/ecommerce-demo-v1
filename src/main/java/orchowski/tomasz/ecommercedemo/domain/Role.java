@@ -1,9 +1,12 @@
 package orchowski.tomasz.ecommercedemo.domain;
 
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
+
 
 @Setter
 @Getter
@@ -11,7 +14,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 @Entity
-public class Role {
+public class Role  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -29,4 +32,6 @@ public class Role {
             inverseJoinColumns = @JoinColumn(name = "authority_id", referencedColumnName = "id")
     )
     private Set<Authority> authorities = new HashSet<>();
+
+
 }

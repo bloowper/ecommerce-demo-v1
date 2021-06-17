@@ -76,6 +76,8 @@ public class User implements UserDetails, CredentialsContainer {
                 flatMap(Set::stream).
                 map(authority -> new SimpleGrantedAuthority(authority.getPermission())).
                 collect(Collectors.toSet());
+
+        roles.stream().map(Role::getName).map(SimpleGrantedAuthority::new).forEach(authorities::add);//WE NEED IT FOR hasRole() functionality
         return authorities;
     }
 

@@ -25,17 +25,20 @@
                     <li class="nav-item" >
                         <a class="nav-link" th:href="@{/item/show}" th:classappend="${#httpServletRequest.requestURI.startsWith('/item/show')? ' active': ' '}" href="">Buy</a>
                     </li>
+
                     <li sec:authorize="!isAuthenticated()">
                         <a class="nav-link" th:href="@{/login}">Login</a>
+                    </li>
+                    <li sec:authorize="hasRole('ROLE_ADMIN')">
+                        <a class="nav-link" th:href="@{/admin/homepage}" th:classappend="${#httpServletRequest.requestURI.startsWith('/admin/homepage')? 'active':''}">Admin page</a>
                     </li>
                     <li sec:authorize="isAuthenticated()" class="nav-item">
                         <a class="nav-link" th:href="@{/logout}">Logout</a>
                     </li>
+
                 </ul>
+
             </div>
-
-
-
         </div>
     </nav>
 

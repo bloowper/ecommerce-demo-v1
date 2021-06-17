@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin homepage</title>
+  <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.0.1/css/bootstrap.min.css}">
+  <link th:rel="stylesheet" th:href="@{/css/default.css}">
+</head>
+<body>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <nav th:replace="fragments/navbar :: nav"></nav>
+    </div>
+  </div>
+
+  <h1>
+    Admin page
+  </h1>
+
+</div>
+
+
+<script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/2.9.2/umd/popper.js}"></script>
+<script th:src="@{/webjars/bootstrap/5.0.1/js/bootstrap.js}"></script>
+</body>
+</html>

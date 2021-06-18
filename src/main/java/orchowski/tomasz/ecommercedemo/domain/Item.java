@@ -5,8 +5,8 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
-import org.hibernate.annotations.BatchSize;
 import org.hibernate.validator.constraints.Length;
+
 
 import javax.persistence.*;
 

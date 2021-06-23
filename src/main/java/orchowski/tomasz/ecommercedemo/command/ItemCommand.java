@@ -2,6 +2,7 @@ package orchowski.tomasz.ecommercedemo.command;
 
 
 import lombok.*;
+import org.springframework.validation.annotation.Validated;
 import javax.validation.constraints.*;
 
 
@@ -10,6 +11,7 @@ import javax.validation.constraints.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Validated
 public class ItemCommand {
 
     private Long id;

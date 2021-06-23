@@ -16,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
+import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
@@ -24,7 +25,6 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/item")
 @RequiredArgsConstructor
-@Validated
 public class ItemController {
 
     private final ItemService itemService;
@@ -57,11 +57,7 @@ public class ItemController {
     @GetMapping("/show")
     public String itemRead(Model model, HttpServletRequest request, @RequestParam(defaultValue = "0") Integer pageNo,
                            @RequestParam(defaultValue = "10") Integer pageSize) {
-
         ///item/show?pageNo=2&pageSize=20
-        Principal userPrincipal = request.getUserPrincipal();
-        System.out.println(userPrincipal.getName());
-
 
         if (pageNo < 0 || pageSize <= 0) {
             return "redirect:/item/show?pageNo=0";

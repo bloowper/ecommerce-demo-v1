@@ -12,16 +12,19 @@ import orchowski.tomasz.ecommercedemo.security.permision.PermissionStoreItemRead
 import orchowski.tomasz.ecommercedemo.services.ItemService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @Controller
 @RequestMapping("/item")
 @RequiredArgsConstructor
+@Validated
 public class ItemController {
 
     private final ItemService itemService;
@@ -36,11 +39,18 @@ public class ItemController {
     }
 
     @PermissionStoreItemCreate
-    @PostMapping("/create")
-    public String itemAddControllerPost(@Valid @ModelAttribute("item") ItemCommand itemCommand) {
+    @PostMapping("/create/new")
+    public String itemAddControllerPost(@ModelAttribute("item") @Valid ItemCommand itemCommand, BindingResult bindingResult) {
         log.debug("Posting new item object");
-
-        return "";
+        if (bindingResult.hasErrors()) {
+                bindingResult.getAllErrors().forEach(objectError -> log.error(objectError.toString()));
+            log.debug("Binding error");
+            return "redirect:/item/create";
+        }
+        Item item = commandToItem.convert(itemCommand);
+        Item save = itemService.save(item);
+        log.debug("New item object persisted to db \n " + save.toString());
+        return "redirect:/item/" + save.getId() + "/show";
     }
 
     @PermissionStoreItemRead
@@ -68,9 +78,11 @@ public class ItemController {
         return "item/show";
     }
 
-    @GetMapping("/show/{id}")
+    @GetMapping("/{id}/show")
+    @PermissionStoreItemRead
     public String showItem(Model model,@PathVariable Long id) {
-
+        Optional<Item> byId = itemService.findById(id);
+        model.addAttribute("item", byId.orElseThrow(() -> new RuntimeException("Item id " + id + " not found")));
         return "item/showProduct";
     }
 }

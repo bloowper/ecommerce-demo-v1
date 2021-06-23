@@ -26,7 +26,10 @@
                     <p th:text="'Stock : '+${item.stock}"></p>
                 </div>
                 <div class="col-sm-9 midInfoNav">
-                    <p th:text="${#strings.substring(item.description,0,250) + '...'}"></p>
+                    <p th:text="${#strings.substring(item.description,
+                    0,
+                    #strings.length(item.description)>250 ? 250 : #strings.length(item.description)
+                    ) + '...'}"></p>
                 </div>
                 <div class="col-sm-1 rightInfoNav"></div>
             </div>

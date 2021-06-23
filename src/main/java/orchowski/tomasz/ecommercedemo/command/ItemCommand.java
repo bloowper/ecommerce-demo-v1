@@ -1,11 +1,12 @@
 package orchowski.tomasz.ecommercedemo.command;
 
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 
-import javax.validation.*;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+
 
 @Getter
 @Setter
@@ -15,12 +16,17 @@ import javax.validation.constraints.Size;
 public class ItemCommand {
 
     private Long id;
-    @NotBlank
+
     @Size(min = 20, max = 1000,message = "Description must contains at least 20 characters and less than 1000")
+    @NotBlank
     private String description;
+
     @Min(value = 0, message = "Price have to be greater than 0")
+    @NotNull
     private Double price;
+
     @Min(value = 0, message = "Stock have to be at least 0")
+    @NotNull
     private Integer stock;
 
 }

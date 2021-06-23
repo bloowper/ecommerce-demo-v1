@@ -7,6 +7,7 @@ import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -34,4 +35,12 @@ public class ItemService {
         return all.getContent();
     }
 
+    public Item save(Item item) {
+        Item save = itemRepository.save(item);
+        return save;
+    }
+
+    public Optional<Item> findById(Long id) {
+        return itemRepository.findById(id);
+    }
 }

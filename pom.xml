@@ -98,9 +98,10 @@
             <version>3.0.0</version>
         </dependency>
         <dependency>
-            <groupId>org.hibernate</groupId>
+            <!-- There was a problem with version 7            -->
+            <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <version>7.0.1.Final</version>
+            <version>6.1.5.Final</version>
         </dependency>
         <dependency>
             <groupId>javax.validation</groupId>

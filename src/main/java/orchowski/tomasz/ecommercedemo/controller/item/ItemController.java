@@ -44,7 +44,8 @@ public class ItemController {
         if (bindingResult.hasErrors()) {
                 bindingResult.getAllErrors().forEach(objectError -> log.error(objectError.toString()));
             log.debug("Binding error");
-            return "redirect:/item/create";
+
+            return "item/itemform";
         }
         Item save = itemService.save(commandToItem.convert(itemCommand));
         log.debug("New item object persisted to db \n " + save.toString());

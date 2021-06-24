@@ -16,30 +16,47 @@
         </div>
     </div>
 
-    <form th:object="${item}" th:action="@{/item/create/new}" method="post">
-        <div class="row">
-            <div class="mb-3">
-                <!--description            -->
-                <label for="description" class="form-label">Description of product</label>
-                <textarea class="form-control" id="description" name="description"></textarea>
+
+    <div class="col-sm-12">
+        <form th:object="${item}" th:action="@{/item/create/new}" method="post">
+            <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
+                <p>Please correct errors below</p>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-sm-3">
-                <!--price            -->
-                <label for="price">Price of product</label>
-                <input type="text" class="form-control" id="price" name="price">
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <!--description            -->
+                    <label for="description" class="form-label">Description of product</label>
+                    <textarea th:field="${item.description}" class="form-control " id="description" name="description"
+                              th:classappend="${#fields.hasErrors('description')} ? 'is-invalid' : 'is-valid'">
+                </textarea>
+                    <small class="text-muted">The description should be more than 20 characters and less than 1000</small>
+                </div>
             </div>
-            <div class="col-sm-3">
-                <!--stock            -->
-                <label for="stock">Stock item</label>
-                <input type="text" class="form-control" id="stock" name="stock">
+            <div class="row">
+                <div class="col-sm-6">
+                    <!--price            -->
+                    <label for="price">Price of product</label>
+                    <input th:field="${item.price}" type="text" class="form-control" id="price" name="price"
+                           th:classappend="${#fields.hasErrors('price')} ? 'is-invalid' : 'is-valid'">
+                    <small class="text-muted">The price have to be greater than 0</small>
+
+                </div>
+                <div class="col-sm-6">
+                    <!--stock            -->
+                    <label for="stock">Stock item</label>
+                    <input th:field="${item.stock}" type="text" class="form-control" id="stock" name="stock"
+                           th:classappend="${#fields.hasErrors('stock')} ? 'is-invalid' : 'is-valid'">
+                    <small class="text-muted">The number of items sold must be greater than or equal to zero</small>
+
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </div>
-    </form>
+            <div class="row col-sm-6">
+                <button type="submit" class="btn btn-primary small">Submit</button>
+            </div>
+        </form>
+    </div>
+
 
 </div>
 

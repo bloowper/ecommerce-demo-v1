@@ -1,6 +1,5 @@
 package orchowski.tomasz.ecommercedemo.controller.item;
 
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import orchowski.tomasz.ecommercedemo.command.ItemCommand;
@@ -13,7 +12,7 @@ import orchowski.tomasz.ecommercedemo.services.ItemService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.*;
@@ -47,8 +46,7 @@ public class ItemController {
             log.debug("Binding error");
             return "redirect:/item/create";
         }
-        Item item = commandToItem.convert(itemCommand);
-        Item save = itemService.save(item);
+        Item save = itemService.save(commandToItem.convert(itemCommand));
         log.debug("New item object persisted to db \n " + save.toString());
         return "redirect:/item/" + save.getId() + "/show";
     }

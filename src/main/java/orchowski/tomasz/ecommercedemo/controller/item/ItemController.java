@@ -12,13 +12,11 @@ import orchowski.tomasz.ecommercedemo.services.ItemService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
-import org.springframework.web.bind.annotation.*;
-import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
+import javax.validation.Valid;
 
 @Slf4j
 @Controller
@@ -40,6 +38,8 @@ public class ItemController {
     @PermissionStoreItemCreate
     @PostMapping("/create/new")
     public String itemAddControllerPost(@ModelAttribute("item") @Valid ItemCommand itemCommand, BindingResult bindingResult) {
+        //TODO
+        // validation of ItemCommand doesnt work
         log.debug("Posting new item object");
         if (bindingResult.hasErrors()) {
                 bindingResult.getAllErrors().forEach(objectError -> log.error(objectError.toString()));

@@ -2,26 +2,41 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-  <meta charset="UTF-8">
-  <title>store</title>
-  <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.0.1/css/bootstrap.min.css}">
-
+    <meta charset="UTF-8">
+    <title>store</title>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.0.1/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/default.css}">
 </head>
 <body>
 
-<div class="container">
-  <div class="row">
-    <div class="col-sm-12">
-      <nav th:replace="fragments/navbar :: nav"></nav>
+<div class="container " >
+    <div class="row">
+        <div class="col-sm-12">
+            <nav th:replace="fragments/navbar :: nav"></nav>
+        </div>
     </div>
-  </div>
 
-  <h1>Item show</h1>
-  <p th:text="${item.price}"></p>
-  <p th:text="${item.stock}"></p>
-  <p th:text="${item.description}"></p>
-
-
+    <div class="row gx-md-1" style="padding-top: 50px; padding-left: 2rem; padding-right: 2rem">
+        <div class="col-sm-12">
+        </div>
+        <div class="col-sm-12 border-top border-bottom ">
+            <div class="row">
+                <div class="col-sm-4 flex-box paddingTopBottom">
+                    <a th:href="@{/item/show}" class="btn btn-primary align-items-center" role="button" >Buy</a>
+                </div>
+                <div class="col-sm-4 paddingTopBottom">
+                    <h4>Price: <span class="badge bg-primary " th:text="${item.price}+' $'"></span></h4>
+                </div>
+                <div class="col-sm-4 paddingTopBottom">
+                    <h4>Stock: <span class="badge bg-primary" th:text="${item.stock}"></span></h4>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <h3>Description:</h3>
+            <p th:text="${item.description}" class="border-top border-bottom" ></p>
+        </div>
+    </div>
 </div>
 
 

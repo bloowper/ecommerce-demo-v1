@@ -1,6 +1,7 @@
 package orchowski.tomasz.ecommercedemo.domain;
 
 import lombok.*;
+import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.CredentialsContainer;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -20,6 +21,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @Builder
 @Entity
+@Scope("session")
 public class User implements UserDetails, CredentialsContainer {
 
     @Id

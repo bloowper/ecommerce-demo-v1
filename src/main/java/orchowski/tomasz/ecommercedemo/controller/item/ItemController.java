@@ -6,17 +6,21 @@ import orchowski.tomasz.ecommercedemo.command.ItemCommand;
 import orchowski.tomasz.ecommercedemo.converter.ItemCommandToItem;
 import orchowski.tomasz.ecommercedemo.converter.ItemToItemCommand;
 import orchowski.tomasz.ecommercedemo.domain.Item;
+import orchowski.tomasz.ecommercedemo.domain.User;
 import orchowski.tomasz.ecommercedemo.security.permision.PermissionStoreItemCreate;
 import orchowski.tomasz.ecommercedemo.security.permision.PermissionStoreItemRead;
 import orchowski.tomasz.ecommercedemo.services.ItemService;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import javax.validation.Valid;
+
 
 @Slf4j
 @Controller
@@ -27,6 +31,7 @@ public class ItemController {
     private final ItemService itemService;
     private final ItemCommandToItem commandToItem;
     private final ItemToItemCommand itemToCommand;
+
 
     @PermissionStoreItemCreate
     @GetMapping("/create")
@@ -42,7 +47,7 @@ public class ItemController {
         // validation of ItemCommand doesnt work
         log.debug("Posting new item object");
         if (bindingResult.hasErrors()) {
-                bindingResult.getAllErrors().forEach(objectError -> log.error(objectError.toString()));
+            bindingResult.getAllErrors().forEach(objectError -> log.error(objectError.toString()));
             log.debug("Binding error");
 
             return "item/itemform";
@@ -75,7 +80,7 @@ public class ItemController {
 
     @GetMapping("/{id}/show")
     @PermissionStoreItemRead
-    public String showItem(Model model,@PathVariable Long id) {
+    public String showItem(Model model, @PathVariable Long id) {
         Optional<Item> byId = itemService.findById(id);
         model.addAttribute("item", byId.orElseThrow(() -> new RuntimeException("Item id " + id + " not found")));
         return "item/showProduct";

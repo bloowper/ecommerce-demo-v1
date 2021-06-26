@@ -10,6 +10,8 @@ import orchowski.tomasz.ecommercedemo.domain.User;
 import orchowski.tomasz.ecommercedemo.security.permision.PermissionStoreItemCreate;
 import orchowski.tomasz.ecommercedemo.security.permision.PermissionStoreItemRead;
 import orchowski.tomasz.ecommercedemo.services.ItemService;
+import orchowski.tomasz.ecommercedemo.session.ShoopingCart;
+import org.hibernate.Session;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 
@@ -59,9 +62,14 @@ public class ItemController {
 
     @PermissionStoreItemRead
     @GetMapping("/show")
-    public String itemRead(Model model, HttpServletRequest request, @RequestParam(defaultValue = "0") Integer pageNo,
+    public String itemRead(Model model, HttpServletRequest request, HttpSession session, @RequestParam(defaultValue = "0") Integer pageNo,
                            @RequestParam(defaultValue = "10") Integer pageSize) {
         ///item/show?pageNo=2&pageSize=20
+        var cart = ((ShoopingCart) session.getAttribute("cart"));
+        log.debug("cart !=  null: "+(cart!=null));
+        if (cart != null) {
+            log.debug("Cart UUID : "+cart.getUuid());
+        }
 
         if (pageNo < 0 || pageSize <= 0) {
             return "redirect:/item/show?pageNo=0";

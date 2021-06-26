@@ -35,6 +35,8 @@
                     <li sec:authorize="isAuthenticated()" class="nav-item">
                         <a class="nav-link" th:href="@{/logout}">Logout</a>
                     </li>
+                    <p th:text="${'debug info cart uuid: '+session.cart.uuid}"></p>
+
                 </ul>
             </div>
         </div>

@@ -20,18 +20,18 @@
         <div class="col-sm-12" th:each="item : ${items}">
             <!--@thymesVar id="item" type="orchowski.tomasz.ecommercedemo.domain.Item"-->
             <div class="row">
-                <div class="col-sm-2 leftInfoNav">
+                <div class="col-md-2 leftInfoNav">
                     <p th:text="'Price : '+${item.price}"></p>
                     <p th:text="'Stock : '+${item.stock}"></p>
                     <a th:href="@{'/item/'+ ${item.id} + '/show' }">item page</a>
                 </div>
-                <div class="col-sm-9 midInfoNav">
+                <div class="col-md-9 midInfoNav">
                     <p th:text="${#strings.substring(item.description,
                     0,
                     #strings.length(item.description)>250 ? 250 : #strings.length(item.description)
                     ) + '...'}"></p>
                 </div>
-                <div class="col-sm-1 rightInfoNav"></div>
+                <div class="col-md-1 rightInfoNav"></div>
             </div>
         </div>
     </div>

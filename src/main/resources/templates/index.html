@@ -9,19 +9,21 @@
 </head>
 <body>
 
-    <div class="container">
+    <div class="container-lg">
         <div class="row">
             <div class="col-sm-12">
                 <nav th:replace="fragments/navbar :: nav"></nav>
 
             </div>
         </div>
+    </div>
+
+    <div class="container-lg">
         <div class="row">
             <div class="col-sm-12">
                 <div class="alert alert-warning" role="alert" th:if="${exception != null}" th:text="${exception}">Exception</div>
             </div>
         </div>
-
     </div>
 
 

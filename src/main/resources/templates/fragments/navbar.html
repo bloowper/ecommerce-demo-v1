@@ -30,7 +30,7 @@
                         <a class="nav-link" th:href="@{/login}">Login</a>
                     </li>
                     <li sec:authorize="hasRole('ROLE_ADMIN')">
-                        <a class="nav-link" th:href="@{/admin/homepage}" th:classappend="${#httpServletRequest.requestURI.startsWith('/admin/homepage')? 'active':''}">Admin page</a>
+                        <a class="nav-link" th:href="@{/admin/homepage}" th:classappend="${#httpServletRequest.requestURI.startsWith('/admin')? 'active':''}">Admin page</a>
                     </li>
                     <li>
                         <a class="nav-link" th:href="@{/user/cart}" th:classappend="${#httpServletRequest.requestURI.startsWith('/user/cart')? 'active':''}">Cart</a>
@@ -43,7 +43,7 @@
             </div>
         </div>
         <!--        To delete-->
-        <p th:text="${'debug info cart uuid: '+session.cart.uuid}" th:if="${session.cart!=null}"></p>
+<!--        <p th:text="${'debug info cart uuid: '+session.cart.uuid}" th:if="${session.cart!=null}"></p>-->
     </nav>
 
 

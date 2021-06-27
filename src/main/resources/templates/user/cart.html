@@ -17,15 +17,22 @@
     </div>
 </div>
 
+
+
 <div class="container-lg p-3">
     <h1 class="display-6">Your cart:</h1>
     <div class="row col-md-12 px-md-3">
+        <div class="alert alert-success alert-dismissible fade show" role="alert" th:if="${cartRemoveItem}">
+            <p>Item removed!</p>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
         <table class="table">
             <thead>
                 <tr>
                     <th scope="col">product id</th>
                     <th scope="col">Product name</th>
                     <th scope="col">Cost</th>
+                    <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -34,6 +41,11 @@
                     <th scope="row" th:text="${item.id}"></th>
                     <td th:text="${item.name}"></td>
                     <td th:text="${item.price}">25 $</td>
+                    <td>
+                        <form method="POST" th:action="@{/user/cart/removeItem(id=${item.id})}">
+                            <button class="btn btn-outline-primary" type="submit" name="submit" value="id" >Remove</button>
+                        </form>
+                    </td>
                 </tr>
             </tbody>
         </table>

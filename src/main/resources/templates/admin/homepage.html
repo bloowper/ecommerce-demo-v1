@@ -2,24 +2,59 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-  <meta charset="UTF-8">
-  <title>Admin homepage</title>
-  <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.0.1/css/bootstrap.min.css}">
-  <link th:rel="stylesheet" th:href="@{/css/default.css}">
+    <meta charset="UTF-8">
+    <title>Admin homepage</title>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.0.1/css/bootstrap.min.css}">
+    <link th:rel="stylesheet" th:href="@{/css/default.css}">
+    <link th:rel="stylesheet" th:href="@{/css/background.css}">
+
 </head>
 <body>
 
-<div class="container">
-  <div class="row">
-    <div class="col-sm-12">
-      <nav th:replace="fragments/navbar :: nav"></nav>
+<div class="container-md">
+    <div class="row">
+        <div class="col-sm-12">
+            <nav th:replace="fragments/navbar :: nav"></nav>
+        </div>
     </div>
-  </div>
 
-  <h1>
-    Admin page
-  </h1>
-  <a th:href="@{@{/item/create}}">create item</a>
+    <div class="row">
+        <p class="h1 text-center ">Admin panel</p>
+        <div class="col-md-4">
+            <div class="list-group gx-md-1 py-md-3 whiteBackgroundShadow">
+                <p class="list-group-item list-group-item-dark text-center text-white h2">Shop actions</p>
+                <a th:href="@{/item/create}" class="list-group-item list-group-item-action list-group-item-primary">Add new item</a>
+                <a href="#" class="list-group-item list-group-item-action list-group-item-primary">Edit item</a>
+            </div>
+        </div>
+        <div class="col-md-4 ">
+            <div class="list-group gx-md-1 py-md-3 whiteBackgroundShadow">
+                <p class="list-group-item list-group-item-dark text-center text-white h2">User actions</p>
+                <a th:href="@{/admin/usersList}" class="list-group-item list-group-item-action list-group-item-primary">User list</a>
+            </div>
+        </div>
+        <div class="col-md-4 ">
+            <div class="list-group gx-md-1 py-md-3 whiteBackgroundShadow">
+                <p class="list-group-item list-group-item-dark text-center text-white h2">...</p>
+                <a href="#" class="list-group-item list-group-item-action list-group-item-primary">...</a>
+            </div>
+        </div>
+        <div class="col-md-4 ">
+            <div class="list-group gx-md-1 py-md-3 whiteBackgroundShadow">
+                <p class="list-group-item list-group-item-dark text-center text-white h2">...</p>
+                <a href="#" class="list-group-item list-group-item-action list-group-item-primary">...</a>
+            </div>
+        </div>
+        <div class="col-md-4 ">
+            <div class="list-group gx-md-1 py-md-3 whiteBackgroundShadow">
+                <p class="list-group-item list-group-item-dark text-center text-white h2">...</p>
+                <a href="#" class="list-group-item list-group-item-action list-group-item-primary">...</a>
+            </div>
+        </div>
+
+    </div>
+
+
 </div>
 
 

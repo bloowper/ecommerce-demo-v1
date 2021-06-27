@@ -13,15 +13,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 public class adminController {
 
+
     @GetMapping("/homepage")
     public String adminHomePage(Model model) {
         //TODO
         return "admin/homepage";
     }
 
-    @GetMapping("/userlist")
+    @GetMapping("/usersList")
     public String adminUserList(Model model) {
         //TODO
-        return "";
+        return "admin/usersList";
     }
 }

@@ -16,34 +16,32 @@
         </div>
     </div>
 
-    <div class="container-lg">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="alert alert-success" role="alert" th:if="${exception != null}" th:text="${exception}">Exception</div>
-            </div>
-        </div>
-    </div>
 
     <div class="row">
-        <div class="col-sm-12 border-top border-bottom ">
-            <div class="row">
-                <div class="col-sm-4 flex-box paddingTopBottom">
-                    <form method="POST" th:action="@{/item/addToCart(id=${item.id})}">
-                        <button type="submit" name="submit" value="value" class="link-button">Add to cart</button>
-                    </form>
-                </div>
-                <div class="col-sm-4 paddingTopBottom">
-                    <h4>Price: <span class="badge bg-primary " th:text="${item.price}+' $'"></span></h4>
-                </div>
-                <div class="col-sm-4 paddingTopBottom">
-                    <h4>Stock: <span class="badge bg-primary" th:text="${item.stock}"></span></h4>
+        <div class="container-md">
+            <div class="col-sm-12 border-top border-bottom ">
+                <div class="row">
+                    <div class="col-sm-4 flex-box paddingTopBottom">
+                        <form method="POST" th:action="@{/item/addToCart(id=${item.id})}">
+                            <button class="btn btn-outline-primary" type="submit" name="submit" value="value" >Add to cart</button>
+                        </form>
+                        <div class="alert alert-success alert-dismissible fade show" role="alert" th:if="${addToCartStatus != null}">
+                            <p th:text="${addToCartStatus}"></p>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 paddingTopBottom">
+                        <h4>Price: <span class="badge bg-primary " th:text="${item.price}+' $'"></span></h4>
+                    </div>
+                    <div class="col-sm-4 paddingTopBottom">
+                        <h4>Stock: <span class="badge bg-primary" th:text="${item.stock}"></span></h4>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-sm-12">
-            <p class="h3 text-muted" th:text="${item.name}"></p>
-
-            <p th:text="${item.description}" class="" ></p>
+            <div class="col-sm-12">
+                <p class="h3 text-muted" th:text="${item.name}"></p>
+                <p th:text="${item.description}" class="" ></p>
+            </div>
         </div>
     </div>
 

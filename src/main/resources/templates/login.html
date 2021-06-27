@@ -3,27 +3,62 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Loggin page</title>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.0.1/css/bootstrap.min.css}">
+    <link th:rel="stylesheet" th:href="@{/css/loginform.css}">
 </head>
 <body>
-    <h1>Login page</h1>
-    <p th:if="${loginError}">username or password incorrect</p>
-    <form sec:authorize="!isAuthenticated()" th:action="@{/login}" method="post">
-        <label for="username">Username</label>
-        <input type="text" id="username" name="username" autofocus="true">
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password">
-        <input type="submit" value="login in">
-    </form>
-    <div sec:authorize="isAuthenticated()">
-        <p>You have alredy login<br></p>
-        <a th:href="@{/}">Back to home page</a>
+
+
+    <div class="container-md">
+        <div class="row">
+            <div class="col-sm-12">
+                <nav th:replace="fragments/navbar :: nav"></nav>
+            </div>
+        </div>
+        <div th:if="${loginError}" class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>Logging or password incorrect</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        <div class="container-md login-container" sec:authorize="!isAuthenticated()">
+            <!--TODO write login failure information        -->
+
+            <div class="row">
+                <div class="col-md-12 login-form-1 ">
+                    <p class="h3 text-center">Login</p>
+                    <hr>
+                    <form th:action="@{/login}" method="post" class="gy-md-5">
+                        <div class="form-group">
+                            <input id="username" name="username" type="text" class="form-control" placeholder="Login" value="" />
+                        </div>
+                        <div class="form-group">
+                            <input id="password" name="password" type="password" class="form-control" placeholder="Password" value="" />
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="btnSubmit" value="Login" />
+                        </div>
+                        <div class="form-group">
+                            <a href="#" class="additional">Forget Password?</a><br>
+                            <a href="#" class="additional">Create account</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="container-md login-container" sec:authorize="isAuthenticated()">
+            <div class="row">
+                <div class="col-md-12 login-form-1">
+                    <p class="h3 text-center">You have already login</p>
+                </div>
+            </div>
+        </div>
     </div>
-    <p>
-        login:admin password:admin
-    </p>
-    <p>
-        login:user password:user
-    </p>
+
+    <p>login:admin password:admin</p>
+    <p>login:user password:user</p>
+
+    <script th:src="@{webjars/jquery/3.0.0/jquery.min.js}"></script>
+    <script th:src="@{webjars/popper.js/2.9.2/umd/popper.js}"></script>
+    <script th:src="@{webjars/bootstrap/5.0.1/js/bootstrap.js}"></script>
 </body>
 </html>

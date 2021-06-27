@@ -124,6 +124,45 @@ public class defaultLoader implements CommandLineRunner {
                 build()
         );
 
+        userRepository.save(User.builder().
+                role(customer).
+                username("user1").
+                password(passwordEncoder.encode("user")).
+                email("user@dad.com").
+                build()
+        );
+
+        userRepository.save(User.builder().
+                role(customer).
+                username("user2").
+                password(passwordEncoder.encode("user")).
+                email("udsaddser@user.com").
+                build()
+        );
+
+        userRepository.save(User.builder().
+                role(customer).
+                username("user3").
+                password(passwordEncoder.encode("user")).
+                email("asdf@user.com").
+                build()
+        );
+
+        userRepository.save(User.builder().
+                role(customer).
+                username("user4").
+                password(passwordEncoder.encode("user")).
+                email("usfgsdgser@user.com").
+                build()
+        );
+
+        userRepository.save(User.builder().
+                role(customer).
+                username("user5").
+                password(passwordEncoder.encode("user")).
+                email("asdasda@user.com").
+                build()
+        );
     }
 
 

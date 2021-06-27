@@ -1,0 +1,11 @@
+.whiteBackgroundShadow{
+    box-shadow: 1px 1px 20px grey;
+    padding: 2%;
+    margin-bottom:7% ;
+    border-radius: 0.25rem;
+}
+
+.testBackground{
+    background: chartreuse;
+}
+

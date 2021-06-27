@@ -1,5 +1,8 @@
-package orchowski.tomasz.ecommercedemo.controller;
+package orchowski.tomasz.ecommercedemo.controller.cart;
 
+
+import lombok.extern.slf4j.Slf4j;
+import orchowski.tomasz.ecommercedemo.security.permision.isAuthenticated;
 import orchowski.tomasz.ecommercedemo.session.ShoopingCart;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,24 +13,19 @@ import javax.servlet.http.HttpSession;
 import java.util.UUID;
 
 @Controller
-@RequestMapping("/")
-public class indexController {
+@Slf4j
+@RequestMapping("user")
+public class CartController {
 
-    @RequestMapping("")
-    public String index(Model model, HttpSession session) {
+    @isAuthenticated
+    @GetMapping("/cart")
+    public String cart(HttpSession session, Model model) {
         if (session.getAttribute("cart") == null) {
             ShoopingCart cart = new ShoopingCart();
             cart.setUuid(UUID.randomUUID().toString());
             session.setAttribute("cart", cart);
         }
-        return "index";
-    }
-
-    //for testing purpus
-    @GetMapping("home")
-    public String home() {
-
-        return "index";
+        return "user/cart";
     }
 
 }

@@ -9,20 +9,28 @@
 </head>
 <body>
 
-<div class="container " >
+<div class="container-md" >
     <div class="row">
         <div class="col-sm-12">
             <nav th:replace="fragments/navbar :: nav"></nav>
         </div>
     </div>
 
-    <div class="row gx-md-1" style="padding-top: 50px; padding-left: 2rem; padding-right: 2rem">
-        <div class="col-sm-12">
+    <div class="container-lg">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="alert alert-success" role="alert" th:if="${exception != null}" th:text="${exception}">Exception</div>
+            </div>
         </div>
+    </div>
+
+    <div class="row">
         <div class="col-sm-12 border-top border-bottom ">
             <div class="row">
                 <div class="col-sm-4 flex-box paddingTopBottom">
-                    <a th:href="@{/item/show}" class="btn btn-primary align-items-center" role="button" >Buy</a>
+                    <form method="POST" th:action="@{/item/addToCart(id=${item.id})}">
+                        <button type="submit" name="submit" value="value" class="link-button">Add to cart</button>
+                    </form>
                 </div>
                 <div class="col-sm-4 paddingTopBottom">
                     <h4>Price: <span class="badge bg-primary " th:text="${item.price}+' $'"></span></h4>
@@ -33,10 +41,13 @@
             </div>
         </div>
         <div class="col-sm-12">
-            <h3>Description:</h3>
-            <p th:text="${item.description}" class="border-top border-bottom" ></p>
+            <p class="h3 text-muted" th:text="${item.name}"></p>
+
+            <p th:text="${item.description}" class="" ></p>
         </div>
     </div>
+
+
 </div>
 
 

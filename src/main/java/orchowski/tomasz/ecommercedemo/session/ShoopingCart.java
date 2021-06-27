@@ -1,6 +1,6 @@
 package orchowski.tomasz.ecommercedemo.session;
 
-import orchowski.tomasz.ecommercedemo.domain.Item;
+import orchowski.tomasz.ecommercedemo.command.ItemCommand;
 import lombok.Getter;
 import lombok.Setter;
 import java.util.ArrayList;
@@ -11,5 +11,5 @@ import java.util.List;
 @Setter
 public class ShoopingCart {
     String uuid;
-    List<Item> items = new ArrayList<>();
+    List<ItemCommand> items = new ArrayList<>();
 }

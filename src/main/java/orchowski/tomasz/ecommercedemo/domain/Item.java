@@ -22,6 +22,10 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
+    @Lob
+    @Length(min = 4, max = 100, message = "You must provide name of product longer than 10 characters shorten than 100")
+    String name;
+
     //TODO
     // need validation for save html
     @Length(min = 20, max = 1000, message = "description must be greater than 200 and smaller than 1000 characters")

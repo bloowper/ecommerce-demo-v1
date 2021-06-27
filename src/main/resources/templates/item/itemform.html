@@ -34,15 +34,21 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-6">
+                <div class="col-md-4">
+                    <!--name of product            -->
+                    <label for="name">Name of product</label>
+                    <input th:field="${item.name}" type="text" class="form-control" id="name" name="name"
+                           th:classappend="${#fields.hasErrors('name')} ? 'is-invalid' : ''">
+                    <small class="text-muted">Product name must be at least 4 characters and less than 100</small>
+                </div>
+                <div class="col-md-4">
                     <!--price            -->
                     <label for="price">Price of product</label>
                     <input th:field="${item.price}" type="text" class="form-control" id="price" name="price"
                            th:classappend="${#fields.hasErrors('price')} ? 'is-invalid' : ''">
                     <small class="text-muted">The price have to be greater than 0</small>
-
                 </div>
-                <div class="col-sm-6">
+                <div class="col-md-4">
                     <!--stock            -->
                     <label for="stock">Stock item</label>
                     <input th:field="${item.stock}" type="text" class="form-control" id="stock" name="stock"

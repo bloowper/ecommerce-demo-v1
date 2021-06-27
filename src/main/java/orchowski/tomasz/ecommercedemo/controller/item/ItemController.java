@@ -6,21 +6,20 @@ import orchowski.tomasz.ecommercedemo.command.ItemCommand;
 import orchowski.tomasz.ecommercedemo.converter.ItemCommandToItem;
 import orchowski.tomasz.ecommercedemo.converter.ItemToItemCommand;
 import orchowski.tomasz.ecommercedemo.domain.Item;
-import orchowski.tomasz.ecommercedemo.domain.User;
 import orchowski.tomasz.ecommercedemo.security.permision.PermissionStoreItemCreate;
 import orchowski.tomasz.ecommercedemo.security.permision.PermissionStoreItemRead;
 import orchowski.tomasz.ecommercedemo.services.ItemService;
 import orchowski.tomasz.ecommercedemo.session.ShoopingCart;
-import org.hibernate.Session;
-import org.springframework.context.annotation.Scope;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -38,6 +37,7 @@ public class ItemController {
 
     @PermissionStoreItemCreate
     @GetMapping("/create")
+
     public String itemAddController(Model model) {
         model.addAttribute("item", new ItemCommand());
         return "item/itemform";
@@ -66,9 +66,9 @@ public class ItemController {
                            @RequestParam(defaultValue = "10") Integer pageSize) {
         ///item/show?pageNo=2&pageSize=20
         var cart = ((ShoopingCart) session.getAttribute("cart"));
-        log.debug("cart !=  null: "+(cart!=null));
+        log.debug("cart !=  null: " + (cart != null));
         if (cart != null) {
-            log.debug("Cart UUID : "+cart.getUuid());
+            log.debug("Cart UUID : " + cart.getUuid());
         }
 
         if (pageNo < 0 || pageSize <= 0) {
@@ -92,5 +92,24 @@ public class ItemController {
         Optional<Item> byId = itemService.findById(id);
         model.addAttribute("item", byId.orElseThrow(() -> new RuntimeException("Item id " + id + " not found")));
         return "item/showProduct";
+    }
+
+
+    @PostMapping("/addToCart")
+    @PermissionStoreItemRead
+    public String addToCart(@RequestParam long id,HttpSession session,HttpServletRequest request) {
+        if (session.getAttribute("cart") == null) {
+            ShoopingCart cart = new ShoopingCart();
+            cart.setUuid(UUID.randomUUID().toString());
+            session.setAttribute("cart", cart);
+        }
+        Optional<Item> item = itemService.findById(id);
+        if (!item.isPresent()) {
+            throw new ResourceNotFoundException("Item not found");
+        }
+        ShoopingCart cart = (ShoopingCart) session.getAttribute("cart");
+        cart.getItems().add(itemToCommand.convert(item.get()));
+        log.debug(String.format("Adding item id %d | To cart %s",id,cart.getUuid()));
+        return "redirect:/item/" + id + "/show";
     }
 }

@@ -26,10 +26,11 @@
                     <a th:href="@{'/item/'+ ${item.id} + '/show' }">item page</a>
                 </div>
                 <div class="col-md-9 midInfoNav">
+                    <p class="text-muted h3" th:text="${item.name}"></p>
                     <p th:text="${#strings.substring(item.description,
                     0,
-                    #strings.length(item.description)>250 ? 250 : #strings.length(item.description)
-                    ) + '...'}"></p>
+                    #strings.length(item.description)>250 ? 250 : #strings.length(item.description))
+                    + '...'}"></p>
                 </div>
                 <div class="col-md-1 rightInfoNav"></div>
             </div>

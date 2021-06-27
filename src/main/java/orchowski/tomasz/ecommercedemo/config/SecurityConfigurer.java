@@ -68,6 +68,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
             logoutSuccessUrl("/").
             permitAll();
         } );
+
     }
 
     @Override
@@ -93,6 +94,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
             }
         };
     }
+
 
 
 }

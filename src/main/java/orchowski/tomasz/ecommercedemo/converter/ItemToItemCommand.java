@@ -15,6 +15,6 @@ public class ItemToItemCommand implements Converter<Item, ItemCommand> {
     @Synchronized
     @Nullable
     public ItemCommand convert(Item item) {
-        return ItemCommand.builder().id(item.getId()).description(item.getDescription()).price(item.getPrice()).stock(item.getStock()).build();
+        return ItemCommand.builder().id(item.getId()).name(item.getName()).description(item.getDescription()).price(item.getPrice()).stock(item.getStock()).build();
     }
 }

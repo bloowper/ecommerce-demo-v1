@@ -132,6 +132,7 @@ public class defaultLoader implements CommandLineRunner {
         userRepository.save(User.builder().
                 role(customer).
                 username("user1").
+                accountNonLocked(false).
                 password(passwordEncoder.encode("user")).
                 email("user@dad.com").
                 build()

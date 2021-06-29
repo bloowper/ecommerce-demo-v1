@@ -21,15 +21,12 @@
     <div class="row">
         <p class="h1 text-center ">Admin panel</p>
         <div class="container-sm whiteBackgroundShadow">
-
             <div class="row ">
-                <p class="h4 text-center py-md-3"
-                   th:text="|Id: ${user.id} Username:${user.username}|"></p>
-
-                <div class="col-md-4">
+                <div class="col-lg-4">
                     <div class="row  gx-md-1 whiteBackgroundShadowSubtle">
-                        <div class="list-group">
+                        <div class="list-group ">
                             <a href="#" class="list-group-item list-group-item-action active" aria-current="true">Edit user credentials</a>
+
                             <li class="list-group-item" >
                                 <p style="display: inline"><strong>Username :</strong></p>
                                 <p th:text="${user.username}" style="display: inline"></p>
@@ -42,21 +39,36 @@
                                 <p style="display: inline"><strong>password :</strong></p>
                                 <p style="display: inline">***</p>
                             </li>
+                            <li class="list-group-item" >
+                                <p style="display: inline"><strong>Locked :</strong></p>
+                                <p th:text="${!user.isAccountNonLocked()}" style="display: inline"></p>
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                    <form method="POST" th:action="@{|/admin/usersList/${user.id}|(changeLock=true)}">
+                                        <button class="btn btn-outline-primary" type="submit" name="submit" value="value" th:text="${user.accountNonLocked}? 'Lock':'Unlock'"></button>
+                                    </form>
+                                </div>
+                            </li>
+                            <li class="list-group-item" >
+                                <p style="display: inline"><strong>Roles :</strong></p>
+                                <p th:each="role:${roles}" th:text="${role.name}" style=""></p>
+                            </li>
+
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 ">
-                    <div class="row  gx-md-1 whiteBackgroundShadowSubtle">
+<!--                <div class="col-lg-4 ">-->
+<!--                    <div class="row  gx-md-1 whiteBackgroundShadowSubtle">-->
 
-                    </div>
-                </div>
-                <div class="col-md-4 ">
-                    <div class="row  gx-md-1 whiteBackgroundShadowSubtle">
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="col-lg-4 ">-->
+<!--                    <div class="row  gx-md-1 whiteBackgroundShadowSubtle">-->
 
-                    </div>
-                </div>
+<!--                    </div>-->
+<!--                </div>-->
 
             </div>
+            <p th:text="|Create: ${user.createdDate} Update: ${user.lastModifiedDate}|" class="text-center"></p>
         </div>
     </div>
 

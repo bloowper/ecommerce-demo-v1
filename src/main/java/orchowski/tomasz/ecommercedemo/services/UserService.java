@@ -31,4 +31,8 @@ public class UserService {
         Optional<User> byId = userRepository.findById(id);
         return byId;
     }
+
+    public User save(User user) {
+        return userRepository.save(user);
+    }
 }

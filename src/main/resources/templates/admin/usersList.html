@@ -21,6 +21,27 @@
         <div class="row">
             <p class="h1 text-center ">Admin panel</p>
 
+            <table class="table table-responsive table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">User id</th>
+                    <th scope="col">Login</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Account locked</th>
+                    <th scope="col">More</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="user : ${users}">
+                        <th th:text="${user.id}"></th>
+                        <th th:text="${user.username}"></th>
+                        <td th:text="${user.email}"></td>
+                        <td th:text="${!user.getAccountNonLocked()}"></td>
+                        <td><a th:href="@{'/admin/usersList/'+${user.id}}" class="btn btn-outline-dark">More</a></td>
+                    </tr>
+                </tbody>
+            </table>
+
         </div>
 
 

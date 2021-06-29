@@ -88,11 +88,15 @@ public class defaultLoader implements CommandLineRunner {
     }
 
     private void loadAccount() {
+        //store
         var storeItemCreate = authorityRepository.save(Authority.builder().permission("store.item.create").build());
         var storeItemRead = authorityRepository.save(Authority.builder().permission("store.item.read").build());
         var storeItemUpdate = authorityRepository.save(Authority.builder().permission("store.item.update").build());
         var storeItemDelete = authorityRepository.save(Authority.builder().permission("store.item.delete").build());
 
+        //admin page
+        var adminPageUserEdit = authorityRepository.save(Authority.builder().permission("adminPage.user.edit").build());
+        var adminPageUserShow = authorityRepository.save(Authority.builder().permission("adminPage.user.show").build());//TODO implement interface annotation
 
 
         var admin = roleRepository.save(Role.builder().
@@ -100,6 +104,7 @@ public class defaultLoader implements CommandLineRunner {
                 authority(storeItemRead).
                 authority(storeItemUpdate).
                 authority(storeItemDelete).
+                authority(adminPageUserEdit).
                 name("ROLE_ADMIN").build());
 
         var customer = roleRepository.save(Role.builder().

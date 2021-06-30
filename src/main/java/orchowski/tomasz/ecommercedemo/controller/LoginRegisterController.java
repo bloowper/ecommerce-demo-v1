@@ -36,9 +36,17 @@ public class LoginRegisterController {
     }
 
     @GetMapping("/register")
-    public String register(Model model) {
+    public String register(Model model,HttpSession session) {
         model.addAttribute("registerCommand", new RegisterCommand());
 
+        if (session.getAttribute("emailOccupied") != null) {
+            session.removeAttribute("emailOccupied");
+            model.addAttribute("emailOccupied", true);
+        }
+        if (session.getAttribute("usernameOccupied") != null) {
+            session.removeAttribute("usernameOccupied");
+            model.addAttribute("usernameOccupied", true);
+        }
 
         return "register";
     }
@@ -46,14 +54,18 @@ public class LoginRegisterController {
     @PostMapping("/register")
     public String registerPost(Model model, HttpSession session, @ModelAttribute RegisterCommand registerCommand) {
         log.debug(registerCommand.toString());
+        // FIXME: 30.06.2021
         Optional<User> byUsername = userService.findByUsername(registerCommand.getUsername());
         Optional<User> byEmail = userService.findByEmail(registerCommand.getEmail());
         if (byUsername.isPresent() || byEmail.isPresent()) {
             if (byEmail.isPresent()) {
                 session.setAttribute("emailOccupied", true);
+                log.debug(byEmail.get().toString());
+
             }
             if (byUsername.isPresent()) {
                 session.setAttribute("usernameOccupied", true);
+                log.debug(byUsername.get().toString());
             }
             return "redirect:/register";
         }

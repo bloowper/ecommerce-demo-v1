@@ -22,6 +22,7 @@ import java.util.stream.Collectors;
 @Builder
 @Entity
 @Scope("session")
+@ToString
 public class User implements UserDetails, CredentialsContainer {
 
     @Id
@@ -34,27 +35,35 @@ public class User implements UserDetails, CredentialsContainer {
     @Column(nullable = false,unique = true)
     private String email;
 
+    @ToString.Exclude
     private String password;
 
+    @ToString.Exclude
     @Builder.Default
     private Boolean accountNonExpired = true;
 
+    @ToString.Exclude
     @Builder.Default
     private Boolean accountNonLocked = true;
 
+    @ToString.Exclude
     @Builder.Default
     private Boolean credentialsNonExpired = true;
 
+    @ToString.Exclude
     @Builder.Default
     private Boolean enabled = true;
 
+    @ToString.Exclude
     @CreationTimestamp
     @Column(updatable = false)
     private Timestamp createdDate;
 
+    @ToString.Exclude
     @UpdateTimestamp
     private Timestamp lastModifiedDate;
 
+    @ToString.Exclude
     @Singular
     @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinTable(
@@ -63,6 +72,7 @@ public class User implements UserDetails, CredentialsContainer {
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
     )
     private Set<Role> roles = new HashSet<>();
+
 
     @Override
     public void eraseCredentials() {

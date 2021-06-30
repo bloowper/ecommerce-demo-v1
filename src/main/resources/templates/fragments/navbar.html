@@ -32,8 +32,11 @@
                     <li sec:authorize="hasRole('ROLE_ADMIN')">
                         <a class="nav-link" th:href="@{/admin/homepage}" th:classappend="${#httpServletRequest.requestURI.startsWith('/admin')? 'active':''}">Admin page</a>
                     </li>
-                    <li>
+                    <li sec:authorize="isAuthenticated()">
                         <a class="nav-link" th:href="@{/user/cart}" th:classappend="${#httpServletRequest.requestURI.startsWith('/user/cart')? 'active':''}">Cart</a>
+                    </li>
+                    <li sec:authorize="isAuthenticated()">
+                        <a class="nav-link" th:href="@{/user/profile}" th:classappend="${#httpServletRequest.requestURI.startsWith('/user/profile')? 'active':''}">Your profile</a>
                     </li>
                     <li sec:authorize="isAuthenticated()" class="nav-item">
                         <a class="nav-link" th:href="@{/logout}">Logout</a>

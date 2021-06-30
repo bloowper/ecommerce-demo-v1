@@ -18,14 +18,18 @@
 </div>
 
 
-
-<div class="container-lg p-3">
-    <h1 class="display-6">Your cart:</h1>
-    <div class="row col-md-12 px-md-3">
+<div class="position-static">
+    <div class="position-absolute top-0 end-0">
         <div class="alert alert-success alert-dismissible fade show" role="alert" th:if="${cartRemoveItem}">
             <p>Item removed!</p>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
+    </div>
+</div>
+
+<div class="container-lg p-3">
+    <h1 class="display-6">Your cart:</h1>
+    <div class="row col-md-12 px-md-3">
         <table class="table">
             <thead>
                 <tr>

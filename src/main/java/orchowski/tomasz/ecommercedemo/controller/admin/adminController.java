@@ -36,8 +36,17 @@ public class adminController {
     public String adminUserList(Model model,
                                 @RequestParam(defaultValue = "0") Integer pageNo,
                                 @RequestParam(defaultValue = "10") Integer pageSize) {
+        //log.debug(String.format("PageNumber : %d | Page size :%d", pageNo, pageSize));
+        if (pageNo < 0 || pageSize<=0) {
+            return "redirect:/admin/usersList?pageNo=0";
+        }
         List<User> users = userService.findAll(pageNo, pageSize);
+        if (users.size() == 0) {
+            return "redirect:/admin/usersList?pageNo=" + (pageNo - 1);
+        }
         model.addAttribute("users", users);
+        model.addAttribute("pageNumber", pageNo);
+        model.addAttribute("pageSize", pageSize);
         return "admin/usersList";
     }
 

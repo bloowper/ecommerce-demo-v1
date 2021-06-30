@@ -20,7 +20,6 @@
 
         <div class="row">
             <p class="h1 text-center ">Admin panel</p>
-
             <table class="table table-responsive table-hover">
                 <thead>
                 <tr>
@@ -33,20 +32,27 @@
                 </thead>
                 <tbody>
                     <tr th:each="user : ${users}">
+                        <!--@thymesVar id="user" type="orchowski.tomasz.ecommercedemo.domain.User"-->
                         <th th:text="${user.id}"></th>
                         <th th:text="${user.username}"></th>
                         <td th:text="${user.email}"></td>
-                        <td th:text="${!user.getAccountNonLocked()}"></td>
+                        <td th:classappend="${user.getAccountNonLocked}? 'text-success' : 'text-danger' " th:text="${!user.getAccountNonLocked()}"></td>
                         <td><a th:href="@{'/admin/usersList/'+${user.id}}" class="btn btn-outline-dark">More</a></td>
                     </tr>
                 </tbody>
             </table>
-
         </div>
-
-
+        <div class="row">
+            <div class="col-sm-12">
+                <nav aria-label="navpanation">
+                    <ul class="pagination d-flex justify-content-center">
+                        <li class="page-item"><a class="page-link" th:href="|/admin/usersList?pageNo=${pageNumber-1}|">Previous</a></li>
+                        <li class="page-item"><a class="page-link" th:href="|/admin/usersList?pageNo=${pageNumber+1}|">Next</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
     </div>
-
 
     <script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
     <script th:src="@{/webjars/popper.js/2.9.2/umd/popper.js}"></script>

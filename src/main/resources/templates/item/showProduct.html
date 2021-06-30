@@ -9,7 +9,7 @@
 </head>
 <body>
 
-<div class="container-md" >
+<div class="container-lg" >
     <div class="row">
         <div class="col-sm-12">
             <nav th:replace="fragments/navbar :: nav"></nav>
@@ -18,17 +18,21 @@
 
 
     <div class="row">
-        <div class="container-md">
+        <div class="container-lg">
+            <div class="position-static">
+                <div class="position-absolute top-0 end-0">
+                    <div class="alert alert-success alert-dismissible fade show" role="alert" th:if="${addToCartStatus != null}">
+                        <p th:text="${addToCartStatus}"></p>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                </div>
+            </div>
             <div class="col-sm-12 border-top border-bottom ">
                 <div class="row">
                     <div class="col-sm-4 flex-box paddingTopBottom">
                         <form method="POST" th:action="@{/item/addToCart(id=${item.id})}">
                             <button class="btn btn-outline-primary" type="submit" name="submit" value="value" >Add to cart</button>
                         </form>
-                        <div class="alert alert-success alert-dismissible fade show" role="alert" th:if="${addToCartStatus != null}">
-                            <p th:text="${addToCartStatus}"></p>
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
                     </div>
                     <div class="col-sm-4 paddingTopBottom">
                         <h4>Price: <span class="badge bg-primary " th:text="${item.price}+' $'"></span></h4>

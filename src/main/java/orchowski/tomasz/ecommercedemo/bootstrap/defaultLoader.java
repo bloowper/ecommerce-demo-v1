@@ -2,10 +2,7 @@ package orchowski.tomasz.ecommercedemo.bootstrap;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import orchowski.tomasz.ecommercedemo.domain.Authority;
-import orchowski.tomasz.ecommercedemo.domain.Item;
-import orchowski.tomasz.ecommercedemo.domain.Role;
-import orchowski.tomasz.ecommercedemo.domain.User;
+import orchowski.tomasz.ecommercedemo.domain.*;
 import orchowski.tomasz.ecommercedemo.repository.AuthorityRepository;
 import orchowski.tomasz.ecommercedemo.repository.ItemRepository;
 import orchowski.tomasz.ecommercedemo.repository.RoleRepository;
@@ -99,6 +96,9 @@ public class defaultLoader implements CommandLineRunner {
         var adminPageUserShow = authorityRepository.save(Authority.builder().permission("adminPage.user.show").build());//TODO implement interface annotation
 
 
+
+
+        //accounts
         var admin = roleRepository.save(Role.builder().
                 authority(storeItemCreate).
                 authority(storeItemRead).
@@ -112,7 +112,7 @@ public class defaultLoader implements CommandLineRunner {
             name("ROLE_CUSTOMER").
             build());
 
-        userRepository.save(User.builder().
+        var u1 = userRepository.save(User.builder().
                 role(admin).
                 username("admin").
                 password(passwordEncoder.encode("admin")).
@@ -121,7 +121,7 @@ public class defaultLoader implements CommandLineRunner {
         );
 
 
-        userRepository.save(User.builder().
+        var u2 =userRepository.save(User.builder().
                 role(customer).
                 username("user").
                 password(passwordEncoder.encode("user")).
@@ -129,7 +129,7 @@ public class defaultLoader implements CommandLineRunner {
                 build()
         );
 
-        userRepository.save(User.builder().
+        var u3=userRepository.save(User.builder().
                 role(customer).
                 username("user1").
                 accountNonLocked(false).
@@ -138,7 +138,7 @@ public class defaultLoader implements CommandLineRunner {
                 build()
         );
 
-        userRepository.save(User.builder().
+        var u4 = userRepository.save(User.builder().
                 role(customer).
                 username("user2").
                 password(passwordEncoder.encode("user")).
@@ -167,6 +167,54 @@ public class defaultLoader implements CommandLineRunner {
                 username("user5").
                 password(passwordEncoder.encode("user")).
                 email("asdasda@user.com").
+                build()
+        );
+
+        userRepository.save(User.builder().
+                role(customer).
+                username("user6").
+                password(passwordEncoder.encode("user")).
+                email("user6@user.com").
+                build()
+        );
+
+        userRepository.save(User.builder().
+                role(customer).
+                username("user7").
+                password(passwordEncoder.encode("user")).
+                email("user7@user.com").
+                build()
+        );
+
+        userRepository.save(User.builder().
+                role(customer).
+                username("user8").
+                password(passwordEncoder.encode("user")).
+                email("user8@user.com").
+                build()
+        );
+
+        userRepository.save(User.builder().
+                role(customer).
+                username("user9").
+                password(passwordEncoder.encode("user")).
+                email("user9@user.com").
+                build()
+        );
+
+        userRepository.save(User.builder().
+                role(customer).
+                username("user10").
+                password(passwordEncoder.encode("user")).
+                email("user10@user.com").
+                build()
+        );
+
+        userRepository.save(User.builder().
+                role(customer).
+                username("user11").
+                password(passwordEncoder.encode("user")).
+                email("user11@user.com").
                 build()
         );
     }

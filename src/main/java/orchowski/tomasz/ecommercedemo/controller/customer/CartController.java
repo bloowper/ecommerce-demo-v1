@@ -1,11 +1,9 @@
-package orchowski.tomasz.ecommercedemo.controller.cart;
+package orchowski.tomasz.ecommercedemo.controller.customer;
 
 
 import lombok.extern.slf4j.Slf4j;
 import orchowski.tomasz.ecommercedemo.security.permision.isAuthenticated;
 import orchowski.tomasz.ecommercedemo.session.ShoopingCart;
-import org.hibernate.Session;
-import org.hibernate.internal.SharedSessionCreationOptions;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

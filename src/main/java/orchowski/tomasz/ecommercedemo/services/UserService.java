@@ -2,6 +2,7 @@ package orchowski.tomasz.ecommercedemo.services;
 
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import orchowski.tomasz.ecommercedemo.domain.User;
 import orchowski.tomasz.ecommercedemo.repository.UserRepository;
 import org.springframework.data.domain.*;
@@ -12,14 +13,15 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class UserService {
     private final UserRepository userRepository;
 
 
     public List<User> findAll(Integer pageNumber, Integer pageSize, String sortBy) {
         PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, Sort.by(sortBy));
-        userRepository.findAll(pageRequest);
-        List<User> all = userRepository.findAll();
+        Page<User> users = userRepository.findAll(pageRequest);
+        List<User> all = users.getContent();
         return all;
     }
 

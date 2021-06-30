@@ -25,6 +25,11 @@
     border: none;
     cursor: pointer;
 }
+
+.btnSubmit:hover {
+    width: 49.5%;
+}
+
 .login-form-1 .btnSubmit{
     font-weight: 600;
     color: #fff;

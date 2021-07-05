@@ -46,6 +46,7 @@ public class User implements UserDetails, CredentialsContainer {
 
     @ToString.Exclude
     @Builder.Default
+
     private Boolean credentialsNonExpired = true;
 
     @ToString.Exclude

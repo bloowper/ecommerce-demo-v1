@@ -7,10 +7,12 @@ import orchowski.tomasz.ecommercedemo.repository.AuthorityRepository;
 import orchowski.tomasz.ecommercedemo.repository.ItemRepository;
 import orchowski.tomasz.ecommercedemo.repository.RoleRepository;
 import orchowski.tomasz.ecommercedemo.repository.UserRepository;
+import orchowski.tomasz.ecommercedemo.services.DeliveryAddressService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 
 
 @Slf4j
@@ -23,6 +25,7 @@ public class defaultLoader implements CommandLineRunner {
     private final RoleRepository roleRepository;
     private final UserRepository userRepository;
     private final ItemRepository itemRepository;
+    private final DeliveryAddressService deliveryAddressService;
 
     @Override
 
@@ -120,6 +123,26 @@ public class defaultLoader implements CommandLineRunner {
                 build()
         );
 
+        deliveryAddressService.save(
+                DeliveryAddress.builder()
+                        .user(u1)
+                        .test("Testowy address 1")
+                        .build()
+        );
+
+        deliveryAddressService.save(
+                DeliveryAddress.builder()
+                        .user(u1)
+                        .test("Testowy address 2")
+                        .build()
+        );
+
+        deliveryAddressService.save(
+                DeliveryAddress.builder()
+                        .user(u1)
+                        .test("Testowy address 2")
+                        .build()
+        );
 
         var u2 =userRepository.save(User.builder().
                 role(customer).

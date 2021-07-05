@@ -72,6 +72,9 @@ public class User implements UserDetails, CredentialsContainer {
     )
     private Set<Role> roles = new HashSet<>();
 
+    @Singular("address")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<DeliveryAddress> deliveryAddressList;
 
     @Override
     public void eraseCredentials() {

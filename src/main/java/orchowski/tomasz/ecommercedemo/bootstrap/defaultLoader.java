@@ -101,7 +101,7 @@ public class defaultLoader implements CommandLineRunner {
 
 
 
-        //accounts
+        //Roles
         var admin = roleRepository.save(Role.builder().
                 authority(storeItemCreate).
                 authority(storeItemRead).
@@ -115,6 +115,8 @@ public class defaultLoader implements CommandLineRunner {
             name("ROLE_CUSTOMER").
             build());
 
+
+        //Accounts
         var u1 = userRepository.save(User.builder().
                 role(admin).
                 username("admin").
@@ -124,25 +126,27 @@ public class defaultLoader implements CommandLineRunner {
         );
 
         deliveryAddressService.save(
-                DeliveryAddress.builder()
-                        .user(u1)
-                        .test("Testowy address 1")
-                        .build()
+                DeliveryAddress.builder().
+                        user(u1).
+                        zipCode("22-463").
+                        city("Radecznica").
+                        street("Zaburze").
+                        homeNumber("111")
+                        .phoneNumber("123 321 123").
+                        build()
         );
 
         deliveryAddressService.save(
-                DeliveryAddress.builder()
-                        .user(u1)
-                        .test("Testowy address 2")
-                        .build()
+                DeliveryAddress.builder().
+                        user(u1).
+                        zipCode("30-063").
+                        city("Krakow").
+                        street("Aleja 3 maja").
+                        homeNumber("99")
+                        .phoneNumber("123 321 123").
+                        build()
         );
 
-        deliveryAddressService.save(
-                DeliveryAddress.builder()
-                        .user(u1)
-                        .test("Testowy address 2")
-                        .build()
-        );
 
         var u2 =userRepository.save(User.builder().
                 role(customer).

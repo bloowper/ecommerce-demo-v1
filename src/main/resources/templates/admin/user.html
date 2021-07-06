@@ -44,7 +44,7 @@
                                 <p th:text="${!user.isAccountNonLocked()}" style="display: inline"></p>
                                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                                     <form method="POST" th:action="@{|/admin/usersList/${user.id}|(changeLock=true)}">
-                                        <button class="btn btn-outline-primary" type="submit" name="submit" value="value" th:text="${user.accountNonLocked}? 'Lock':'Unlock'"></button>
+                                        <button th:text="${user.accountNonLocked}? 'Lock':'Unlock'" class="btn btn-outline-primary" style="width: 100px" type="submit" name="submit" value="value" ></button>
                                     </form>
                                 </div>
                             </li>
@@ -61,10 +61,44 @@
                         <div class="row  gx-md-1 whiteBackgroundShadowSubtle">
                             <div class="list-group ">
                                 <a href="#" class="list-group-item list-group-item-action active h4" aria-current="true">Delivery addresses</a>
-                                <li th:each="addr : ${user.deliveryAddressList}" class="list-group-item" >
-                                    <p style="display: inline"><strong>X :</strong></p>
-                                    <p th:text="|ID:(${addr.id}) |" style="display: inline"></p>
-                                </li>
+                                <div th:each="addr,n : ${user.deliveryAddressList}" th:id="|addr${n.index}|" class="accordion">
+                                    <div class="accordion-item">
+                                        <h2 th:id="|addr${n.index}|" class="accordion-header" id="headingOne">
+                                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
+                                            th:text="${n.index}">
+                                            </button>
+                                        </h2>
+                                        <!--TODO th set data-bs-perretn-->
+                                        <div id="collapseOne"  class="accordion-collapse collapse " aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                            <!--th:classappend="${n.index==0}? 'show ':' '"-->
+                                            <div class="accordion-body">
+                                                <ul class="list-group">
+                                                    <li th:text="|Zip code: ${addr.zipCode}|" class="list-group-item">Zip code</li>
+                                                    <li th:text="|City: ${addr.city}|" class="list-group-item">City</li>
+                                                    <li th:text="|Street: ${addr.street}|" class="list-group-item">Street</li>
+                                                    <li th:text="|Home number: ${addr.homeNumber}|" class="list-group-item">homeNumber</li>
+                                                    <li th:text="|Phone number: ${addr.phoneNumber}|" class="list-group-item">phone number</li>
+                                                </ul>
+                                                <!--th:action="@{|/admin/usersList/${user.id}|(changeLock=true)}"-->
+                                                <!--TODO HIGH PRIORITY IMPLEMENTATION-->
+                                                <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" >
+                                                    EDIT
+                                                </button>
+
+                                                <!--<form method="GET">-->
+                                                <!--    <button class="btn btn-outline-primary" type="submit" name="submit" value="value" style="width: 100px">Edit</button>-->
+                                                <!--</form>-->
+                                                <!--<form method="GET">-->
+                                                <!--    <button class="btn btn-outline-danger" type="submit" name="submit" value="value" style="width: 100px">Delete</button>-->
+                                                <!--</form>-->
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <form method="GET" >
+                                    <button class="btn btn-outline-primary" type="submit" name="submit" value="value" style="width: 100px">ADD</button>
+                                </form>
                             </div>
                         </div>
                 </div>
@@ -82,6 +116,25 @@
 
 </div>
 
+<!--MODALS-->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--MODALS END-->
 
 <script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
 <script th:src="@{/webjars/popper.js/2.9.2/umd/popper.js}"></script>

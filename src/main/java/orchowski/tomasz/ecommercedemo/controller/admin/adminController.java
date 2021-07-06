@@ -59,6 +59,13 @@ public class adminController {
         return "admin/user";
     }
 
+    @GetMapping("/usersList/{id}/address/new")
+    public String adminUserInfoGetAddAddress(Model model,@PathVariable Long id) {
+        //TODO
+        // or implement popup form on /usersList/{id}
+        return "";
+    }
+
     @PostMapping("/usersList/{id}")
     public String adminUserLockUnlock(Model model,@PathVariable Long id,@RequestParam Boolean changeLock) {
         log.debug("Change account lock");

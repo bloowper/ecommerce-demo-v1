@@ -23,4 +23,13 @@ public class DeliveryAddress {
 
     private String test;
 
+    private String zipCode;
+
+    private String city;
+
+    private String street;
+
+    private String homeNumber;
+
+    private String phoneNumber;
 }

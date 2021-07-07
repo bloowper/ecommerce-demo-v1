@@ -3,6 +3,7 @@ package orchowski.tomasz.ecommercedemo.controller.admin;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import orchowski.tomasz.ecommercedemo.command.DeliveryAddressCommand;
+import orchowski.tomasz.ecommercedemo.command.DeliveryAddressListCommand;
 import orchowski.tomasz.ecommercedemo.converter.DeliveryAddressToCommand;
 import orchowski.tomasz.ecommercedemo.domain.Role;
 import orchowski.tomasz.ecommercedemo.domain.User;
@@ -60,8 +61,7 @@ public class adminController {
         model.addAttribute("user", user);
         Set<Role> roles = user.getRoles();
         model.addAttribute("roles", roles);
-        List<DeliveryAddressCommand> deliveryAddressCommands = user.getDeliveryAddressList().stream().map(addressToCommand::convert).collect(Collectors.toList());
-        model.addAttribute("deliveryAddressCommands", deliveryAddressCommands);
+        model.addAttribute("command", new DeliveryAddressCommand());
         return "admin/user";
     }
 

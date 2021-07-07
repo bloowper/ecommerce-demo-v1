@@ -73,16 +73,16 @@
                                             <!--th:classappend="${n.index==0}? 'show ':' '"-->
                                             <div class="accordion-body">
                                                 <ul class="list-group">
-                                                    <li th:text="|Zip code: ${addr.zipCode}|" class="list-group-item">Zip code</li>
-                                                    <li th:text="|City: ${addr.city}|" class="list-group-item">City</li>
-                                                    <li th:text="|Street: ${addr.street}|" class="list-group-item">Street</li>
-                                                    <li th:text="|Home number: ${addr.homeNumber}|" class="list-group-item">homeNumber</li>
-                                                    <li th:text="|Phone number: ${addr.phoneNumber}|" class="list-group-item">phone number</li>
+                                                    <li th:text="|Zip code: ${addr.zipCode}|" th:id="|zipCode${addr.id}|" class="list-group-item">Zip code</li>
+                                                    <li th:text="|City: ${addr.city}|" th:id="|city${addr.id}|" class="list-group-item">City</li>
+                                                    <li th:text="|Street: ${addr.street}|" th:id="|street${addr.id}|" class="list-group-item">Street</li>
+                                                    <li th:text="|Home number: ${addr.homeNumber}|" th:id="|homeNumber${addr.id}|" class="list-group-item">homeNumber</li>
+                                                    <li th:text="|Phone number: ${addr.phoneNumber}|" th:id="|phoneNumber${addr.id}|" class="list-group-item">phone number</li>
                                                 </ul>
                                                 <!--th:action="@{|/admin/usersList/${user.id}|(changeLock=true)}"-->
-                                                <!--TODO HIGH PRIORITY IMPLEMENTATION-->
-                                                <button  type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="width: 100px"
-                                                        th:attr="data-bs-target = '#addressModal'+${n.index}" >
+                                                <!--TODO IMPLEMENTATION-->
+                                                <button  type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="width: 100px;margin-top: 10px"
+                                                        th:attr="data-bs-target = '#addressModal'" >
                                                     EDIT
                                                 </button>
 
@@ -98,7 +98,7 @@
                                     </div>
                                 </div>
                                 <form method="GET" >
-                                    <button class="btn btn-outline-primary" type="submit" name="submit" value="value" style="width: 100px">ADD</button>
+                                    <button class="btn btn-outline-primary" type="submit" name="submit" value="value" style="width: 100px;margin-top: 10px">ADD</button>
                                 </form>
                             </div>
                         </div>
@@ -118,15 +118,15 @@
 </div>
 
 <!--MODALS-->
-<div th:each="addr,n : ${deliveryAddressCommands}" th:id="'addressModal'+${n.index}" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div id="addressModal" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 th:text="${n.index}" class="modal-title" id="exampleModalLabel"></h5>
+                <h5 class="modal-title" id="exampleModalLabel">EDIT</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form th:object="${addr}"  method="POST">
-                <!--need to write thymeaction-->
+            <form th:object="${command}"  method="POST" >
+                <!--need to write th:action="-->
                 <input type="hidden" th:field="*{id}"/>
                 <div class="modal-body">
                     <div class="form-group">
@@ -138,16 +138,16 @@
                         <input th:field="*{city}" type="text" class="form-control" id="city" placeholder="City">
                     </div>
                     <div class="form-group">
-                        <label for="Street">Street</label>
-                        <input th:field="*{street}" type="text" class="form-control" id="Street" placeholder="Street">
+                        <label for="street">Street</label>
+                        <input th:field="*{street}" type="text" class="form-control" id="street" placeholder="Street">
                     </div>
                     <div class="form-group">
                         <label for="homeNumber">Home number</label>
                         <input th:field="*{homeNumber}" type="text" class="form-control" id="homeNumber" placeholder="Home number">
                     </div>
                     <div class="form-group">
-                        <label for="Phone number">Phone number</label>
-                        <input th:field="*{phoneNumber}" type="text" class="form-control" id="Phone number" placeholder="Phone number">
+                        <label for="phoneNumber">Phone number</label>
+                        <input th:field="*{phoneNumber}" type="text" class="form-control" id="phoneNumber" placeholder="Phone number">
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -158,7 +158,15 @@
         </div>
     </div>
 </div>
+
+
 <!--MODALS END-->
+<script th:inline="javascript">
+
+    var username = [[${user.username}]];
+    console.log(username);
+
+</script>
 
 <script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
 <script th:src="@{/webjars/popper.js/2.9.2/umd/popper.js}"></script>

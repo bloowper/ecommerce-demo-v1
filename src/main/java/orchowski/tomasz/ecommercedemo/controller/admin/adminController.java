@@ -2,6 +2,8 @@ package orchowski.tomasz.ecommercedemo.controller.admin;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import orchowski.tomasz.ecommercedemo.command.DeliveryAddressCommand;
+import orchowski.tomasz.ecommercedemo.converter.DeliveryAddressToCommand;
 import orchowski.tomasz.ecommercedemo.domain.Role;
 import orchowski.tomasz.ecommercedemo.domain.User;
 import orchowski.tomasz.ecommercedemo.security.permision.RoleAdmin;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 
 @RoleAdmin
@@ -25,6 +28,7 @@ import java.util.Set;
 public class adminController {
 
     private final UserService userService;
+    private final DeliveryAddressToCommand addressToCommand;
 
     @GetMapping("/homepage")
     public String adminHomePage(Model model) {
@@ -56,15 +60,17 @@ public class adminController {
         model.addAttribute("user", user);
         Set<Role> roles = user.getRoles();
         model.addAttribute("roles", roles);
+        List<DeliveryAddressCommand> deliveryAddressCommands = user.getDeliveryAddressList().stream().map(addressToCommand::convert).collect(Collectors.toList());
+        model.addAttribute("deliveryAddressCommands", deliveryAddressCommands);
         return "admin/user";
     }
 
-    @GetMapping("/usersList/{id}/address/new")
-    public String adminUserInfoGetAddAddress(Model model,@PathVariable Long id) {
-        //TODO
-        // or implement popup form on /usersList/{id}
-        return "";
-    }
+    //@GetMapping("/usersList/{id}/address/new")
+    //public String adminUserInfoGetAddAddress(Model model,@PathVariable Long id) {
+    //    //TODO
+    //    // or implement popup form on /usersList/{id}
+    //    return "";
+    //}
 
     @PostMapping("/usersList/{id}")
     public String adminUserLockUnlock(Model model,@PathVariable Long id,@RequestParam Boolean changeLock) {

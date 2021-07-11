@@ -11,17 +11,31 @@
 </head>
 <body>
 
+
+
 <div class="container-md">
     <div class="row">
         <div class="col-sm-12">
             <nav th:replace="fragments/navbar :: nav"></nav>
         </div>
     </div>
+    <div th:if="${deleteInfo!=null}" class="container-lg">
+        <div class="row">
+            <div class="alert alert-success alert-success fade show" role="alert">
+                <strong>INFO</strong>
+                <p th:text="${deleteInfo}"></p>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        </div>
+    </div>
+
+
+
 
     <div class="row">
         <p class="h1 text-center ">Admin panel</p>
-        <div class="container-sm whiteBackgroundShadow">
-            <div class="row ">
+        <div class="container-lg ">
+            <div class="row " style="min-height: 750px">
                 <div class="col-lg-4">
                     <div class="row  gx-md-1 whiteBackgroundShadowSubtle">
                         <div class="list-group ">
@@ -57,57 +71,70 @@
                     </div>
                 </div>
                 <div class="col-lg-4 ">
+                    <div class="row  gx-md-1 whiteBackgroundShadowSubtle">
+                        <p>Empty :3 </p>
+                    </div>
+                </div>
+                <div class="col-lg-4 " >
                     <!--TODO-->
-                        <div class="row  gx-md-1 whiteBackgroundShadowSubtle">
-                            <div class="list-group ">
+                        <div class="row  gx-md-1 whiteBackgroundShadowSubtle" >
+                            <div class="list-group" id="accordion">
                                 <a href="#" class="list-group-item list-group-item-action active h4" aria-current="true">Delivery addresses</a>
                                 <div th:each="addr,n : ${user.deliveryAddressList}" th:id="|addr${n.index}|" class="accordion">
                                     <div class="accordion-item">
                                         <h2 th:id="|addr${n.index}|" class="accordion-header" id="headingOne">
-                                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"
-                                            th:text="${n.index}">
+                                            <button th:attr="data-bs-target = |#collapse${addr.id}|, aria-controls=|collapse${addr.id}|"
+                                                    aria-expanded="true"
+                                                    class="accordion-button" type="button" data-bs-toggle="collapse">
+                                                Address
                                             </button>
                                         </h2>
                                         <!--TODO th set data-bs-perretn-->
-                                        <div id="collapseOne"  class="accordion-collapse collapse " aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                        <div th:id="|collapse${addr.id}|"  class="accordion-collapse collapse"  data-bs-parent="#accordion">
                                             <!--th:classappend="${n.index==0}? 'show ':' '"-->
                                             <div class="accordion-body">
                                                 <ul class="list-group">
-                                                    <li th:text="|Zip code: ${addr.zipCode}|" th:id="|zipCode${addr.id}|" class="list-group-item">Zip code</li>
-                                                    <li th:text="|City: ${addr.city}|" th:id="|city${addr.id}|" class="list-group-item">City</li>
-                                                    <li th:text="|Street: ${addr.street}|" th:id="|street${addr.id}|" class="list-group-item">Street</li>
-                                                    <li th:text="|Home number: ${addr.homeNumber}|" th:id="|homeNumber${addr.id}|" class="list-group-item">homeNumber</li>
-                                                    <li th:text="|Phone number: ${addr.phoneNumber}|" th:id="|phoneNumber${addr.id}|" class="list-group-item">phone number</li>
+                                                    <li  class="list-group-item" >
+                                                        <span class="badge bg-info" style="width: 100px">zip code</span>
+                                                        <p th:text="${addr.zipCode}" th:id="|zipCode${addr.id}|"></p>
+                                                    </li>
+                                                    <li  class="list-group-item">
+                                                        <span class="badge bg-info" style="width: 100px">city</span>
+                                                        <p th:text="${addr.city}" th:id="|city${addr.id}|"></p>
+                                                    </li>
+                                                    <li  class="list-group-item">
+                                                        <span class="badge bg-info" style="width: 100px">street</span>
+                                                        <p th:text="${addr.street}"  th:id="|street${addr.id}|"></p>
+                                                    </li>
+                                                    <li  class="list-group-item">
+                                                        <span class="badge bg-info" style="width: 100px">home number</span>
+                                                        <p th:text="${addr.homeNumber}" th:id="|homeNumber${addr.id}|"></p>
+                                                    </li>
+                                                    <li  class="list-group-item">
+                                                        <span class="badge bg-info" style="width: 100px">phone number</span>
+                                                        <p th:text="${addr.phoneNumber}" th:id="|phoneNumber${addr.id}|"></p>
+                                                    </li>
                                                 </ul>
-                                                <!--th:action="@{|/admin/usersList/${user.id}|(changeLock=true)}"-->
-                                                <!--TODO IMPLEMENTATION-->
-                                                <button  type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style="width: 100px;margin-top: 10px"
-                                                        th:attr="data-bs-target = '#addressModal'" >
-                                                    EDIT
-                                                </button>
-
-                                                <!--<form method="GET">-->
-                                                <!--    <button class="btn btn-outline-primary" type="submit" name="submit" value="value" style="width: 100px">Edit</button>-->
-                                                <!--</form>-->
-                                                <!--<form method="GET">-->
-                                                <!--    <button class="btn btn-outline-danger" type="submit" name="submit" value="value" style="width: 100px">Delete</button>-->
-                                                <!--</form>-->
-
+                                                <div class="btn-group" role="group" aria-label="Basic example">
+                                                    <form th:method="DELETE" method="DELETE" th:action="@{|/admin/usersList/${user.id}/deleteAddress|(addressID=${addr.id})}">
+                                                        <button class="btn btn-outline-danger my-2 me-1 " type="submit" name="submit" value="value" style="width: 100px;">Delete</button>
+                                                    </form>
+                                                    <form method="GET" th:action="@{|/admin/usersList/${user.id}/editAddress|}">
+                                                        <button class="btn btn-outline-primary my-2 mx-1" type="submit" name="addressID" th:value="${addr.id}"  style="width: 100px;">Edit</button>
+                                                    </form>
+                                                </div>
+                                            </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <form method="GET" >
+                                <form method="GET" th:action="@{|/admin/usersList/${user.id}/addAddress|}">
                                     <button class="btn btn-outline-primary" type="submit" name="submit" value="value" style="width: 100px;margin-top: 10px">ADD</button>
                                 </form>
                             </div>
                         </div>
                 </div>
-                <div class="col-lg-4 ">
-                    <div class="row  gx-md-1 whiteBackgroundShadowSubtle">
-                        <p>Test</p>
-                    </div>
-                </div>
+
 
             </div>
             <p th:text="|Create: ${user.createdDate} Update: ${user.lastModifiedDate}|" class="text-center"></p>
@@ -115,58 +142,13 @@
     </div>
 
 
-</div>
 
-<!--MODALS-->
-<div id="addressModal" class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">EDIT</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form th:object="${command}"  method="POST" >
-                <!--need to write th:action="-->
-                <input type="hidden" th:field="*{id}"/>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="zioCode">Zip code</label>
-                        <input th:field="*{zipCode}" type="text" class="form-control" id="zioCode"  placeholder="Zip code">
-                    </div>
-                    <div class="form-group">
-                        <label for="city">City</label>
-                        <input th:field="*{city}" type="text" class="form-control" id="city" placeholder="City">
-                    </div>
-                    <div class="form-group">
-                        <label for="street">Street</label>
-                        <input th:field="*{street}" type="text" class="form-control" id="street" placeholder="Street">
-                    </div>
-                    <div class="form-group">
-                        <label for="homeNumber">Home number</label>
-                        <input th:field="*{homeNumber}" type="text" class="form-control" id="homeNumber" placeholder="Home number">
-                    </div>
-                    <div class="form-group">
-                        <label for="phoneNumber">Phone number</label>
-                        <input th:field="*{phoneNumber}" type="text" class="form-control" id="phoneNumber" placeholder="Phone number">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-outline-success">Save changes</button>
-                </div>
-            </form>
-        </div>
-    </div>
 </div>
 
 
-<!--MODALS END-->
-<script th:inline="javascript">
 
-    var username = [[${user.username}]];
-    console.log(username);
 
-</script>
+
 
 <script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
 <script th:src="@{/webjars/popper.js/2.9.2/umd/popper.js}"></script>

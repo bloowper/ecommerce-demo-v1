@@ -115,4 +115,8 @@ public class User implements UserDetails, CredentialsContainer {
         return enabled;
     }
 
+    public void addDeliveryAddress(DeliveryAddress deliveryAddress) {
+        this.deliveryAddressList.add(deliveryAddress);
+    }
+
 }

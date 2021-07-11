@@ -20,34 +20,106 @@
 
     <div class="container-lg">
         <div class="row">
-            <div class="col-lg-12 whiteBackgroundShadow">
+            <div class="col-lg-12 ">
                 <div class="row">
+
                     <div class="col-lg-6  ">
                         <div class=" whiteBackgroundShadowSubtle gx-md-1">
                             <p class="h3 text-center">Account details</p>
                             <ul class="list-group">
                                 <li class="list-group-item">
-                                    <p class="text-muted" style="display: inline">Username:</p>
-                                    <p style="display: inline" th:text="${user.username}"></p>
-                                    <button class="btn btn-outline-primary me-auto" type="submit" name="submit" value="value" disabled>edit</button>
+                                    <div class="">
+                                        <div class="float-start">
+                                            <p class="text-muted" style="display: inline">Username:</p>
+                                            <p style="display: inline" th:text="${user.username}"></p>
+                                        </div>
+                                        <div class="float-end">
+                                            <button class="btn btn-outline-primary me-auto" type="submit" name="submit" value="value" disabled>edit</button>
+                                        </div>
+                                    </div>
                                 </li>
                                 <li class="list-group-item">
-                                    <p class="text-muted" style="display: inline">Email:</p>
-                                    <p style="display: inline" th:text="${user.email}"></p>
-                                    <button class="btn btn-outline-primary me-auto" type="submit" name="submit" value="value" disabled>edit</button>
+                                    <div class="">
+                                        <div class="float-start">
+                                            <p class="text-muted" style="display: inline">Email:</p>
+                                            <p style="display: inline" th:text="${user.email}"></p>
+                                        </div>
+                                        <div class="float-end">
+                                            <button class="btn btn-outline-primary me-auto" type="submit" name="submit" value="value" disabled>edit</button>
+                                        </div>
+                                    </div>
                                 </li>
                                 <li class="list-group-item">
-                                    <p class="text-muted" style="display: inline">Password:</p>
-                                    <p style="display: inline">******</p>
-                                    <button class="btn btn-outline-primary me-auto" type="submit" name="submit" value="value" disabled>edit</button>
+                                    <div class="">
+                                        <div class="float-start">
+                                            <p class="text-muted" style="display: inline">Password:</p>
+                                            <p style="display: inline">******</p>
+                                        </div>
+                                        <div class="float-end">
+                                            <button class="btn btn-outline-primary me-auto" type="submit" name="submit" value="value" disabled>edit</button>
+                                        </div>
+                                    </div>
                                 </li>
                             </ul>
                         </div>
                     </div>
+
                     <div class="col-lg-6  ">
                         <div class=" whiteBackgroundShadowSubtle gx-md-1">
-                            <p class="h3 text-center">Delivery details</p>
-
+                            <div class="list-group" id="accordion">
+                                <a href="#" class="list-group-item list-group-item-action active h4" aria-current="true">Delivery addresses</a>
+                                <div th:each="addr,n : ${user.deliveryAddressList}" th:id="|addr${n.index}|" class="accordion">
+                                    <div class="accordion-item">
+                                        <h2 th:id="|addr${n.index}|" class="accordion-header" id="headingOne">
+                                            <button th:attr="data-bs-target = |#collapse${addr.id}|, aria-controls=|collapse${addr.id}|"
+                                                    aria-expanded="true"
+                                                    class="accordion-button" type="button" data-bs-toggle="collapse">
+                                                Address
+                                            </button>
+                                        </h2>
+                                        <!--TODO th set data-bs-perretn-->
+                                        <div th:id="|collapse${addr.id}|"  class="accordion-collapse collapse"  data-bs-parent="#accordion">
+                                            <div class="accordion-body">
+                                                <ul class="list-group">
+                                                    <li  class="list-group-item" >
+                                                        <span class="badge bg-info" style="width: 100px">zip code</span>
+                                                        <p th:text="${addr.zipCode}" th:id="|zipCode${addr.id}|"></p>
+                                                    </li>
+                                                    <li  class="list-group-item">
+                                                        <span class="badge bg-info" style="width: 100px">city</span>
+                                                        <p th:text="${addr.city}" th:id="|city${addr.id}|"></p>
+                                                    </li>
+                                                    <li  class="list-group-item">
+                                                        <span class="badge bg-info" style="width: 100px">street</span>
+                                                        <p th:text="${addr.street}"  th:id="|street${addr.id}|"></p>
+                                                    </li>
+                                                    <li  class="list-group-item">
+                                                        <span class="badge bg-info" style="width: 100px">home number</span>
+                                                        <p th:text="${addr.homeNumber}" th:id="|homeNumber${addr.id}|"></p>
+                                                    </li>
+                                                    <li  class="list-group-item">
+                                                        <span class="badge bg-info" style="width: 100px">phone number</span>
+                                                        <p th:text="${addr.phoneNumber}" th:id="|phoneNumber${addr.id}|"></p>
+                                                    </li>
+                                                </ul>
+                                                <div class="btn-group" role="group" aria-label="Basic example">
+                                                    <form  th:action="@{/user/deleteAddress(addressID=${addr.id})}" th:method="DELETE" method="DELETE" >
+                                                        <button class="btn btn-outline-danger my-2 me-1 " type="submit" name="addressID" th:value="${addr.id}" style="width: 100px;">Delete</button>
+                                                    </form>
+                                                    <form method="GET" th:action="@{/user/profile/editAddress}">
+                                                        <!--th:action="@{|/admin/usersList/${user.id}/editAddress|}"-->
+                                                        <button class="btn btn-outline-primary my-2 mx-1" type="submit" name="addressID" th:value="${addr.id}"  style="width: 100px;">Edit</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <form method="GET" th:action="@{/user/profile/addAddress}">
+                                <button class="btn btn-outline-primary" type="submit"  style="width: 100px;margin-top: 10px">ADD</button>
+                            </form>
+                        </div>
                         </div>
                     </div>
                 </div>

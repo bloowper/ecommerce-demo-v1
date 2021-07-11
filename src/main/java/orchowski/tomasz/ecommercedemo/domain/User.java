@@ -21,6 +21,7 @@ import java.util.stream.Collectors;
 @Entity
 @Scope("session")
 @ToString
+@EqualsAndHashCode
 public class User implements UserDetails, CredentialsContainer {
 
     @Id
@@ -60,9 +61,11 @@ public class User implements UserDetails, CredentialsContainer {
 
     @ToString.Exclude
     @UpdateTimestamp
+    @EqualsAndHashCode.Exclude
     private Timestamp lastModifiedDate;
 
     @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @Singular
     @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinTable(

@@ -39,7 +39,6 @@ public class ItemController {
 
     @PermissionStoreItemCreate
     @GetMapping("/create")
-
     public String itemAddController(Model model) {
         model.addAttribute("item", new ItemCommand());
         return "item/itemform";

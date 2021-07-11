@@ -25,7 +25,7 @@ import java.security.AuthProvider;
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true, jsr250Enabled = true,proxyTargetClass = true)
 public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
 
     private final UserRepository userRepository;
@@ -45,7 +45,8 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
             authorize
                     .antMatchers("/h2-console/**").permitAll() //do not use in production!
                     .antMatchers("/", "/login", "/resources/**").permitAll()
-                    .antMatchers("/css/**", "/js/**", "/webjars/**","**/webjars/**").permitAll();
+                    .antMatchers("/css/**", "/js/**", "/webjars/**","**/webjars/**").permitAll()
+                    .antMatchers("/user/**").fullyAuthenticated();
         }).
                 httpBasic().
                 and().csrf().ignoringAntMatchers("/h2-console/**")

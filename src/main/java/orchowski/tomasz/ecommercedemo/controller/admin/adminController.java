@@ -89,10 +89,6 @@ public class adminController {
 
 
 
-    /**
-     * Deleting address for user
-     */
-    @DeleteMapping(value = "/usersList/{userId}/deleteAddress")
     public String deleteAddress(@PathVariable int userId,
                                 @RequestParam long addressID,
                                 HttpSession session) {

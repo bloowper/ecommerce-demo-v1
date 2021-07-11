@@ -3,6 +3,7 @@ package orchowski.tomasz.ecommercedemo.controller.customer;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import orchowski.tomasz.ecommercedemo.command.DeliveryAddressCommand;
+import orchowski.tomasz.ecommercedemo.config.SecurityConfigurer;
 import orchowski.tomasz.ecommercedemo.converter.CommandToDeliveryAddress;
 import orchowski.tomasz.ecommercedemo.converter.DeliveryAddressToCommand;
 import orchowski.tomasz.ecommercedemo.domain.DeliveryAddress;
@@ -14,8 +15,10 @@ import orchowski.tomasz.ecommercedemo.security.permision.isAuthenticated;
 import orchowski.tomasz.ecommercedemo.services.DeliveryAddressService;
 import orchowski.tomasz.ecommercedemo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,10 +28,13 @@ import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.security.Principal;
 
-@Controller
-@RequestMapping("user")
-//@RoleCustomer
+
+/**
+ *  Authorization is made by {@link SecurityConfigurer#configure(HttpSecurity)} @see{{@link SecurityConfigurer}}
+ */
 @Slf4j
+@Controller
+@RequestMapping("/user")
 @RequiredArgsConstructor
 public class CustomerController {
 
@@ -40,6 +46,7 @@ public class CustomerController {
     private final DeliveryAddressToCommand addressToCommand;
 
 
+
     @GetMapping("/profile")
     public String profile(Model model, HttpSession session, Principal principal) {
         log.debug("principal: " + principal.getName());
@@ -49,8 +56,7 @@ public class CustomerController {
         return "user/profile";
     }
 
-    //TODO
-    // IS NOT SECURED!
+
     @GetMapping("/profile/addAddress")
     private String addAddressForm(Model model) {
         model.addAttribute("address", new DeliveryAddressCommand());
@@ -59,8 +65,7 @@ public class CustomerController {
     }
 
 
-    //TODO
-    // IS NOT SECURED!
+
     @PostMapping("/profile/addAddress")
     private String addAddress(Model model,
                               Principal principal,
@@ -81,9 +86,17 @@ public class CustomerController {
     }
 
     @GetMapping("/profile/editAddress")
-    private String editAddress(Model model, @RequestParam long addressID) {
+    private String editAddress(Model model,
+                               Principal principal,
+                               @RequestParam long addressID) {
         log.debug(String.format("addressId %d" , addressID));
+        User userFromService = userService.findByUsername(principal.getName()).orElseThrow(() -> new RuntimeException("User not found"));
         DeliveryAddress address = addressService.findById(addressID).orElseThrow(() -> new RuntimeException("Address not found : " + addressID));
+        if (!address.getUser().equals(userFromService)) {
+            //TODO probably it could be done better by some AOP
+            // If given address is not property of user redirect him to profile
+            return "redirect:/user/profile";
+        }
         DeliveryAddressCommand addressCommand = addressToCommand.convert(address);
         model.addAttribute("address", addressCommand);
 

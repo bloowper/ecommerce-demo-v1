@@ -35,6 +35,7 @@
                 <tr>
                     <th scope="col">product id</th>
                     <th scope="col">Product name</th>
+                    <th scope="col">Quantity</th>
                     <th scope="col">Cost</th>
                     <th scope="col">Action</th>
                 </tr>
@@ -44,10 +45,20 @@
                     <!--/*@thymesVar id="item" type="orchowski.tomasz.ecommercedemo.command.ItemCommand"*/-->
                     <th scope="row" th:text="${item.id}"></th>
                     <td th:text="${item.name}"></td>
+                    <td>
+                        <!--Quantity-->
+                        <form class="input-group mb-3" style="width: 150px">
+                            <!--TODO wire th:value for cart properly currently is sth like mock-->
+                            <input type="text" class="form-control me-1" th:value="${item.id}" >
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-primary" type="button">Change</button>
+                            </div>
+                        </form>
+                    </td>
                     <td th:text="${item.price}">25 $</td>
                     <td>
                         <form method="POST" th:action="@{/user/cart/removeItem(id=${item.id})}">
-                            <button class="btn btn-outline-primary" type="submit" name="submit" value="id" >Remove</button>
+                            <button class="btn btn-outline-danger" type="submit" name="submit" value="id" >Remove</button>
                         </form>
                     </td>
                 </tr>

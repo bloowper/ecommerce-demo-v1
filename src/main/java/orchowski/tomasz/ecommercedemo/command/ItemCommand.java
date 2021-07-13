@@ -13,6 +13,8 @@ import javax.validation.constraints.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString
+@EqualsAndHashCode
 public class ItemCommand {
 
     private Long id;
@@ -29,6 +31,7 @@ public class ItemCommand {
     @NotNull
     private Double price;
 
+    @EqualsAndHashCode.Exclude
     @Min(value = 0, message = "Stock have to be at least 0")
     @NotNull
     private Integer stock;

@@ -41,21 +41,20 @@
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="item : ${session.cart.items}">
+                <tr th:each="keyvalue : ${session.cart.getMapItemCommandToInteger}" th:with="item = ${keyvalue['key']}, quantity = ${keyvalue['value']} ">
                     <!--/*@thymesVar id="item" type="orchowski.tomasz.ecommercedemo.command.ItemCommand"*/-->
                     <th scope="row" th:text="${item.id}"></th>
                     <td th:text="${item.name}"></td>
                     <td>
                         <!--Quantity-->
-                        <form class="input-group mb-3" style="width: 150px">
-                            <!--TODO wire th:value for cart properly currently is sth like mock-->
-                            <input type="text" class="form-control me-1" th:value="${item.id}" >
+                        <form th:action="@{/item/editCart()}" class="input-group mb-3" style="width: 150px">
+                            <input type="text" class="form-control me-1" id="numberOfItems" name="numberOfItems" th:value="${quantity}" >
                             <div class="input-group-append">
-                                <button class="btn btn-outline-primary" type="button">Change</button>
+                                <button class="btn btn-outline-primary" type="submit">Change</button>
                             </div>
                         </form>
                     </td>
-                    <td th:text="${item.price}">25 $</td>
+                    <td th:text="|${item.price * quantity} $|">25 $</td>
                     <td>
                         <form method="POST" th:action="@{/user/cart/removeItem(id=${item.id})}">
                             <button class="btn btn-outline-danger" type="submit" name="submit" value="id" >Remove</button>

@@ -30,8 +30,9 @@
             <div class="col-sm-12 border-top border-bottom ">
                 <div class="row">
                     <div class="col-sm-4 flex-box paddingTopBottom">
-                        <form method="POST" th:action="@{/item/addToCart(id=${item.id})}">
-                            <button class="btn btn-outline-primary" type="submit" name="submit" value="value" >Add to cart</button>
+                        <form method="POST" th:action="@{/item/addToCart(numberOfItems=${1})}">
+                            <button class="btn btn-outline-primary" type="submit" id="id" name="id" th:value="${item.id}" >Add to cart</button>
+                            <!--(id=${item.id})-->
                         </form>
                     </div>
                     <div class="col-sm-4 paddingTopBottom">

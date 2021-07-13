@@ -1,6 +1,6 @@
 package orchowski.tomasz.ecommercedemo.controller;
 
-import orchowski.tomasz.ecommercedemo.session.ShoopingCart;
+import orchowski.tomasz.ecommercedemo.session.ShoppingCart;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,8 +15,9 @@ public class indexController {
 
     @RequestMapping("")
     public String index(Model model, HttpSession session) {
+        //TODO setting  cart session attribute should be done fore every user not only for that who open home page
         if (session.getAttribute("cart") == null) {
-            ShoopingCart cart = new ShoopingCart();
+            ShoppingCart cart = new ShoppingCart();
             cart.setUuid(UUID.randomUUID().toString());
             session.setAttribute("cart", cart);
         }

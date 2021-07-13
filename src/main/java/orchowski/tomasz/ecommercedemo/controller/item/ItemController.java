@@ -9,14 +9,11 @@ import orchowski.tomasz.ecommercedemo.domain.Item;
 import orchowski.tomasz.ecommercedemo.security.permision.PermissionStoreItemCreate;
 import orchowski.tomasz.ecommercedemo.security.permision.PermissionStoreItemRead;
 import orchowski.tomasz.ecommercedemo.services.ItemService;
-import orchowski.tomasz.ecommercedemo.session.ShoopingCart;
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
-import org.springframework.http.HttpStatus;
+import orchowski.tomasz.ecommercedemo.session.ShoppingCart;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -24,6 +21,7 @@ import java.util.Optional;
 import java.util.UUID;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import javax.validation.constraints.Min;
 
 
 @Slf4j
@@ -32,9 +30,12 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 public class ItemController {
 
+
+
     private final ItemService itemService;
     private final ItemCommandToItem commandToItem;
     private final ItemToItemCommand itemToCommand;
+
 
 
     @PermissionStoreItemCreate
@@ -43,6 +44,8 @@ public class ItemController {
         model.addAttribute("item", new ItemCommand());
         return "item/itemform";
     }
+
+
 
     @PermissionStoreItemCreate
     @PostMapping("/create/new")
@@ -61,12 +64,14 @@ public class ItemController {
         return "redirect:/item/" + save.getId() + "/show";
     }
 
+
+
     @PermissionStoreItemRead
     @GetMapping("/show")
     public String itemRead(Model model, HttpServletRequest request, HttpSession session, @RequestParam(defaultValue = "0") Integer pageNo,
                            @RequestParam(defaultValue = "10") Integer pageSize) {
         ///item/show?pageNo=2&pageSize=20
-        var cart = ((ShoopingCart) session.getAttribute("cart"));
+        var cart = ((ShoppingCart) session.getAttribute("cart"));
         log.debug("cart !=  null: " + (cart != null));
         if (cart != null) {
             log.debug("Cart UUID : " + cart.getUuid());
@@ -87,13 +92,15 @@ public class ItemController {
         return "item/show";
     }
 
+
+
     @GetMapping("/{id}/show")
     @PermissionStoreItemRead
-    public String showItem(Model model,HttpSession session, @PathVariable Long id) {
+    public String showItem(Model model, HttpSession session, @PathVariable Long id) {
         Optional<Item> byId = itemService.findById(id);
         model.addAttribute("item", byId.orElseThrow(() -> new RuntimeException("Item id " + id + " not found")));
         String statusInfo = null;
-        if ((statusInfo= ((String) session.getAttribute("addToCartStatus"))) != null) {
+        if ((statusInfo = ((String) session.getAttribute("addToCartStatus"))) != null) {
             session.removeAttribute("addToCartStatus");
             model.addAttribute("addToCartStatus", statusInfo);
         }
@@ -102,22 +109,42 @@ public class ItemController {
     }
 
 
+
     @PostMapping("/addToCart")
     @PermissionStoreItemRead
-    public String addToCart(@RequestParam long id,HttpSession session,HttpServletRequest request,Model model) {
+    public String addToCart(@RequestParam long id,
+                            @RequestParam(required = false) long numberOfItems,
+                            HttpSession session,
+                            HttpServletRequest request,
+                            Model model) {
+        //TODO move to CartController if possible
         if (session.getAttribute("cart") == null) {
-            ShoopingCart cart = new ShoopingCart();
+            ShoppingCart cart = new ShoppingCart();
             cart.setUuid(UUID.randomUUID().toString());
             session.setAttribute("cart", cart);
         }
-        Optional<Item> item = itemService.findById(id);
-        if (!item.isPresent()) {
-            throw new ResourceNotFoundException("Item not found");
-        }
-        ShoopingCart cart = (ShoopingCart) session.getAttribute("cart");
-        cart.getItems().add(itemToCommand.convert(item.get()));
-        log.debug(String.format("Adding item id %d | To cart %s",id,cart.getUuid()));
-        session.setAttribute("addToCartStatus","Item added successfully");
+        var item = itemService.findById(id).orElseThrow(() -> new RuntimeException("Item not found"));
+        ItemCommand itemCommand = itemToCommand.convert(item);
+        ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
+        cart.addItem(itemCommand, 1);
+        session.setAttribute("addToCartStatus", "Item added successfully");
         return "redirect:/item/" + id + "/show";
+    }
+
+
+
+    @PostMapping("/editCart")
+    @PermissionStoreItemRead
+    public String editCart(@RequestParam @Min(0) long productID,
+                           @RequestParam @Min(0) Integer numberOfItems,
+                           HttpSession session,
+                           Model model) {
+        log.debug("Cart editing| product " + productID + " set to " + numberOfItems);
+        ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
+
+
+        //cart.editItemQuantity();
+
+        return "redirect:/user/cart";
     }
 }

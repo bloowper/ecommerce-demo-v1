@@ -1,9 +1,14 @@
 package orchowski.tomasz.ecommercedemo.controller.customer;
 
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import orchowski.tomasz.ecommercedemo.command.ItemCommand;
+import orchowski.tomasz.ecommercedemo.converter.ItemToItemCommand;
+import orchowski.tomasz.ecommercedemo.domain.Item;
 import orchowski.tomasz.ecommercedemo.security.permision.isAuthenticated;
-import orchowski.tomasz.ecommercedemo.session.ShoopingCart;
+import orchowski.tomasz.ecommercedemo.services.ItemService;
+import orchowski.tomasz.ecommercedemo.session.ShoppingCart;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,16 +19,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpSession;
 import java.util.UUID;
 
+
+@RequestMapping("user")
 @Controller
 @Slf4j
-@RequestMapping("user")
+@RequiredArgsConstructor
 public class CartController {
+
+    private final ItemService itemService;
+
+    private final ItemToItemCommand toItemCommand;
 
     @isAuthenticated
     @GetMapping("/cart")
     public String cart(HttpSession session, Model model,Long id) {
         if (session.getAttribute("cart") == null) {
-            ShoopingCart cart = new ShoopingCart();
+            ShoppingCart cart = new ShoppingCart();
             cart.setUuid(UUID.randomUUID().toString());
             session.setAttribute("cart", cart);
         }
@@ -38,13 +49,15 @@ public class CartController {
     @PostMapping("/cart/removeItem")
     public String cartRemoveItem(HttpSession session, Model model, @RequestParam long id) {
         if (session.getAttribute("cart") == null) {
-            ShoopingCart cart = new ShoopingCart();
+            ShoppingCart cart = new ShoppingCart();
             cart.setUuid(UUID.randomUUID().toString());
             session.setAttribute("cart", cart);
         }
-        ShoopingCart cart = (ShoopingCart) session.getAttribute("cart");
+        ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
         if (cart != null) {
-            cart.getItems().removeIf(itemCommand -> itemCommand.getId() == id);
+            Item item = itemService.findById(id).orElseThrow(() -> new RuntimeException("Item with given id not found :" + id));
+            ItemCommand itemCommand = toItemCommand.convert(item);
+            cart.removeItem(itemCommand);
         }
         session.setAttribute("cartRemoveItem", true);
         return "redirect:/user/cart";

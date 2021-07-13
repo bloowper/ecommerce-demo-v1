@@ -33,7 +33,6 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th scope="col">product id</th>
                     <th scope="col">Product name</th>
                     <th scope="col">Quantity</th>
                     <th scope="col">Cost</th>
@@ -41,13 +40,12 @@
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="keyvalue : ${session.cart.getMapItemCommandToInteger}" th:with="item = ${keyvalue['key']}, quantity = ${keyvalue['value']} ">
+                <tr th:each="keyvalue : ${session.cart.mapItemInt}" th:with="item = ${keyvalue['key']}, quantity = ${keyvalue['value']} ">
                     <!--/*@thymesVar id="item" type="orchowski.tomasz.ecommercedemo.command.ItemCommand"*/-->
-                    <th scope="row" th:text="${item.id}"></th>
                     <td th:text="${item.name}"></td>
                     <td>
                         <!--Quantity-->
-                        <form th:action="@{/item/editCart()}" class="input-group mb-3" style="width: 150px">
+                        <form th:action="@{/item/editCart(productID=${item.id})}" method="post" class="input-group mb-3" style="width: 150px">
                             <input type="text" class="form-control me-1" id="numberOfItems" name="numberOfItems" th:value="${quantity}" >
                             <div class="input-group-append">
                                 <button class="btn btn-outline-primary" type="submit">Change</button>

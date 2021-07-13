@@ -56,8 +56,7 @@ public class CartController {
         ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
         if (cart != null) {
             Item item = itemService.findById(id).orElseThrow(() -> new RuntimeException("Item with given id not found :" + id));
-            ItemCommand itemCommand = toItemCommand.convert(item);
-            cart.removeItem(itemCommand);
+            cart.removeItem(item);
         }
         session.setAttribute("cartRemoveItem", true);
         return "redirect:/user/cart";

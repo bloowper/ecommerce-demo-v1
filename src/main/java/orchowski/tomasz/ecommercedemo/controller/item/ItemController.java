@@ -109,42 +109,42 @@ public class ItemController {
     }
 
 
-
+    //TODO move to CartController if possible
     @PostMapping("/addToCart")
     @PermissionStoreItemRead
     public String addToCart(@RequestParam long id,
-                            @RequestParam(required = false) long numberOfItems,
+                            @RequestParam(required = false) int numberOfItems,
                             HttpSession session,
                             HttpServletRequest request,
                             Model model) {
-        //TODO move to CartController if possible
+
         if (session.getAttribute("cart") == null) {
             ShoppingCart cart = new ShoppingCart();
             cart.setUuid(UUID.randomUUID().toString());
             session.setAttribute("cart", cart);
         }
-        var item = itemService.findById(id).orElseThrow(() -> new RuntimeException("Item not found"));
-        ItemCommand itemCommand = itemToCommand.convert(item);
         ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
-        cart.addItem(itemCommand, 1);
+        var item = itemService.findById(id).orElseThrow(() -> new RuntimeException("Item not found"));
+        cart.addItem(item, numberOfItems);
         session.setAttribute("addToCartStatus", "Item added successfully");
+        log.debug("Total size of cart : " + cart.numberOfItems());
         return "redirect:/item/" + id + "/show";
     }
 
 
-
+    //TODO move to CartController if possible
     @PostMapping("/editCart")
     @PermissionStoreItemRead
     public String editCart(@RequestParam @Min(0) long productID,
                            @RequestParam @Min(0) Integer numberOfItems,
                            HttpSession session,
                            Model model) {
+
         log.debug("Cart editing| product " + productID + " set to " + numberOfItems);
         ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
-
-
-        //cart.editItemQuantity();
-
+        Item item = itemService.findById(productID).orElseThrow(() -> new RuntimeException("Item not found"));
+        cart.editItemQuantity(item, numberOfItems);
+        log.debug("Total size of cart : " + cart.numberOfItems());
         return "redirect:/user/cart";
     }
 }

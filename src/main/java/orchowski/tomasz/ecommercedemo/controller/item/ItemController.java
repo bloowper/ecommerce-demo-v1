@@ -69,7 +69,7 @@ public class ItemController {
     @PermissionStoreItemRead
     @GetMapping("/show")
     public String itemRead(Model model, HttpServletRequest request, HttpSession session, @RequestParam(defaultValue = "0") Integer pageNo,
-                           @RequestParam(defaultValue = "10") Integer pageSize) {
+                           @RequestParam(defaultValue = "8") Integer pageSize) {
         ///item/show?pageNo=2&pageSize=20
         var cart = ((ShoppingCart) session.getAttribute("cart"));
         log.debug("cart !=  null: " + (cart != null));

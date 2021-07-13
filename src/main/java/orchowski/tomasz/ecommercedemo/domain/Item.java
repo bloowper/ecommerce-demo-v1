@@ -32,16 +32,18 @@ public class Item {
     // need validation for save html
     @Length(min = 20, max = 1000, message = "description must be greater than 200 and smaller than 1000 characters")
     @Lob
-    @EqualsAndHashCode.Exclude
     String description;
 
     @NotNull(message = "Price can't be null")
-    @EqualsAndHashCode.Exclude
     Double price;
+
+    @Min(value = 0,message = "Minimal cost must be greater than 0")
+    Double sellPrice;
+
+    Boolean isSell;
 
     @NotNull(message = "Stock can't be null")
     @Min(value = 0, message = "Min stock value is 0")
-    @EqualsAndHashCode.Exclude
     Integer stock;
 
 }

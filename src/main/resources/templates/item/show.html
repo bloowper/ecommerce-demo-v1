@@ -10,57 +10,59 @@
 <body>
 
 <div class="container-md">
+
     <div class="row">
         <div class="col-sm-12">
             <nav th:replace="fragments/navbar :: nav"></nav>
         </div>
     </div>
 
-    <div class="row itemRowPadding">
-        <div class="col-sm-12" th:each="item : ${items}">
-            <!--@thymesVar id="item" type="orchowski.tomasz.ecommercedemo.domain.Item"-->
-            <div class="row">
-                <div class="col-md-2 leftInfoNav">
-                    <p th:text="'Price : '+${item.price}"></p>
-                    <p th:text="'Stock : '+${item.stock}"></p>
-                    <a th:href="@{'/item/'+ ${item.id} + '/show' }">item page</a>
+
+
+    <section class="py-5">
+        <div class="container px-4 px-lg-5 mt-5">
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+
+                <div class="col mb-5" th:each="item : ${items}">
+                    <div class="card h-100">
+                        <div th:if="${item.isSell}" class="badge bg-success text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
+
+                        <!-- Product image-->
+                        <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
+                        <!-- Product details-->
+                        <div class="card-body p-4">
+                            <div class="text-center">
+                                <!-- Product name-->
+                                <h5 class="fw-bolder" th:text="${item.name}"></h5>
+                                <!-- Product price-->
+                                <p th:if="!${item.isSell}" th:text="|${item.price} $|"></p>
+
+                                <span th:if="${item.isSell}" th:text="|${item.price}|" class="text-muted text-decoration-line-through">price before sell</span>
+                                <span th:if="${item.isSell}" th:text="|${item.sellPrice} $|">sell price</span>
+                            </div>
+                        </div>
+                        <!-- Product actions-->
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent ">
+                            <div class="text-center"><a th:href="@{'/item/'+ ${item.id} + '/show' }" class="btn btn-outline-dark mt-auto" href="#">View</a></div>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-9 midInfoNav">
-                    <p class="text-muted h3" th:text="${item.name}"></p>
-                    <p th:text="${#strings.substring(item.description,
-                    0,
-                    #strings.length(item.description)>250 ? 250 : #strings.length(item.description))
-                    + '...'}"></p>
-                </div>
-                <div class="col-md-1 rightInfoNav"></div>
             </div>
         </div>
-    </div>
-
+    </section>
 
     <div class="row">
         <div class="col-sm-12">
             <nav aria-label="navpanation">
                 <ul class="pagination d-flex justify-content-center">
-                    <li class="page-item"><a class="page-link" th:href="'/item/show?pageNo='+${pageNumber-1}">Previous</a></li>
-                    <li class="page-item"><a class="page-link" th:href="'/item/show?pageNo='+${pageNumber+1}">Next</a></li>
+                    <li class="page-item"><a class="page-link text-black-50" th:href="'/item/show?pageNo='+${pageNumber-1}">Previous</a></li>
+                    <li class="page-item"><a class="page-link text-black-50" th:href="'/item/show?pageNo='+${pageNumber+1}">Next</a></li>
                 </ul>
             </nav>
         </div>
     </div>
 
-    <div th:text="${#authentication.name}">
-        The value of the "name" property of the authentication object should appear here.
-    </div>
-    <div sec:authorize="hasRole('ROLE_ADMIN')">
-        This content is only shown to administrators.
-    </div>
-    <div sec:authorize="hasRole('ROLE_USER')">
-        This content is only shown to users.
-    </div>
-    <div sec:authorize="hasRole('ROLE_ADMIN')">
-        This content is only shown to administrators.
-    </div>
+
 
 </div>
 

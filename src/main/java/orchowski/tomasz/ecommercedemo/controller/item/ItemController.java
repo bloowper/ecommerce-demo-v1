@@ -88,7 +88,6 @@ public class ItemController {
             return "redirect:/item/show?pageNo=" + (pageNo - 1);
         }
         model.addAttribute("items", itemList);
-        System.out.println(itemList);
         return "item/show";
     }
 

@@ -20,6 +20,8 @@
 <!--        <strong>Logging or password incorrect</strong>-->
 <!--        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>-->
 <!--    </div>-->
+
+
     <div class="container-md login-container" sec:authorize="!isAuthenticated()">
         <!--TODO write login failure information        -->
 
@@ -49,7 +51,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
                     <div class="form-group text-center">
-                        <input type="submit" class="btnSubmit" value="Register" />
+                        <input type="submit" class="btnSubmit text-white bg-dark mt-5" value="Register" />
                     </div>
                     <div class="form-group text-end">
                         <a th:href="@{/login}" class="additional">Have account?</a><br>

@@ -11,43 +11,51 @@
 <body>
 
 
-    <nav th:fragment="nav" class="navbar navbar-expand-lg navbar-light bg-light mb-5">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">ecommerce</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link" th:classappend="${#httpServletRequest.requestURI.equals('/')? ' active':' '}" th:href="@{/}">Home</a>
-                    </li>
-                    <li class="nav-item" >
-                        <a class="nav-link" th:href="@{/item/show}" th:classappend="${#httpServletRequest.requestURI.startsWith('/item/show')? ' active': ' '}" href="">Buy</a>
-                    </li>
 
-                    <li sec:authorize="!isAuthenticated()">
-                        <a class="nav-link" th:href="@{/login}">Login</a>
+
+    <header th:fragment="nav" class="p-3 bg-dark text-white mb-5">
+        <div class="container">
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+                    <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap" >
+                    <!--    TODO-->
+                    </svg>
+                </a>
+
+                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                    <li>
+                        <a class="nav-link px-2 " th:classappend="${#httpServletRequest.requestURI.equals('/')? 'text-white':'text-white-50'}" th:href="@{/}">Home</a>
+                    </li>
+                    <li>
+                        <a th:href="@{/item/show}" th:classappend="${#httpServletRequest.requestURI.startsWith('/item/show')? ' text-white':'text-white-50'}" href="#" class="nav-link px-2 " >Buy</a>
                     </li>
                     <li sec:authorize="hasRole('ROLE_ADMIN')">
-                        <a class="nav-link" th:href="@{/admin/homepage}" th:classappend="${#httpServletRequest.requestURI.startsWith('/admin')? 'active':''}">Admin page</a>
+                        <a th:href="@{/admin/homepage}" th:classappend="${#httpServletRequest.requestURI.startsWith('/admin')? ' text-white':'text-white-50'}" class="nav-link px-2 ">Admin page</a>
                     </li>
                     <li sec:authorize="isAuthenticated()">
-                        <a class="nav-link" th:href="@{/user/cart}" th:classappend="${#httpServletRequest.requestURI.startsWith('/user/cart')? 'active':''}">Cart</a>
-                    </li>
-                    <li sec:authorize="isAuthenticated()">
-                        <a class="nav-link" th:href="@{/user/profile}" th:classappend="${#httpServletRequest.requestURI.startsWith('/user/profile')? 'active':''}">Your profile</a>
-                    </li>
-                    <li sec:authorize="isAuthenticated()" class="nav-item">
-                        <a class="nav-link" th:href="@{/logout}">Logout</a>
+                        <a th:href="@{/user/profile}" th:classappend="${#httpServletRequest.requestURI.startsWith('/user/profile')? 'text-white':'text-white-50'}" class="nav-link px-2 ">Profile</a>
                     </li>
 
                 </ul>
+
+                <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+                    <input type="search" class="form-control form-control-dark" placeholder="Search..." aria-label="Search">
+                </form>
+
+                <div class="text-end" sec:authorize="!isAuthenticated()">
+                    <a th:href="@{/login}" type="button" class="btn btn-outline-light me-2">Login</a>
+                    <a  th:href="@{/register}" type="button" class="btn btn-warning">Sign-up</a>
+                </div>
+
+                <div class="text-end" sec:authorize="isAuthenticated()">
+                    <a th:href="@{/user/cart}" type="button" class="btn btn-outline-light me-2">Cart</a>
+                    <a th:href="@{/logout}" type="button" class="btn btn-warning">Logout</a>
+                </div>
+
             </div>
         </div>
-        <!--        To delete-->
-<!--        <p th:text="${'debug info cart uuid: '+session.cart.uuid}" th:if="${session.cart!=null}"></p>-->
-    </nav>
+    </header>
+
 
 
 </body>

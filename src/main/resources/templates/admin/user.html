@@ -19,21 +19,11 @@
             <nav th:replace="fragments/navbar :: nav"></nav>
         </div>
     </div>
-    <div th:if="${deleteInfo!=null}" class="container-lg">
-        <div class="row">
-            <div class="alert alert-success alert-success fade show" role="alert">
-                <strong>INFO</strong>
-                <p th:text="${deleteInfo}"></p>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        </div>
+    <div class="col-12">
+        <div th:replace="fragments/notification :: notification"></div>
     </div>
 
-
-
-
-    <div class="row">
-        <p class="h1 text-center ">Admin panel</p>
+    <div class="row mt-3">
         <div class="container-lg ">
             <div class="row " style="min-height: 750px">
                 <div class="col-lg-4">
@@ -90,7 +80,7 @@
                                             </button>
                                         </h2>
                                         <!--TODO th set data-bs-perretn-->
-                                        <div th:id="|collapse${addr.id}|"  class="accordion-collapse collapse"  data-bs-parent="#accordion">
+                                        <div th:id="|collapse${addr.id}|" th:classappend="${n.first}? 'show':''"  class="accordion-collapse collapse"  data-bs-parent="#accordion">
                                             <!--th:classappend="${n.index==0}? 'show ':' '"-->
                                             <div class="accordion-body">
                                                 <ul class="list-group">

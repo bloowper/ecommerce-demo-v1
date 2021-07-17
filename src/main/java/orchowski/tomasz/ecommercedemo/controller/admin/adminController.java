@@ -18,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -88,15 +89,18 @@ public class adminController {
     }
 
 
-
+    // For working http DELETE we need to provide @Bean hiddenHttpMethodFilter
+    @DeleteMapping("/usersList/{userId}/deleteAddress")
     public String deleteAddress(@PathVariable int userId,
                                 @RequestParam long addressID,
-                                HttpSession session) {
-        // For working http DELETE we need to provide @Bean hiddenHttpMethodFilter
+                                HttpSession session,
+                                RedirectAttributes redirectAttributes) {
         log.debug(String.format("For user %d deleting address %s", userId, addressID));
         DeliveryAddress address = addressService.findById(addressID).orElseThrow(() -> new RuntimeException("Address not found"));
         addressService.delete(address);
-        session.setAttribute("deleteInfo", "Address deleted successfully");
+
+        redirectAttributes.addFlashAttribute("success", "Address deleted successfully");
+
         return "redirect:/admin/usersList/{userId}";
     }
 

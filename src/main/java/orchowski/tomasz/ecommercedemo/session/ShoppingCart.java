@@ -34,7 +34,6 @@ public class ShoppingCart {
     }
 
 
-
     public void editItemQuantity(Item item, Integer quantity) {
         if (quantity <= 0) {
             mapItemInt.remove(item);

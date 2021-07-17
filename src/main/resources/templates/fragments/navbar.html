@@ -13,7 +13,7 @@
 
 
 
-    <header th:fragment="nav" class="p-3 bg-dark text-white mb-5">
+    <header th:fragment="nav" class="p-3 bg-dark text-white ">
         <div class="container">
             <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                 <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
@@ -27,7 +27,7 @@
                         <a class="nav-link px-2 " th:classappend="${#httpServletRequest.requestURI.equals('/')? 'text-white':'text-white-50'}" th:href="@{/}">Home</a>
                     </li>
                     <li>
-                        <a th:href="@{/item/show}" th:classappend="${#httpServletRequest.requestURI.startsWith('/item/show')? ' text-white':'text-white-50'}" href="#" class="nav-link px-2 " >Buy</a>
+                        <a th:href="@{/item/show}" th:classappend="${#httpServletRequest.requestURI.startsWith('/item')? ' text-white':'text-white-50'}" href="#" class="nav-link px-2 " >Buy</a>
                     </li>
                     <li sec:authorize="hasRole('ROLE_ADMIN')">
                         <a th:href="@{/admin/homepage}" th:classappend="${#httpServletRequest.requestURI.startsWith('/admin')? ' text-white':'text-white-50'}" class="nav-link px-2 ">Admin page</a>
@@ -48,10 +48,12 @@
                 </div>
 
                 <div class="text-end" sec:authorize="isAuthenticated()">
-                    <a th:href="@{/user/cart}" type="button" class="btn btn-outline-light me-2">Cart</a>
-                    <a th:href="@{/logout}" type="button" class="btn btn-warning">Logout</a>
+                    <a th:href="@{/user/cart}" type="button" class="btn btn-outline-light me-2">
+                        <span th:if="${session.containsKey('cart')}" th:text="${session.get('cart').numberOfItems()}" class="badge bg-success position-relative">99</span>
+                        Cart
+                    </a>
+                    <a th:href="@{/logout}" type="button" class="btn btn btn-outline-light">Logout</a>
                 </div>
-
             </div>
         </div>
     </header>

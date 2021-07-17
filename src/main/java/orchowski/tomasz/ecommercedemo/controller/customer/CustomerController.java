@@ -23,6 +23,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -70,7 +71,8 @@ public class CustomerController {
     private String addAddress(Model model,
                               Principal principal,
                               @ModelAttribute("address") @Valid DeliveryAddressCommand addressCommand,
-                              BindingResult bindingResult) {
+                              BindingResult bindingResult,
+                              RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             bindingResult.getAllErrors().forEach(objectError -> log.error(objectError.toString()));
             log.debug("Binding error");
@@ -82,19 +84,22 @@ public class CustomerController {
         DeliveryAddress address = commandToAddress.convert(addressCommand);
         address.setUser(user);
         addressService.save(address);
+        redirectAttributes.addFlashAttribute("success", "Address address successfully");
         return "redirect:/user/profile";
     }
 
     @GetMapping("/profile/editAddress")
     private String editAddress(Model model,
                                Principal principal,
-                               @RequestParam long addressID) {
+                               @RequestParam long addressID,
+                               RedirectAttributes redirectAttributes) {
         log.debug(String.format("addressId %d" , addressID));
         User userFromService = userService.findByUsername(principal.getName()).orElseThrow(() -> new RuntimeException("User not found"));
         DeliveryAddress address = addressService.findById(addressID).orElseThrow(() -> new RuntimeException("Address not found : " + addressID));
         if (!address.getUser().equals(userFromService)) {
             //TODO probably it could be done better by some AOP
             // If given address is not property of user redirect him to profile
+            redirectAttributes.addFlashAttribute("error", "You are not allowed");
             return "redirect:/user/profile";
         }
         DeliveryAddressCommand addressCommand = addressToCommand.convert(address);
@@ -104,11 +109,20 @@ public class CustomerController {
     }
 
     @DeleteMapping("/deleteAddress")
-    public String deleteAddress(Model model, @RequestParam long addressID) {
+    public String deleteAddress(Model model,
+                                @RequestParam long addressID,
+                                RedirectAttributes redirectAttributes,
+                                Principal principal) {
         log.debug("Delete address " + addressID);
         DeliveryAddress address = addressService.findById(addressID).orElseThrow(() -> new RuntimeException("address not found"));
+        User user = userService.findByUsername(principal.getName()).orElseThrow(() -> new RuntimeException("User not found"));
+        if (!address.getUser().equals(user)) {
+            redirectAttributes.addFlashAttribute("error", "You are not allowed");
+            return "redirect:/user/profile";
+        }
         addressService.delete(address);
         log.debug(String.format("Address %d deleted", addressID));
+        redirectAttributes.addFlashAttribute("success", "Address deleted successfully");
         return "redirect:/user/profile";
     }
 }

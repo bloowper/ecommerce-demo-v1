@@ -10,10 +10,12 @@ import orchowski.tomasz.ecommercedemo.security.permision.PermissionStoreItemCrea
 import orchowski.tomasz.ecommercedemo.security.permision.PermissionStoreItemRead;
 import orchowski.tomasz.ecommercedemo.services.ItemService;
 import orchowski.tomasz.ecommercedemo.session.ShoppingCart;
+import orchowski.tomasz.ecommercedemo.utilities.PageUtilities;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -98,12 +100,6 @@ public class ItemController {
     public String showItem(Model model, HttpSession session, @PathVariable Long id) {
         Optional<Item> byId = itemService.findById(id);
         model.addAttribute("item", byId.orElseThrow(() -> new RuntimeException("Item id " + id + " not found")));
-        String statusInfo = null;
-        if ((statusInfo = ((String) session.getAttribute("addToCartStatus"))) != null) {
-            session.removeAttribute("addToCartStatus");
-            model.addAttribute("addToCartStatus", statusInfo);
-        }
-
         return "item/showProduct";
     }
 
@@ -115,19 +111,23 @@ public class ItemController {
                             @RequestParam(required = false) int numberOfItems,
                             HttpSession session,
                             HttpServletRequest request,
-                            Model model) {
-
-        if (session.getAttribute("cart") == null) {
-            ShoppingCart cart = new ShoppingCart();
-            cart.setUuid(UUID.randomUUID().toString());
-            session.setAttribute("cart", cart);
-        }
+                            Model model,
+                            RedirectAttributes redirectAttributes,
+                            HttpServletRequest httpServletRequest) {
+        String previousPage = PageUtilities.getPreviousPageByRequest(httpServletRequest).orElseThrow(() -> new RuntimeException("Previous page not found"));
         ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
         var item = itemService.findById(id).orElseThrow(() -> new RuntimeException("Item not found"));
+        if (item.getStock() < numberOfItems) {
+            redirectAttributes.addFlashAttribute("error", "Not enough items");
+            return previousPage;
+            //return "redirect:/item/" + id + "/show";
+        }
         cart.addItem(item, numberOfItems);
-        session.setAttribute("addToCartStatus", "Item added successfully");
+        redirectAttributes.addFlashAttribute("success", "Item added to cart successfully");
         log.debug("Total size of cart : " + cart.numberOfItems());
-        return "redirect:/item/" + id + "/show";
+        //return "redirect:/item/" + id + "/show";
+        return previousPage;
+
     }
 
 
@@ -146,4 +146,6 @@ public class ItemController {
         log.debug("Total size of cart : " + cart.numberOfItems());
         return "redirect:/user/cart";
     }
+
+
 }

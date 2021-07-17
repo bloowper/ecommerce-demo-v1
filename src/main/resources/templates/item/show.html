@@ -16,14 +16,13 @@
             <nav th:replace="fragments/navbar :: nav"></nav>
         </div>
     </div>
-
-
-
-
+    <div class="col-12">
+        <div th:replace="fragments/notification :: notification"></div>
+    </div>
 
 
     <section class="py-5 ">
-        <div class="container px-4 px-lg-5 mt-5">
+        <div class="container px-4 px-lg-5 ">
             <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
 
                 <div class="col mb-5" th:each="item : ${items}">
@@ -32,16 +31,20 @@
                         <div th:if="${item.isSell}" class="badge bg-success text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
 
                         <!--Shooping cart button-->
-                        <form method="POST" th:action="@{/item/addToCart(numberOfItems=${1})}">
+                        <form th:if="${item.stock > 0}" method="POST" th:action="@{/item/addToCart(numberOfItems=${1})}">
                             <button name="id" th:value="${item.id}" class="position-absolute text-black-50"  style="border: none;background: none; bottom: 0.5rem; right: 0.5rem">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-plus" viewBox="0 0 16 16" >
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-cart-plus" viewBox="0 0 16 16" >
                                     <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9V5.5z"/>
                                     <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
                                 </svg>
                             </button>
                         </form>
-
-
+                        <div data-toggle="tooltip" title="the item is not in stock" th:if="${item.stock == 0}" class="position-absolute text-black-50" style="bottom: 0.5rem; right: 0.5rem ">
+                            <svg  xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-x-circle" viewBox="0 0 16 16">
+                                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                            </svg>
+                        </div>
 
                         <!-- Product image-->
                         <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />

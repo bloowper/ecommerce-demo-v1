@@ -10,45 +10,45 @@
 <body>
 
 <div class="container-lg" >
+
     <div class="row">
         <div class="col-sm-12">
             <nav th:replace="fragments/navbar :: nav"></nav>
         </div>
     </div>
+    <div class="col-sm-12">
+        <div th:replace="fragments/notification :: notification"></div>
+    </div>
 
+    <section class="py-5">
+        <div class="container px-4 px-lg-5 my-5">
+            <div class="row gx-4 gx-lg-5 align-items-center">
+                <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" alt="..." /></div>
+                <div class="col-md-6">
 
-    <div class="row">
-        <div class="container-lg">
-            <div class="position-static">
-                <div class="position-absolute top-0 end-0">
-                    <div class="alert alert-success alert-dismissible fade show" role="alert" th:if="${addToCartStatus != null}">
-                        <p th:text="${addToCartStatus}"></p>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    <h1 class="display-5 fw-bolder" th:text="${item.name}">Name of product</h1>
+                    <p  class="small  position-relative" style="top: -1.5rem;">In stock: [[${item.stock}]]</p>
+
+                    <div class="fs-5 mb-5">
+                        <span th:if="${item.isSell}" th:text="|${item.price} $|" class="text-decoration-line-through text-muted">$45.00</span>
+                        <span th:if="${item.isSell}" th:text="|${item.sellPrice} $|" class="text-success">$40.00</span>
+                        <span th:text="|${item.price} $|" th:if="!${item.isSell}" class="">$40.00</span>
                     </div>
-                </div>
-            </div>
-            <div class="col-sm-12 border-top border-bottom ">
-                <div class="row">
-                    <div class="col-sm-4 flex-box paddingTopBottom">
-                        <form method="POST" th:action="@{/item/addToCart(numberOfItems=${1})}">
-                            <button class="btn btn-outline-primary" type="submit" id="id" name="id" th:value="${item.id}" >Add to cart</button>
-                            <!--(id=${item.id})-->
+                    <p class="lead" th:text="${item.description}">lead text</p>
+                    <div class="d-flex">
+                        <form class="input-group"  method="POST" th:action="@{/item/addToCart}">
+                            <input class="form-control text-center me-3" id="numberOfItems" name="numberOfItems" type="num" value="1" style="max-width: 3rem" />
+                            <button id="id" name="id" th:value="${item.id}" class="btn btn-outline-dark flex-shrink-0" type="submit">
+                                <i class="bi-cart-fill me-1"></i>
+                                Add to cart
+                            </button>
                         </form>
                     </div>
-                    <div class="col-sm-4 paddingTopBottom">
-                        <h4>Price: <span class="badge bg-primary " th:text="${item.price}+' $'"></span></h4>
-                    </div>
-                    <div class="col-sm-4 paddingTopBottom">
-                        <h4>Stock: <span class="badge bg-primary" th:text="${item.stock}"></span></h4>
-                    </div>
                 </div>
             </div>
-            <div class="col-sm-12">
-                <p class="h3 text-muted" th:text="${item.name}"></p>
-                <p th:text="${item.description}" class="" ></p>
-            </div>
         </div>
-    </div>
+    </section>
+    <!-- Related items section-->
 
 
 </div>

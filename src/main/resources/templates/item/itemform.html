@@ -15,9 +15,11 @@
             <nav th:replace="fragments/navbar :: nav"></nav>
         </div>
     </div>
+    <div class="col-12">
+        <div th:replace="fragments/notification :: notification"></div>
+    </div>
 
-
-    <div class="col-sm-12">
+    <div class="col-sm-12 mt-3">
         <form th:object="${item}" th:action="@{/item/create/new}" method="post">
             <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
                 <p>Please correct errors below</p>

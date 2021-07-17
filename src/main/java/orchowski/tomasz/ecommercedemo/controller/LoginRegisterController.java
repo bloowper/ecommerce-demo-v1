@@ -7,6 +7,7 @@ import orchowski.tomasz.ecommercedemo.domain.Role;
 import orchowski.tomasz.ecommercedemo.domain.User;
 import orchowski.tomasz.ecommercedemo.repository.RoleRepository;
 import orchowski.tomasz.ecommercedemo.services.UserService;
+import orchowski.tomasz.ecommercedemo.session.ShoppingCart;
 import org.dom4j.rule.Mode;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 import java.net.HttpURLConnection;
 import java.util.Optional;
+import java.util.UUID;
 
 @Slf4j
 @Controller
@@ -28,9 +30,16 @@ public class LoginRegisterController {
     private final PasswordEncoder passwordEncoder;
 
     @GetMapping("/login")
-    public String login(Model model, @RequestParam(required = false) String error) {
+    public String login(Model model,
+                        @RequestParam(required = false) String error, HttpSession session) {
+
         if (error != null) {
             model.addAttribute("loginError", true);
+        }
+        if (session.getAttribute("cart") == null) {
+            ShoppingCart cart = new ShoppingCart();
+            cart.setUuid(UUID.randomUUID().toString());
+            session.setAttribute("cart", cart);
         }
         return "login";
     }
@@ -78,6 +87,12 @@ public class LoginRegisterController {
                 build();
         User save = userService.save(user);
         log.debug(save.toString());
+
+        if (session.getAttribute("cart") == null) {
+            ShoppingCart cart = new ShoppingCart();
+            cart.setUuid(UUID.randomUUID().toString());
+            session.setAttribute("cart", cart);
+        }
 
         return "redirect:/login";
     }

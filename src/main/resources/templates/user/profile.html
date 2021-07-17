@@ -16,16 +16,18 @@
         <div class="col-lg-12">
             <nav th:replace="fragments/navbar :: nav"></nav>
         </div>
+        <div class="col-12">
+            <div th:replace="fragments/notification :: notification"></div>
+        </div>
     </div>
 
-    <div class="container-lg">
+    <div class="container-lg mt-3">
         <div class="row">
             <div class="col-lg-12 ">
                 <div class="row">
-
                     <div class="col-lg-6  ">
                         <div class=" whiteBackgroundShadowSubtle gx-md-1">
-                            <p class="h3 text-center">Account details</p>
+                            <p class="list-group-item list-group-item-action active bg-dark h4">Account details</p>
                             <ul class="list-group">
                                 <li class="list-group-item">
                                     <div class="">
@@ -67,7 +69,7 @@
                     <div class="col-lg-6  ">
                         <div class=" whiteBackgroundShadowSubtle gx-md-1">
                             <div class="list-group" id="accordion">
-                                <a href="#" class="list-group-item list-group-item-action active h4" aria-current="true">Delivery addresses</a>
+                                <a href="#" class="list-group-item list-group-item-action active bg-dark h4" aria-current="true">Delivery addresses</a>
                                 <div th:each="addr,n : ${user.deliveryAddressList}" th:id="|addr${n.index}|" class="accordion">
                                     <div class="accordion-item">
                                         <h2 th:id="|addr${n.index}|" class="accordion-header" id="headingOne">
@@ -78,7 +80,7 @@
                                             </button>
                                         </h2>
                                         <!--TODO th set data-bs-perretn-->
-                                        <div th:id="|collapse${addr.id}|"  class="accordion-collapse collapse"  data-bs-parent="#accordion">
+                                        <div th:id="|collapse${addr.id}|" th:classappend="${n.first}? 'show':''"  class="accordion-collapse collapse"   data-bs-parent="#accordion">
                                             <div class="accordion-body">
                                                 <ul class="list-group">
                                                     <li  class="list-group-item" >

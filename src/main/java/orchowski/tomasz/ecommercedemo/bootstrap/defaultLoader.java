@@ -61,13 +61,13 @@ public class defaultLoader implements CommandLineRunner {
                 name("item 3").
                 description("Lorem ipsum dolor sit amet, dictas periculis argumentum ne ius, perfecto mandamus est te. Vivendo efficiendi mei cu, maiestatis vituperatoribus sit an. Vix in hinc eros disputationi. Ei mel soluta explicari, vim ut nulla dissentias. No modus illum quo, labore volumus lobortis cu sea, noluisse signiferumque te has. Vix te doming omnium repudiandae, ne cum dolore utroque voluptaria, ea ferri ullum quo. Eam eros senserit principes at, nec id sanctus facilisi. Cibo partiendo liberavisse eu quo, at laudem repudiandae pro. Sapientem definiebas per ei. Denique contentiones te per. Usu integre epicuri ea. Id sumo verterem pro. At laoreet fastidii percipit nam, pro velit indoctum at, te eam augue deleniti constituam. Ut pri integre postulant. Ea qui nibh idque, at iusto nobis usu. Ad cum vocibus fastidii partiendo, eum dolores recusabo ei.").
                 price(1000.).
-                stock(1).
+                stock(10).
                 build();
         var p5= Item.builder().
                 name("item 4").
                 description("Lorem ipsum dolor sit amet, dictas periculis argumentum ne ius, perfecto mandamus est te. Vivendo efficiendi mei cu, maiestatis vituperatoribus sit an. Vix in hinc eros disputationi. Ei mel soluta explicari, vim ut nulla dissentias. No modus illum quo, labore volumus lobortis cu sea, noluisse signiferumque te has. Vix te doming omnium repudiandae, ne cum dolore utroque voluptaria, ea ferri ullum quo. Eam eros senserit principes at, nec id sanctus facilisi. Cibo partiendo liberavisse eu quo, at laudem repudiandae pro. Sapientem definiebas per ei. Denique contentiones te per. Usu integre epicuri ea. Id sumo verterem pro. At laoreet fastidii percipit nam, pro velit indoctum at, te eam augue deleniti constituam. Ut pri integre postulant. Ea qui nibh idque, at iusto nobis usu. Ad cum vocibus fastidii partiendo, eum dolores recusabo ei.").
                 price(1000.).
-                stock(1).
+                stock(0).
                 build();
         var p6= Item.builder().
                 name("item 5").
@@ -83,7 +83,7 @@ public class defaultLoader implements CommandLineRunner {
                 price(511.).
                 isSell(true).
                 sellPrice(410.5).
-                stock(1).
+                stock(0).
                 build();
         var p8= Item.builder().
                 name("item 7").

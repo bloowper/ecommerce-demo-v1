@@ -79,6 +79,10 @@ public class User implements UserDetails, CredentialsContainer {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<DeliveryAddress> deliveryAddressList;
 
+    @Singular
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "user")
+    private List<Order> orders;
+
     @Override
     public void eraseCredentials() {
         this.password = null;

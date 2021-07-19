@@ -48,7 +48,6 @@ public class Order {
     private Timestamp lastModifiedDate;
 
 
-
     // @Singular("item")
     // @ElementCollection(fetch = FetchType.EAGER)
     // @CollectionTable(name = "order_items")
@@ -65,9 +64,9 @@ public class Order {
     // and simplify names of columns ect
     @Singular
     @ElementCollection
-    @MapKeyColumn(name="name")
-    @Column(name="value")
-    @CollectionTable(name="order_items", joinColumns=@JoinColumn(name="id"))
+    @MapKeyColumn(name = "name")
+    @Column(name = "value")
+    @CollectionTable(name = "order_items", joinColumns = @JoinColumn(name = "id"))
     Map<Item, Integer> items;
 
     public Order addToMap(Item key, Integer value) {
@@ -75,5 +74,14 @@ public class Order {
         return this;
     }
 
+    @Transient
+    public Double getOrderCost() {
+        Double reduce = items.keySet().stream().map(Item::getPrice).reduce(0., Double::sum);
+        return reduce;
+    }
 
+    @Transient
+    public Integer getNumberOfItems(){
+        return 2;
+    }
 }

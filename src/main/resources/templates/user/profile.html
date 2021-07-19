@@ -161,7 +161,7 @@
                         <th scope="col">Created Date</th>
                         <th scope="col">Update Date</th>
                         <th scope="col">Order state</th>
-
+                        <th scope="col">Cost</th>
                     </tr>
                     </thead>
                     <tbody th:each="order : ${user.orders}">
@@ -171,6 +171,8 @@
                         <td th:text="${order.lastModifiedDate}">1999/02/25</td>
                         <!--//TODO format date-->
                         <td th:text="${order.orderState}">1999/02/25</td>
+                        <td th:text="|${order.getOrderCost()} $|">1999/02/25</td>
+
                     </tr>
                     </tbody>
                 </table>

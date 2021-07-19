@@ -55,12 +55,25 @@ public class Order {
     // @MapKeyColumn(name = "key")
     // @Column(name = "quantity")
 
+    // @Singular
+    // @ElementCollection
+    // @MapKeyColumn(name = "key")
+    // @Column(name = "item")
+    // @CollectionTable(name = "item_mapping")
+
+    //TODO check if it is correct
+    // and simplify names of columns ect
     @Singular
     @ElementCollection
-    @MapKeyColumn(name="IMAGE_NAME")
-    @Column(name="IMAGE_FILENAME")
-    @CollectionTable(name="IMAGE_MAPPING")
-    Map<Item, Integer> items = new HashMap<>();
+    @MapKeyColumn(name="name")
+    @Column(name="value")
+    @CollectionTable(name="order_items", joinColumns=@JoinColumn(name="id"))
+    Map<Item, Integer> items;
+
+    public Order addToMap(Item key, Integer value) {
+        items.put(key, value);
+        return this;
+    }
 
 
 }

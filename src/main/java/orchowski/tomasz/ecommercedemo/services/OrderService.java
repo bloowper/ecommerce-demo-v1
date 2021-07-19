@@ -26,7 +26,7 @@ public class OrderService {
         return orderRepository.findByUserAndOrderState(user, orderState);
     }
 
-    public void save(Order order) {
-        orderRepository.save(order);
+    public Order save(Order order) {
+        return orderRepository.save(order);
     }
 }

@@ -42,8 +42,8 @@ public class defaultLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        loadAccount();
         loadItem();
+        loadAccount();
     }
 
     private void loadItem() {
@@ -202,25 +202,28 @@ public class defaultLoader implements CommandLineRunner {
                         build()
         );
 
-        orderService.save(
+        Order order1 = orderService.save(
                 Order.builder().
                         user(u1).
                         orderState(OrderState.PLACED).
-                        item(p1,3).
-                        item(p3,4).
+                        item(p1,4).
+                        item(p2,2).
                         build()
         );
 
-        orderService.save(
+
+        Order order2 = orderService.save(
                 Order.builder().
                         user(u1).
                         orderState(OrderState.PLACED).
-                        item(p1,15).
-                        item(p3,15).
-                        item(p4,15).
+                        item(p1,2).
+                        item(p2,4).
+                        item(p3,1).
                         build()
         );
-    //USER 1
+
+
+    //USER 1 end
 
     //USER 2
         var u2 = userRepository.save(User.builder().
@@ -252,13 +255,8 @@ public class defaultLoader implements CommandLineRunner {
                         build()
         );
 
-        orderService.save(
-                Order.builder().
-                        user(u2).
-                        orderState(OrderState.PLACED).
-                        build()
-        );
-    //USER 2
+
+    //USER 2 end
 
         var u3 = userRepository.save(User.builder().
                 role(customer).

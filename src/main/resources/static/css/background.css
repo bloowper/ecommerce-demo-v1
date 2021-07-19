@@ -7,8 +7,8 @@
 
 .whiteBackgroundShadowSubtle{
     box-shadow: 1px 1px 15px -3px grey;
-    padding: 2%;
-    margin-bottom:7%;
+    padding: 5px;
+    margin-bottom:30px;
     border-radius: 0.25rem;
 }
 

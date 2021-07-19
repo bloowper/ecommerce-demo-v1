@@ -7,6 +7,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Setter
 @Getter
@@ -42,6 +43,9 @@ public class Order {
     @UpdateTimestamp
     private Timestamp lastModifiedDate;
 
-    String test_field;
+    @Singular("item")
+    @OneToMany
+    List<Item> itemList;
+
 
 }

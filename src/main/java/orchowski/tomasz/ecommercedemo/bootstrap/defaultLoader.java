@@ -27,6 +27,19 @@ public class defaultLoader implements CommandLineRunner {
     private final DeliveryAddressService deliveryAddressService;
     private final OrderService orderService;
 
+    private Item p1;
+    private Item p2;
+    private Item p3;
+    private Item p4;
+    private Item p5;
+    private Item p6;
+    private Item p7;
+    private Item p8;
+    private Item p9;
+    private Item p10;
+    private Item p11;
+    private Item p12;
+
     @Override
     public void run(String... args) throws Exception {
         loadAccount();
@@ -34,7 +47,7 @@ public class defaultLoader implements CommandLineRunner {
     }
 
     private void loadItem() {
-        var p1 = Item.builder().
+        p1 = Item.builder().
                 name("item 1").
                 description("Lorem ipsum dolor sit amet, dictas periculis argumentum ne ius, perfecto mandamus est te. Vivendo efficiendi mei cu, maiestatis vituperatoribus sit an. Vix in hinc eros disputationi. Ei mel soluta explicari, vim ut nulla dissentias. No modus illum quo, labore volumus lobortis cu sea, noluisse signiferumque te has. Vix te doming omnium repudiandae, ne cum dolore utroque voluptaria, ea ferri ullum quo. Eam eros senserit principes at, nec id sanctus facilisi. Cibo partiendo liberavisse eu quo, at laudem repudiandae pro. Sapientem definiebas per ei. Denique contentiones te per. Usu integre epicuri ea. Id sumo verterem pro. At laoreet fastidii percipit nam, pro velit indoctum at, te eam augue deleniti constituam. Ut pri integre postulant. Ea qui nibh idque, at iusto nobis usu. Ad cum vocibus fastidii partiendo, eum dolores recusabo ei.").
                 price(500.).
@@ -42,7 +55,7 @@ public class defaultLoader implements CommandLineRunner {
                 sellPrice(490.).
                 stock(2).
                 build();
-        var p2=Item.builder().
+        p2 = Item.builder().
                 name("item 2").
                 description("Lorem ipsum dolor sit amet, dictas periculis argumentum ne ius, perfecto mandamus est te. Vivendo efficiendi mei cu, maiestatis vituperatoribus sit an. Vix in hinc eros disputationi. Ei mel soluta explicari, vim ut nulla dissentias. No modus illum quo, labore volumus lobortis cu sea, noluisse signiferumque te has. Vix te doming omnium repudiandae, ne cum dolore utroque voluptaria, ea ferri ullum quo. Eam eros senserit principes at, nec id sanctus facilisi. Cibo partiendo liberavisse eu quo, at laudem repudiandae pro. Sapientem definiebas per ei. Denique contentiones te per. Usu integre epicuri ea. Id sumo verterem pro. At laoreet fastidii percipit nam, pro velit indoctum at, te eam augue deleniti constituam. Ut pri integre postulant. Ea qui nibh idque, at iusto nobis usu. Ad cum vocibus fastidii partiendo, eum dolores recusabo ei.").
                 price(100.).
@@ -50,25 +63,25 @@ public class defaultLoader implements CommandLineRunner {
                 sellPrice(80.).
                 stock(0).
                 build();
-        var p3= Item.builder().
+        p3 = Item.builder().
                 name("item 3").
                 description("Lorem ipsum dolor sit amet, dictas periculis argumentum ne ius, perfecto mandamus est te. Vivendo efficiendi mei cu, maiestatis vituperatoribus sit an. Vix in hinc eros disputationi. Ei mel soluta explicari, vim ut nulla dissentias. No modus illum quo, labore volumus lobortis cu sea, noluisse signiferumque te has. Vix te doming omnium repudiandae, ne cum dolore utroque voluptaria, ea ferri ullum quo. Eam eros senserit principes at, nec id sanctus facilisi. Cibo partiendo liberavisse eu quo, at laudem repudiandae pro. Sapientem definiebas per ei. Denique contentiones te per. Usu integre epicuri ea. Id sumo verterem pro. At laoreet fastidii percipit nam, pro velit indoctum at, te eam augue deleniti constituam. Ut pri integre postulant. Ea qui nibh idque, at iusto nobis usu. Ad cum vocibus fastidii partiendo, eum dolores recusabo ei.").
                 price(1000.).
                 stock(1).
                 build();
-        var p4= Item.builder().
+        p4 = Item.builder().
                 name("item 3").
                 description("Lorem ipsum dolor sit amet, dictas periculis argumentum ne ius, perfecto mandamus est te. Vivendo efficiendi mei cu, maiestatis vituperatoribus sit an. Vix in hinc eros disputationi. Ei mel soluta explicari, vim ut nulla dissentias. No modus illum quo, labore volumus lobortis cu sea, noluisse signiferumque te has. Vix te doming omnium repudiandae, ne cum dolore utroque voluptaria, ea ferri ullum quo. Eam eros senserit principes at, nec id sanctus facilisi. Cibo partiendo liberavisse eu quo, at laudem repudiandae pro. Sapientem definiebas per ei. Denique contentiones te per. Usu integre epicuri ea. Id sumo verterem pro. At laoreet fastidii percipit nam, pro velit indoctum at, te eam augue deleniti constituam. Ut pri integre postulant. Ea qui nibh idque, at iusto nobis usu. Ad cum vocibus fastidii partiendo, eum dolores recusabo ei.").
                 price(1000.).
                 stock(10).
                 build();
-        var p5= Item.builder().
+        p5 = Item.builder().
                 name("item 4").
                 description("Lorem ipsum dolor sit amet, dictas periculis argumentum ne ius, perfecto mandamus est te. Vivendo efficiendi mei cu, maiestatis vituperatoribus sit an. Vix in hinc eros disputationi. Ei mel soluta explicari, vim ut nulla dissentias. No modus illum quo, labore volumus lobortis cu sea, noluisse signiferumque te has. Vix te doming omnium repudiandae, ne cum dolore utroque voluptaria, ea ferri ullum quo. Eam eros senserit principes at, nec id sanctus facilisi. Cibo partiendo liberavisse eu quo, at laudem repudiandae pro. Sapientem definiebas per ei. Denique contentiones te per. Usu integre epicuri ea. Id sumo verterem pro. At laoreet fastidii percipit nam, pro velit indoctum at, te eam augue deleniti constituam. Ut pri integre postulant. Ea qui nibh idque, at iusto nobis usu. Ad cum vocibus fastidii partiendo, eum dolores recusabo ei.").
                 price(1000.).
                 stock(0).
                 build();
-        var p6= Item.builder().
+        p6 = Item.builder().
                 name("item 5").
                 description("Lorem ipsum dolor sit amet, dictas periculis argumentum ne ius, perfecto mandamus est te. Vivendo efficiendi mei cu, maiestatis vituperatoribus sit an. Vix in hinc eros disputationi. Ei mel soluta explicari, vim ut nulla dissentias. No modus illum quo, labore volumus lobortis cu sea, noluisse signiferumque te has. Vix te doming omnium repudiandae, ne cum dolore utroque voluptaria, ea ferri ullum quo. Eam eros senserit principes at, nec id sanctus facilisi. Cibo partiendo liberavisse eu quo, at laudem repudiandae pro. Sapientem definiebas per ei. Denique contentiones te per. Usu integre epicuri ea. Id sumo verterem pro. At laoreet fastidii percipit nam, pro velit indoctum at, te eam augue deleniti constituam. Ut pri integre postulant. Ea qui nibh idque, at iusto nobis usu. Ad cum vocibus fastidii partiendo, eum dolores recusabo ei.").
                 price(1000.).
@@ -76,7 +89,7 @@ public class defaultLoader implements CommandLineRunner {
                 sellPrice(712.).
                 stock(1).
                 build();
-        var p7= Item.builder().
+        p7 = Item.builder().
                 name("item 6").
                 description("Lorem ipsum dolor sit amet, dictas periculis argumentum ne ius, perfecto mandamus est te. Vivendo efficiendi mei cu, maiestatis vituperatoribus sit an. Vix in hinc eros disputationi. Ei mel soluta explicari, vim ut nulla dissentias. No modus illum quo, labore volumus lobortis cu sea, noluisse signiferumque te has. Vix te doming omnium repudiandae, ne cum dolore utroque voluptaria, ea ferri ullum quo. Eam eros senserit principes at, nec id sanctus facilisi. Cibo partiendo liberavisse eu quo, at laudem repudiandae pro. Sapientem definiebas per ei. Denique contentiones te per. Usu integre epicuri ea. Id sumo verterem pro. At laoreet fastidii percipit nam, pro velit indoctum at, te eam augue deleniti constituam. Ut pri integre postulant. Ea qui nibh idque, at iusto nobis usu. Ad cum vocibus fastidii partiendo, eum dolores recusabo ei.").
                 price(511.).
@@ -84,31 +97,31 @@ public class defaultLoader implements CommandLineRunner {
                 sellPrice(410.5).
                 stock(0).
                 build();
-        var p8= Item.builder().
+        p8 = Item.builder().
                 name("item 7").
                 description("Lorem ipsum dolor sit amet, dictas periculis argumentum ne ius, perfecto mandamus est te. Vivendo efficiendi mei cu, maiestatis vituperatoribus sit an. Vix in hinc eros disputationi. Ei mel soluta explicari, vim ut nulla dissentias. No modus illum quo, labore volumus lobortis cu sea, noluisse signiferumque te has. Vix te doming omnium repudiandae, ne cum dolore utroque voluptaria, ea ferri ullum quo. Eam eros senserit principes at, nec id sanctus facilisi. Cibo partiendo liberavisse eu quo, at laudem repudiandae pro. Sapientem definiebas per ei. Denique contentiones te per. Usu integre epicuri ea. Id sumo verterem pro. At laoreet fastidii percipit nam, pro velit indoctum at, te eam augue deleniti constituam. Ut pri integre postulant. Ea qui nibh idque, at iusto nobis usu. Ad cum vocibus fastidii partiendo, eum dolores recusabo ei.").
                 price(1000.).
                 stock(1).
                 build();
-        var p9= Item.builder().
+        p9 = Item.builder().
                 name("item 8").
                 description("Lorem ipsum dolor sit amet, dictas periculis argumentum ne ius, perfecto mandamus est te. Vivendo efficiendi mei cu, maiestatis vituperatoribus sit an. Vix in hinc eros disputationi. Ei mel soluta explicari, vim ut nulla dissentias. No modus illum quo, labore volumus lobortis cu sea, noluisse signiferumque te has. Vix te doming omnium repudiandae, ne cum dolore utroque voluptaria, ea ferri ullum quo. Eam eros senserit principes at, nec id sanctus facilisi. Cibo partiendo liberavisse eu quo, at laudem repudiandae pro. Sapientem definiebas per ei. Denique contentiones te per. Usu integre epicuri ea. Id sumo verterem pro. At laoreet fastidii percipit nam, pro velit indoctum at, te eam augue deleniti constituam. Ut pri integre postulant. Ea qui nibh idque, at iusto nobis usu. Ad cum vocibus fastidii partiendo, eum dolores recusabo ei.").
                 price(1000.).
                 stock(1).
                 build();
-        var p10= Item.builder().
+        p10 = Item.builder().
                 name("item 9").
                 description("Lorem ipsum dolor sit amet, dictas periculis argumentum ne ius, perfecto mandamus est te. Vivendo efficiendi mei cu, maiestatis vituperatoribus sit an. Vix in hinc eros disputationi. Ei mel soluta explicari, vim ut nulla dissentias. No modus illum quo, labore volumus lobortis cu sea, noluisse signiferumque te has. Vix te doming omnium repudiandae, ne cum dolore utroque voluptaria, ea ferri ullum quo. Eam eros senserit principes at, nec id sanctus facilisi. Cibo partiendo liberavisse eu quo, at laudem repudiandae pro. Sapientem definiebas per ei. Denique contentiones te per. Usu integre epicuri ea. Id sumo verterem pro. At laoreet fastidii percipit nam, pro velit indoctum at, te eam augue deleniti constituam. Ut pri integre postulant. Ea qui nibh idque, at iusto nobis usu. Ad cum vocibus fastidii partiendo, eum dolores recusabo ei.").
                 price(1000.).
                 stock(1).
                 build();
-        var p11= Item.builder().
+        p11 = Item.builder().
                 name("item 10").
                 description("Lorem ipsum dolor sit amet, dictas periculis argumentum ne ius, perfecto mandamus est te. Vivendo efficiendi mei cu, maiestatis vituperatoribus sit an. Vix in hinc eros disputationi. Ei mel soluta explicari, vim ut nulla dissentias. No modus illum quo, labore volumus lobortis cu sea, noluisse signiferumque te has. Vix te doming omnium repudiandae, ne cum dolore utroque voluptaria, ea ferri ullum quo. Eam eros senserit principes at, nec id sanctus facilisi. Cibo partiendo liberavisse eu quo, at laudem repudiandae pro. Sapientem definiebas per ei. Denique contentiones te per. Usu integre epicuri ea. Id sumo verterem pro. At laoreet fastidii percipit nam, pro velit indoctum at, te eam augue deleniti constituam. Ut pri integre postulant. Ea qui nibh idque, at iusto nobis usu. Ad cum vocibus fastidii partiendo, eum dolores recusabo ei.").
                 price(1000.).
                 stock(1).
                 build();
-        var p12= Item.builder().
+        p12 = Item.builder().
                 name("item 11").
                 description("Lorem ipsum dolor sit amet, dictas periculis argumentum ne ius, perfecto mandamus est te. Vivendo efficiendi mei cu, maiestatis vituperatoribus sit an. Vix in hinc eros disputationi. Ei mel soluta explicari, vim ut nulla dissentias. No modus illum quo, labore volumus lobortis cu sea, noluisse signiferumque te has. Vix te doming omnium repudiandae, ne cum dolore utroque voluptaria, ea ferri ullum quo. Eam eros senserit principes at, nec id sanctus facilisi. Cibo partiendo liberavisse eu quo, at laudem repudiandae pro. Sapientem definiebas per ei. Denique contentiones te per. Usu integre epicuri ea. Id sumo verterem pro. At laoreet fastidii percipit nam, pro velit indoctum at, te eam augue deleniti constituam. Ut pri integre postulant. Ea qui nibh idque, at iusto nobis usu. Ad cum vocibus fastidii partiendo, eum dolores recusabo ei.").
                 price(1000.).
@@ -142,8 +155,6 @@ public class defaultLoader implements CommandLineRunner {
         var adminPageUserShow = authorityRepository.save(Authority.builder().permission("adminPage.user.show").build());//TODO implement interface annotation
 
 
-
-
         //Roles
         var admin = roleRepository.save(Role.builder().
                 authority(storeItemCreate).
@@ -154,9 +165,9 @@ public class defaultLoader implements CommandLineRunner {
                 name("ROLE_ADMIN").build());
 
         var customer = roleRepository.save(Role.builder().
-            authority(storeItemRead).
-            name("ROLE_CUSTOMER").
-            build());
+                authority(storeItemRead).
+                name("ROLE_CUSTOMER").
+                build());
 
 
         //Accounts
@@ -195,12 +206,14 @@ public class defaultLoader implements CommandLineRunner {
                 Order.builder().
                         user(u1).
                         orderState(OrderState.PLACED).
-                        test_field("Pole testowe").
+                        item(p1).
+                        item(p2).
+                        item(p3).
                         build()
         );
         //USER 1
 
-        var u2 =userRepository.save(User.builder().
+        var u2 = userRepository.save(User.builder().
                 role(customer).
                 username("user").
                 password(passwordEncoder.encode("user")).
@@ -208,7 +221,7 @@ public class defaultLoader implements CommandLineRunner {
                 build()
         );
 
-        var u3=userRepository.save(User.builder().
+        var u3 = userRepository.save(User.builder().
                 role(customer).
                 username("user1").
                 accountNonLocked(false).

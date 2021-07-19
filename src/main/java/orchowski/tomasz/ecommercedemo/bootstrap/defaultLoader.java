@@ -3,11 +3,10 @@ package orchowski.tomasz.ecommercedemo.bootstrap;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import orchowski.tomasz.ecommercedemo.domain.*;
-import orchowski.tomasz.ecommercedemo.repository.AuthorityRepository;
-import orchowski.tomasz.ecommercedemo.repository.ItemRepository;
-import orchowski.tomasz.ecommercedemo.repository.RoleRepository;
-import orchowski.tomasz.ecommercedemo.repository.UserRepository;
+import orchowski.tomasz.ecommercedemo.domain.enums.OrderState;
+import orchowski.tomasz.ecommercedemo.repository.*;
 import orchowski.tomasz.ecommercedemo.services.DeliveryAddressService;
+import orchowski.tomasz.ecommercedemo.services.OrderService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -26,9 +25,9 @@ public class defaultLoader implements CommandLineRunner {
     private final UserRepository userRepository;
     private final ItemRepository itemRepository;
     private final DeliveryAddressService deliveryAddressService;
+    private final OrderService orderService;
 
     @Override
-
     public void run(String... args) throws Exception {
         loadAccount();
         loadItem();
@@ -161,6 +160,7 @@ public class defaultLoader implements CommandLineRunner {
 
 
         //Accounts
+        //USER 1
         var u1 = userRepository.save(User.builder().
                 role(admin).
                 username("admin").
@@ -191,6 +191,14 @@ public class defaultLoader implements CommandLineRunner {
                         build()
         );
 
+        orderService.save(
+                Order.builder().
+                        user(u1).
+                        orderState(OrderState.PLACED).
+                        test_field("Pole testowe").
+                        build()
+        );
+        //USER 1
 
         var u2 =userRepository.save(User.builder().
                 role(customer).

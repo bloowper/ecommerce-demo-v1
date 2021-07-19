@@ -47,7 +47,6 @@ public class User implements UserDetails, CredentialsContainer {
 
     @ToString.Exclude
     @Builder.Default
-
     private Boolean credentialsNonExpired = true;
 
     @ToString.Exclude
@@ -55,13 +54,14 @@ public class User implements UserDetails, CredentialsContainer {
     private Boolean enabled = true;
 
     @ToString.Exclude
+    @EqualsAndHashCode.Exclude
     @CreationTimestamp
     @Column(updatable = false)
     private Timestamp createdDate;
 
     @ToString.Exclude
-    @UpdateTimestamp
     @EqualsAndHashCode.Exclude
+    @UpdateTimestamp
     private Timestamp lastModifiedDate;
 
     @ToString.Exclude

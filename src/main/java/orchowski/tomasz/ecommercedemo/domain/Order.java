@@ -4,6 +4,7 @@ import lombok.*;
 import orchowski.tomasz.ecommercedemo.command.ItemCommand;
 import orchowski.tomasz.ecommercedemo.domain.enums.OrderState;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
@@ -27,7 +28,7 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     String id;
 
-    @ManyToOne //TODO
+    @ManyToOne //TODO not sure that it works as it should
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     User user;
@@ -47,7 +48,19 @@ public class Order {
     private Timestamp lastModifiedDate;
 
 
-    // Map<Item, Integer> order = new HashMap<>();
+
+    // @Singular("item")
+    // @ElementCollection(fetch = FetchType.EAGER)
+    // @CollectionTable(name = "order_items")
+    // @MapKeyColumn(name = "key")
+    // @Column(name = "quantity")
+
+    @Singular
+    @ElementCollection
+    @MapKeyColumn(name="IMAGE_NAME")
+    @Column(name="IMAGE_FILENAME")
+    @CollectionTable(name="IMAGE_MAPPING")
+    Map<Item, Integer> items = new HashMap<>();
 
 
 }

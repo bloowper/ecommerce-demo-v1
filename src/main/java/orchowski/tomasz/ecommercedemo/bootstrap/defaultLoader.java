@@ -170,8 +170,8 @@ public class defaultLoader implements CommandLineRunner {
                 build());
 
 
-        //Accounts
-        //USER 1
+    //Accounts
+    //USER 1
         var u1 = userRepository.save(User.builder().
                 role(admin).
                 username("admin").
@@ -206,10 +206,23 @@ public class defaultLoader implements CommandLineRunner {
                 Order.builder().
                         user(u1).
                         orderState(OrderState.PLACED).
+                        item(p1,3).
+                        item(p3,4).
                         build()
         );
-        //USER 1
 
+        orderService.save(
+                Order.builder().
+                        user(u1).
+                        orderState(OrderState.PLACED).
+                        item(p1,15).
+                        item(p3,15).
+                        item(p4,15).
+                        build()
+        );
+    //USER 1
+
+    //USER 2
         var u2 = userRepository.save(User.builder().
                 role(customer).
                 username("user").
@@ -217,6 +230,35 @@ public class defaultLoader implements CommandLineRunner {
                 email("user@user.com").
                 build()
         );
+        deliveryAddressService.save(
+                DeliveryAddress.builder().
+                        user(u2).
+                        zipCode("22-234").
+                        city("Batorowo").
+                        street("Jana pawal").
+                        homeNumber("22/463 b")
+                        .phoneNumber("123 321 123").
+                        build()
+        );
+
+        deliveryAddressService.save(
+                DeliveryAddress.builder().
+                        user(u2).
+                        zipCode("54-234").
+                        city("Lowardowo").
+                        street("Aleja 3 pał").
+                        homeNumber("69")
+                        .phoneNumber("123 321 123").
+                        build()
+        );
+
+        orderService.save(
+                Order.builder().
+                        user(u2).
+                        orderState(OrderState.PLACED).
+                        build()
+        );
+    //USER 2
 
         var u3 = userRepository.save(User.builder().
                 role(customer).

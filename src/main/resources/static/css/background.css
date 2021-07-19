@@ -6,10 +6,11 @@
 }
 
 .whiteBackgroundShadowSubtle{
-    box-shadow: 1px 1px 15px -3px grey;
-    padding: 5px;
-    margin-bottom:30px;
+    box-shadow: 1px 1px 15px rgba(0,0,0,0.2);
+    padding: 3px;
+    margin-bottom:3%;
     border-radius: 0.25rem;
+
 }
 
 .testBackground{

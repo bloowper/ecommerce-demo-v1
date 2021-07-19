@@ -1,13 +1,16 @@
 package orchowski.tomasz.ecommercedemo.domain;
 
 import lombok.*;
+import orchowski.tomasz.ecommercedemo.command.ItemCommand;
 import orchowski.tomasz.ecommercedemo.domain.enums.OrderState;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Setter
 @Getter
@@ -17,7 +20,7 @@ import java.util.List;
 @Entity
 @ToString
 @EqualsAndHashCode
-@Table(name = "order_table")
+@Table(name = "ORDERS")
 public class Order {
 
     @Id
@@ -43,9 +46,8 @@ public class Order {
     @UpdateTimestamp
     private Timestamp lastModifiedDate;
 
-    @Singular("item")
-    @OneToMany
-    List<Item> itemList;
+
+    // Map<Item, Integer> order = new HashMap<>();
 
 
 }

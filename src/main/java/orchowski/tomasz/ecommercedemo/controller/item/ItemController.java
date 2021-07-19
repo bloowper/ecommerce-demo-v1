@@ -137,11 +137,16 @@ public class ItemController {
     public String editCart(@RequestParam @Min(0) long productID,
                            @RequestParam @Min(0) Integer numberOfItems,
                            HttpSession session,
-                           Model model) {
+                           Model model,
+                           RedirectAttributes redirectAttributes) {
 
         log.debug("Cart editing| product " + productID + " set to " + numberOfItems);
         ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
         Item item = itemService.findById(productID).orElseThrow(() -> new RuntimeException("Item not found"));
+        if (numberOfItems > item.getStock()) {
+            redirectAttributes.addFlashAttribute("error", "Not enough items");
+            return "redirect:/user/cart";
+        }
         cart.editItemQuantity(item, numberOfItems);
         log.debug("Total size of cart : " + cart.numberOfItems());
         return "redirect:/user/cart";

@@ -14,21 +14,15 @@
         <div class="col-sm-12">
             <nav th:replace="fragments/navbar :: nav"></nav>
         </div>
+
         <div class="col-12">
             <div th:replace="fragments/notification :: notification"></div>
         </div>
+
     </div>
 </div>
 
 
-<div class="position-static">
-    <div class="position-absolute top-0 end-0">
-        <div class="alert alert-success alert-dismissible fade show" role="alert" th:if="${cartRemoveItem}">
-            <p>Item removed!</p>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    </div>
-</div>
 
 <div class="container-lg p-3">
     <h1 class="display-6">Your cart:</h1>
@@ -45,7 +39,7 @@
             <tbody>
                 <tr th:each="keyvalue : ${session.cart.mapItemInt}" th:with="item = ${keyvalue['key']}, quantity = ${keyvalue['value']} ">
                     <!--/*@thymesVar id="item" type="orchowski.tomasz.ecommercedemo.command.ItemCommand"*/-->
-                    <td th:text="${item.name}"></td>
+                    <td><a th:text="${item.name}" th:href="@{'/item/'+ ${item.id} + '/show' }" class="text-dark"></a></td>
                     <td>
                         <!--Quantity-->
                         <form th:action="@{/item/editCart(productID=${item.id})}" method="post" class="input-group mb-3" style="width: 150px">

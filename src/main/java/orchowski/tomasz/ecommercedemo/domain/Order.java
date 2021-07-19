@@ -82,6 +82,6 @@ public class Order {
 
     @Transient
     public Integer getNumberOfItems(){
-        return 2;
+        return items.values().stream().reduce(0, Integer::sum);
     }
 }

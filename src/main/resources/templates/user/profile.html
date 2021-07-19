@@ -29,7 +29,7 @@
             <div class="col-lg-12 ">
                 <div class="row">
                     <div class="col-lg-6  ">
-                        <div class=" whiteBackgroundShadowSubtle gx-md-1">
+                        <div class="whiteBackgroundShadowSubtle">
                             <p class="list-group-item list-group-item-action active bg-dark h4">Account details</p>
                             <ul class="list-group">
                                 <li class="list-group-item">
@@ -141,6 +141,7 @@
                                     </div>
                                 </div>
                             </div>
+                            <!--TODO-->
                             <form method="GET" th:action="@{/user/profile/addAddress}">
                                 <button class="btn btn-outline-primary" type="submit"
                                         style="width: 100px;margin-top: 10px">ADD
@@ -154,14 +155,16 @@
         <div class="row">
             <div class="col-12 whiteBackgroundShadowSubtle" >
                 <p class="list-group-item list-group-item-action active bg-dark h4">Orders</p>
-                <table class="table  p5">
+                <table class="table  table-striped">
                     <thead>
                     <tr>
                         <th scope="col">ID</th>
                         <th scope="col">Created Date</th>
                         <th scope="col">Update Date</th>
-                        <th scope="col">Order state</th>
                         <th scope="col">Cost</th>
+                        <th scope="col">Order state</th>
+                        <th scope="col">More</th>
+
                     </tr>
                     </thead>
                     <tbody th:each="order : ${user.orders}">
@@ -170,9 +173,13 @@
                         <td th:text="${order.createdDate} ">1999/02/25</td>
                         <td th:text="${order.lastModifiedDate}">1999/02/25</td>
                         <!--//TODO format date-->
-                        <td th:text="${order.orderState}">1999/02/25</td>
                         <td th:text="|${order.getOrderCost()} $|">1999/02/25</td>
-
+                        <td th:text="${order.orderState}">1999/02/25</td>
+                        <td>
+                            <form method="GET" th:action="@{/}">
+                                <button class="btn btn-outline-dark" type="submit">More</button>
+                            </form>
+                        </td>
                     </tr>
                     </tbody>
                 </table>

@@ -171,7 +171,7 @@ public class defaultLoader implements CommandLineRunner {
 
 
     //Accounts
-    //USER 1
+    //USER 1////////////////////
         var u1 = userRepository.save(User.builder().
                 role(admin).
                 username("admin").
@@ -206,8 +206,7 @@ public class defaultLoader implements CommandLineRunner {
                 Order.builder().
                         user(u1).
                         orderState(OrderState.PLACED).
-                        item(p1,1).
-                        item(p2,1).
+                        item(p1,2).
                         build()
         );
 
@@ -218,14 +217,11 @@ public class defaultLoader implements CommandLineRunner {
                         orderState(OrderState.PLACED).
                         item(p1,2).
                         item(p2,4).
-                        item(p3,1).
+                        item(p10,1).
                         build()
         );
 
-
-    //USER 1 end
-
-    //USER 2
+    //USER 2////////////////////
         var u2 = userRepository.save(User.builder().
                 role(customer).
                 username("user").
@@ -256,7 +252,16 @@ public class defaultLoader implements CommandLineRunner {
         );
 
 
-    //USER 2 end
+        orderService.save(
+                Order.builder().
+                        user(u2).
+                        orderState(OrderState.PLACED).
+                        item(p10,2).
+                        item(p11,3).
+                        item(p1,4).
+                        build()
+        );
+    //USER 2 end////////////////////
 
         var u3 = userRepository.save(User.builder().
                 role(customer).

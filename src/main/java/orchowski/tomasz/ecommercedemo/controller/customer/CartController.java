@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.util.UUID;
@@ -38,16 +39,16 @@ public class CartController {
             cart.setUuid(UUID.randomUUID().toString());
             session.setAttribute("cart", cart);
         }
-        if (session.getAttribute("cartRemoveItem") != null) {
-            session.removeAttribute("cartRemoveItem");
-            model.addAttribute("cartRemoveItem", true);
-        }
         return "user/cart";
     }
 
     @isAuthenticated
     @PostMapping("/cart/removeItem")
-    public String cartRemoveItem(HttpSession session, Model model, @RequestParam long id) {
+    public String cartRemoveItem(HttpSession session,
+                                 Model model,
+                                 @RequestParam long id,
+                                 RedirectAttributes redirectAttributes
+    ) {
         if (session.getAttribute("cart") == null) {
             ShoppingCart cart = new ShoppingCart();
             cart.setUuid(UUID.randomUUID().toString());
@@ -58,7 +59,7 @@ public class CartController {
             Item item = itemService.findById(id).orElseThrow(() -> new RuntimeException("Item with given id not found :" + id));
             cart.removeItem(item);
         }
-        session.setAttribute("cartRemoveItem", true);
+        redirectAttributes.addFlashAttribute("success", "Remove item successfully");
         return "redirect:/user/cart";
     }
 }

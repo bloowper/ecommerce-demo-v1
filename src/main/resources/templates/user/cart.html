@@ -6,8 +6,11 @@
     <title>Cart</title>
     <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.0.1/css/bootstrap.min.css}">
     <link th:rel="stylesheet" th:href="@{/css/default.css}">
+    <link th:rel="stylesheet" th:href="@{/css/background.css}">
 </head>
 <body>
+
+
 
 <div class="container-lg">
     <div class="row">
@@ -18,25 +21,25 @@
         <div class="col-12">
             <div th:replace="fragments/notification :: notification"></div>
         </div>
-
     </div>
 </div>
 
 
 
-<div class="container-lg p-3">
-    <h1 class="display-6">Your cart:</h1>
-    <div class="row col-md-12 px-md-3">
-        <table class="table">
-            <thead>
+<div class="container-lg mt-3 whiteBackgroundShadowSubtle">
+    <div class="row ">
+        <div class="col-12 ">
+            <p class="list-group-item list-group-item-action active bg-secondary h4 ">Your cart</p>
+            <table class="table  ">
+                <thead>
                 <tr>
                     <th scope="col">Product name</th>
                     <th scope="col">Quantity</th>
                     <th scope="col">Cost</th>
                     <th scope="col">Action</th>
                 </tr>
-            </thead>
-            <tbody>
+                </thead>
+                <tbody>
                 <tr th:each="keyvalue : ${session.cart.mapItemInt}" th:with="item = ${keyvalue['key']}, quantity = ${keyvalue['value']} ">
                     <!--/*@thymesVar id="item" type="orchowski.tomasz.ecommercedemo.command.ItemCommand"*/-->
                     <td><a th:text="${item.name}" th:href="@{'/item/'+ ${item.id} + '/show' }" class="text-dark"></a></td>
@@ -45,20 +48,28 @@
                         <form th:action="@{/item/editCart(productID=${item.id})}" method="post" class="input-group mb-3" style="width: 150px">
                             <input type="text" class="form-control me-1" id="numberOfItems" name="numberOfItems" th:value="${quantity}" >
                             <div class="input-group-append">
-                                <button class="btn btn-outline-primary" type="submit">Change</button>
+                                <button class="btn btn-outline-primary" type="submit" style="width: 100px">Change</button>
                             </div>
                         </form>
                     </td>
                     <td th:text="|${item.price * quantity} $|">25 $</td>
                     <td>
                         <form method="POST" th:action="@{/user/cart/removeItem(id=${item.id})}">
-                            <button class="btn btn-outline-danger" type="submit" name="submit" value="id" >Remove</button>
+                            <button class="btn btn-outline-danger" type="submit" name="submit" value="id" style="width: 100px" >Remove</button>
                         </form>
                     </td>
                 </tr>
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
     </div>
+    <div class="row">
+        <div class="col-12 m-3">
+<!--            TODO-->
+            <a href="#link" class="btn btn-outline-success" style="width: 100px" role="button">Buy</a>
+        </div>
+    </div>
+
 </div>
 
 

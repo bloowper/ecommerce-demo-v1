@@ -11,9 +11,10 @@
 </head>
 <body>
 
-<div class="container-md">
+<div class="container-lg">
+
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-lg-12">
             <nav th:replace="fragments/navbar :: nav"></nav>
         </div>
         <div class="col-12">
@@ -21,37 +22,40 @@
         </div>
     </div>
 
-    <div class="row  row-cols-lg-3 row-cols-sm-2 row-cols-1 mt-3">
-        <div class="col ">
-            <div class="list-group gx-md-1 py-md-3 whiteBackgroundShadowSubtle">
-                <p class="list-group-item list-group-item-dark text-center bg-dark text-white h2">Shop actions</p>
-                <a th:href="@{/item/create}" class="list-group-item list-group-item-action list-group-item-primary">Add new item</a>
-                <a href="#" class="list-group-item list-group-item-action list-group-item-primary">Edit item</a>
+    <div class="container-lg mt-3">
+        <div class="row  row-cols-lg-3 row-cols-sm-2 row-cols-1">
+            <div class="col ">
+                <div class="list-group gx-md-1 py-md-3 whiteBackgroundShadowSubtle">
+                    <p class="list-group-item list-group-item-dark text-center bg-dark text-white h2">Shop actions</p>
+                    <a th:href="@{/item/create}" class="list-group-item list-group-item-action list-group-item-primary">Add new item</a>
+                    <a href="#" class="list-group-item list-group-item-action list-group-item-primary">Edit item</a>
+                </div>
             </div>
-        </div>
-        <div class="col ">
-            <div class="list-group gx-md-1 py-md-3 whiteBackgroundShadowSubtle">
-                <p class="list-group-item list-group-item-dark text-center bg-dark text-white h2">User actions</p>
-                <a th:href="@{/admin/usersList}" class="list-group-item list-group-item-action list-group-item-primary ">User list</a>
+            <div class="col ">
+                <div class="list-group gx-md-1 py-md-3 whiteBackgroundShadowSubtle">
+                    <p class="list-group-item list-group-item-dark text-center bg-dark text-white h2">User actions</p>
+                    <a th:href="@{/admin/usersList}" class="list-group-item list-group-item-action list-group-item-primary ">User list</a>
+                </div>
             </div>
-        </div>
-        <div class="col">
-            <div class="list-group gx-md-1 py-md-3 whiteBackgroundShadowSubtle">
-                <p class="list-group-item list-group-item-dark text-center bg-dark text-white h2">...</p>
-                <a href="#" class="list-group-item list-group-item-action list-group-item-primary">...</a>
+            <div class="col">
+                <div class="list-group gx-md-1 py-md-3 whiteBackgroundShadowSubtle">
+                    <p class="list-group-item list-group-item-dark text-center bg-dark text-white h2">...</p>
+                    <a href="#" class="list-group-item list-group-item-action list-group-item-primary">...</a>
+                </div>
             </div>
-        </div>
-        <div class="col">
-            <div class="list-group gx-md-1 py-md-3 whiteBackgroundShadowSubtle">
-                <p class="list-group-item list-group-item-dark text-center bg-dark text-white h2">...</p>
-                <a href="#" class="list-group-item list-group-item-action list-group-item-primary">...</a>
+            <div class="col">
+                <div class="list-group gx-md-1 py-md-3 whiteBackgroundShadowSubtle">
+                    <p class="list-group-item list-group-item-dark text-center bg-dark text-white h2">...</p>
+                    <a href="#" class="list-group-item list-group-item-action list-group-item-primary">...</a>
+                </div>
             </div>
-        </div>
-        <div class="col">
-            <div class="list-group gx-md-1 py-md-3 whiteBackgroundShadowSubtle">
-                <p class="list-group-item list-group-item-dark text-center bg-dark text-white h2">...</p>
-                <a href="#" class="list-group-item list-group-item-action list-group-item-primary">...</a>
+            <div class="col">
+                <div class="list-group gx-md-1 py-md-3 whiteBackgroundShadowSubtle">
+                    <p class="list-group-item list-group-item-dark text-center bg-dark text-white h2">...</p>
+                    <a href="#" class="list-group-item list-group-item-action list-group-item-primary">...</a>
+                </div>
             </div>
+
         </div>
 
     </div>

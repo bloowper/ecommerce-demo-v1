@@ -28,7 +28,6 @@ public class ShoppingCart {
     }
 
 
-
     public void removeItem(Item item) {
         mapItemInt.remove(item);
     }
@@ -44,6 +43,14 @@ public class ShoppingCart {
 
     public Integer numberOfItems() {
         return mapItemInt.values().stream().reduce(0, Integer::sum);
+    }
+
+    public int getItemQuantity(Item item) {
+        Integer numberOfItems = mapItemInt.get(item);
+        if (numberOfItems == null) {
+            return 0;
+        }
+        return numberOfItems;
     }
 
 }

@@ -117,7 +117,8 @@ public class ItemController {
         String previousPage = PageUtilities.getPreviousPageByRequest(httpServletRequest).orElseThrow(() -> new RuntimeException("Previous page not found"));
         ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
         var item = itemService.findById(id).orElseThrow(() -> new RuntimeException("Item not found"));
-        if (item.getStock() < numberOfItems) {
+        if (    item.getStock() < numberOfItems ||
+                item.getStock() < cart.getItemQuantity(item) + numberOfItems) {
             redirectAttributes.addFlashAttribute("error", "Not enough items");
             return previousPage;
             //return "redirect:/item/" + id + "/show";

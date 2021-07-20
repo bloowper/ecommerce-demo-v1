@@ -35,8 +35,12 @@
     padding-bottom: 10px;
 }
 
-.classForTesting{
+.classForTesting1{
     background-color: blueviolet;
+}
+
+.classForTesting2{
+    background-color: Chartreuse;
 }
 
 

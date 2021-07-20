@@ -26,7 +26,7 @@ public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    String id;
+    Long id;
 
     @ManyToOne //TODO not sure that it works as it should
     @ToString.Exclude

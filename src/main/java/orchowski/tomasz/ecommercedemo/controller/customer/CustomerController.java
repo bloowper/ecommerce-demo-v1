@@ -7,8 +7,10 @@ import orchowski.tomasz.ecommercedemo.config.SecurityConfigurer;
 import orchowski.tomasz.ecommercedemo.converter.CommandToDeliveryAddress;
 import orchowski.tomasz.ecommercedemo.converter.DeliveryAddressToCommand;
 import orchowski.tomasz.ecommercedemo.domain.DeliveryAddress;
+import orchowski.tomasz.ecommercedemo.domain.Order;
 import orchowski.tomasz.ecommercedemo.domain.User;
 import orchowski.tomasz.ecommercedemo.services.DeliveryAddressService;
+import orchowski.tomasz.ecommercedemo.services.OrderService;
 import orchowski.tomasz.ecommercedemo.services.UserService;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.stereotype.Controller;
@@ -33,6 +35,7 @@ public class CustomerController {
 
     private final UserService userService;
     private final DeliveryAddressService addressService;
+    private final OrderService orderService;
 
     private final CommandToDeliveryAddress commandToAddress;
     private final DeliveryAddressToCommand addressToCommand;
@@ -116,4 +119,18 @@ public class CustomerController {
         redirectAttributes.addFlashAttribute("success", "Address deleted successfully");
         return "redirect:/user/profile";
     }
+
+    @GetMapping("/order/{id}")
+    public String getOrder(Model model,
+                           @PathVariable long id,
+                           Principal principal,
+                           RedirectAttributes redirectAttributes) {
+
+        log.debug("\"/order/{id}\"" + principal.getName());
+        User user = userService.findByUsername(principal.getName()).orElseThrow(() -> new RuntimeException("User not found")); // check if it is users order
+        Order order = orderService.findById(id).orElseThrow(() -> new RuntimeException(String.format("Order %d not found", id)));
+        model.addAttribute("order", order);
+        return "user/order";
+    }
+
 }

@@ -2,35 +2,84 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-  <meta charset="UTF-8">
-  <title>Order</title>
-  <link th:remove="all" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-        rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-        crossorigin="anonymous">
-  <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.0.1/css/bootstrap.min.css}">
-  <link th:rel="stylesheet" th:href="@{/css/default.css}">
-  <link th:rel="stylesheet" th:href="@{/css/background.css}">
+    <meta charset="UTF-8">
+    <title>Order</title>
+    <link th:remove="all" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+          crossorigin="anonymous">
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/5.0.1/css/bootstrap.min.css}">
+    <link th:rel="stylesheet" th:href="@{/css/default.css}">
+    <link th:rel="stylesheet" th:href="@{/css/background.css}">
 </head>
 <body>
-
 <div class="container-lg">
 
-  <div class="row">
-    <div class="col-12">
-      <nav th:replace="fragments/navbar :: nav"></nav>
+    <div class="row">
+        <div class="col-12">
+            <nav th:replace="fragments/navbar :: nav"></nav>
+        </div>
+        <div class="col-12">
+            <div th:replace="fragments/notification :: notification"></div>
+        </div>
     </div>
-    <div class="col-12">
-      <div th:replace="fragments/notification :: notification"></div>
+
+    <div class="container-lg mt-3">
+        <div class="row ">
+            <div class="col-lg-8 whiteBackgroundShadowSubtle me-lg-3" >
+                <p class="list-group-item list-group-item-action active bg-dark h4">Order information</p>
+                <p class="h4  m-4">General information </p>
+                <table class="table  table-striped">
+                        <thead>
+                        <tr>
+                            <th scope="col">Order id</th>
+                            <th scope="col">Total cost</th>
+                            <th scope="col">Create</th>
+                            <th scope="col">Update</th>
+                            <th scope="col">Status</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <!--TODO-->
+                            <th scope="row" th:text="${order.id}">1</th>
+                            <td th:text="|${order.getOrderCost()} $|">1999/02/25</td>
+                            <td th:text="${#dates.format(order.createdDate, 'yyyy-MM-dd hh:mm')}">1999/02/25</td>
+                            <td th:text="${#dates.format(order.lastModifiedDate, 'yyyy-MM-dd hh:mm')}">1999/02/25</td>
+                            <th th:text="${order.orderState}">SEND</th>
+                        </tr>
+                        </tbody>
+                    </table>
+                <hr class="dropdown-divider">
+                <p class="h4  m-4">Item list</p>
+                <table class="table  table-striped">
+                    <!--TODO-->
+                    <thead>
+                    <tr>
+                        <th scope="col">Item</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Cost</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr  th:each="keyvalue : ${order.items}" th:with="item = ${keyvalue['key']}, quantity = ${keyvalue['value']} " >
+                        <th scope="row"><a th:href="@{/}" th:text="${item.name}" class="text-dark"></a></th>
+                        <td th:text="${order.id} ">1999/02/25</td>
+                        <td th:text="${order.id} ">1999/02/25</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col whiteBackgroundShadowSubtle ms-lg-3">
+                <p class="list-group-item list-group-item-action active bg-dark h4">Delivery</p>
+            </div>
+        </div>
     </div>
-  </div>
-
-  <div class="container-lg mt-3">
-
-  </div>
 
 
-<script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
-<script th:src="@{/webjars/popper.js/2.9.2/umd/popper.js}"></script>
-<script th:src="@{/webjars/bootstrap/5.0.1/js/bootstrap.js}"></script>
+
+    <script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
+    <script th:src="@{/webjars/popper.js/2.9.2/umd/popper.js}"></script>
+    <script th:src="@{/webjars/bootstrap/5.0.1/js/bootstrap.js}"></script>
+</div>
 </body>
 </html>

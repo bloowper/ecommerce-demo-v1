@@ -51,14 +51,14 @@ public class ItemController {
 
     @PermissionStoreItemCreate
     @PostMapping("/create/new")
-    public String itemAddControllerPost(@ModelAttribute("item") @Valid ItemCommand itemCommand, BindingResult bindingResult) {
+    public String itemAddControllerPost(@ModelAttribute("item") @Valid ItemCommand itemCommand,
+                                        BindingResult bindingResult) {
         //TODO
         // validation of ItemCommand doesnt work
         log.debug("Posting new item object");
         if (bindingResult.hasErrors()) {
             bindingResult.getAllErrors().forEach(objectError -> log.error(objectError.toString()));
             log.debug("Binding error");
-
             return "item/itemform";
         }
         Item save = itemService.save(commandToItem.convert(itemCommand));

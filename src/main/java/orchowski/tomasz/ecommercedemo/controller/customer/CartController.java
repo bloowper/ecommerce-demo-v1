@@ -5,9 +5,12 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import orchowski.tomasz.ecommercedemo.command.ItemCommand;
 import orchowski.tomasz.ecommercedemo.converter.ItemToItemCommand;
+import orchowski.tomasz.ecommercedemo.domain.DeliveryAddress;
 import orchowski.tomasz.ecommercedemo.domain.Item;
+import orchowski.tomasz.ecommercedemo.domain.User;
 import orchowski.tomasz.ecommercedemo.security.permision.isAuthenticated;
 import orchowski.tomasz.ecommercedemo.services.ItemService;
+import orchowski.tomasz.ecommercedemo.services.UserService;
 import orchowski.tomasz.ecommercedemo.session.ShoppingCart;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
+import java.security.Principal;
+import java.util.List;
 import java.util.UUID;
 
 
@@ -28,12 +33,13 @@ import java.util.UUID;
 public class CartController {
 
     private final ItemService itemService;
+    private final UserService userService;
 
     private final ItemToItemCommand toItemCommand;
 
     @isAuthenticated
     @GetMapping("/cart")
-    public String cart(HttpSession session, Model model,Long id) {
+    public String cart(HttpSession session, Model model, Long id) {
         if (session.getAttribute("cart") == null) {
             ShoppingCart cart = new ShoppingCart();
             cart.setUuid(UUID.randomUUID().toString());
@@ -61,5 +67,20 @@ public class CartController {
         }
         redirectAttributes.addFlashAttribute("success", "Remove item successfully");
         return "redirect:/user/cart";
+    }
+
+    @isAuthenticated
+    @GetMapping("/buy/addressSelecting")
+    public String addressSelecting(Model model,
+                                   Principal principal,
+                                   HttpSession session) {
+        User user = userService.findByUsername(principal.getName()).orElseThrow(() -> new RuntimeException("User not found"));
+        ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
+        if (cart == null) {
+            return "redirect:/";
+        }
+        List<DeliveryAddress> deliveryAddressList = user.getDeliveryAddressList();
+
+        return "user/buyAddressSelecting";
     }
 }

@@ -51,9 +51,9 @@ public class Order {
     // and simplify names of columns ect
     @Singular
     @ElementCollection
-    @MapKeyColumn(name = "name")
+    // @MapKeyColumn(name = "name")
     @Column(name = "value")
-    @CollectionTable(name = "order_items", joinColumns = @JoinColumn(name = "id"))
+    @CollectionTable(name = "order_items", joinColumns = @JoinColumn(name = "order_id"))
     Map<Item, Integer> items;
 
     @ManyToOne
@@ -66,12 +66,14 @@ public class Order {
 
     @Transient
     public Double getOrderCost() {
-        Double reduce = items.keySet().stream().map(Item::getPrice).reduce(0., Double::sum);
+        Double reduce = items.entrySet().stream().map(entry -> {
+            return entry.getKey().getPrice() * entry.getValue();
+        }).reduce(0., Double::sum);
         return reduce;
     }
 
     @Transient
-    public Integer getNumberOfItems(){
+    public Integer getNumberOfItems() {
         return items.values().stream().reduce(0, Integer::sum);
     }
 }

@@ -180,7 +180,7 @@ public class defaultLoader implements CommandLineRunner {
                 build()
         );
 
-        deliveryAddressService.save(
+        DeliveryAddress deliveryAddress1 = deliveryAddressService.save(
                 DeliveryAddress.builder().
                         user(u1).
                         zipCode("22-463").
@@ -191,7 +191,7 @@ public class defaultLoader implements CommandLineRunner {
                         build()
         );
 
-        deliveryAddressService.save(
+        DeliveryAddress deliveryAddress2 = deliveryAddressService.save(
                 DeliveryAddress.builder().
                         user(u1).
                         zipCode("30-063").
@@ -207,6 +207,7 @@ public class defaultLoader implements CommandLineRunner {
                         user(u1).
                         orderState(OrderState.PLACED).
                         item(p1,10).
+                        deliveryAddress(deliveryAddress1).
                         build()
         );
 
@@ -217,7 +218,11 @@ public class defaultLoader implements CommandLineRunner {
                         orderState(OrderState.PLACED).
                         item(p1,2).
                         item(p2,4).
+                        item(p3,4).
+                        item(p4,4).
+                        item(p5,4).
                         item(p10,1).
+                        deliveryAddress(deliveryAddress2).
                         build()
         );
 

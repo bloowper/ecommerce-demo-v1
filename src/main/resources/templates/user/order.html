@@ -62,15 +62,38 @@
                     </thead>
                     <tbody>
                     <tr  th:each="keyvalue : ${order.items}" th:with="item = ${keyvalue['key']}, quantity = ${keyvalue['value']} " >
-                        <th scope="row"><a th:href="@{/}" th:text="${item.name}" class="text-dark"></a></th>
+                        <th scope="row"><a th:href="@{|/item/${item.id}/show|}" th:text="${item.name}" class="text-dark"></a></th>
                         <td th:text="${quantity} ">10</td>
                         <td th:text="|${quantity * item.price} $|">50$</td>
                     </tr>
                     </tbody>
                 </table>
             </div>
-            <div class="col whiteBackgroundShadowSubtle ms-lg-3">
+            <div class="col  ms-lg-3">
                 <p class="list-group-item list-group-item-action active bg-dark h4">Delivery detail</p>
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <span class="badge bg-dark" style="width: 100px">zip code</span>
+                        <p th:text="${order.deliveryAddress.zipCode}" ></p>
+                    </li>
+                    <li class="list-group-item">
+                        <span class="badge bg-dark" style="width: 100px">city</span>
+                        <p th:text="${order.deliveryAddress.city}" ></p>
+                    </li>
+                    <li class="list-group-item">
+                        <span class="badge bg-dark" style="width: 100px">street</span>
+                        <p th:text="${order.deliveryAddress.street}" ></p>
+                    </li>
+                    <li class="list-group-item">
+                        <span class="badge bg-dark" style="width: 100px">home number</span>
+                        <p th:text="${order.deliveryAddress.homeNumber}"></p>
+                    </li>
+                    <li class="list-group-item">
+                        <span class="badge bg-dark" style="width: 100px">phone number</span>
+                        <p th:text="${order.deliveryAddress.phoneNumber}"></p>
+                    </li>
+                </ul>
+
             </div>
         </div>
     </div>

@@ -63,14 +63,14 @@
                     <tbody>
                     <tr  th:each="keyvalue : ${order.items}" th:with="item = ${keyvalue['key']}, quantity = ${keyvalue['value']} " >
                         <th scope="row"><a th:href="@{/}" th:text="${item.name}" class="text-dark"></a></th>
-                        <td th:text="${order.id} ">1999/02/25</td>
-                        <td th:text="${order.id} ">1999/02/25</td>
+                        <td th:text="${quantity} ">10</td>
+                        <td th:text="|${quantity * item.price} $|">50$</td>
                     </tr>
                     </tbody>
                 </table>
             </div>
             <div class="col whiteBackgroundShadowSubtle ms-lg-3">
-                <p class="list-group-item list-group-item-action active bg-dark h4">Delivery</p>
+                <p class="list-group-item list-group-item-action active bg-dark h4">Delivery detail</p>
             </div>
         </div>
     </div>

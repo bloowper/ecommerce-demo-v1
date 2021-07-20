@@ -206,7 +206,7 @@ public class defaultLoader implements CommandLineRunner {
                 Order.builder().
                         user(u1).
                         orderState(OrderState.PLACED).
-                        item(p1,2).
+                        item(p1,10).
                         build()
         );
 

@@ -47,19 +47,6 @@ public class Order {
     @UpdateTimestamp
     private Timestamp lastModifiedDate;
 
-
-    // @Singular("item")
-    // @ElementCollection(fetch = FetchType.EAGER)
-    // @CollectionTable(name = "order_items")
-    // @MapKeyColumn(name = "key")
-    // @Column(name = "quantity")
-
-    // @Singular
-    // @ElementCollection
-    // @MapKeyColumn(name = "key")
-    // @Column(name = "item")
-    // @CollectionTable(name = "item_mapping")
-
     //TODO check if it is correct
     // and simplify names of columns ect
     @Singular
@@ -68,6 +55,9 @@ public class Order {
     @Column(name = "value")
     @CollectionTable(name = "order_items", joinColumns = @JoinColumn(name = "id"))
     Map<Item, Integer> items;
+
+    @ManyToOne
+    DeliveryAddress deliveryAddress;
 
     public Order addToMap(Item key, Integer value) {
         items.put(key, value);

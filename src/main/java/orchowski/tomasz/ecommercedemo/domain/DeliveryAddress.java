@@ -32,4 +32,5 @@ public class DeliveryAddress {
     private String homeNumber;
 
     private String phoneNumber;
+
 }

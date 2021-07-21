@@ -26,33 +26,30 @@
             <div class="col-lg-6 whiteBackgroundShadowSubtle mt-3 ">
                 <p class="list-group-item list-group-item-action active bg-secondary h4 ">Choose delivery address</p>
                 <!--                check boxes-->
-                <div class="ps-3 pe-3">
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked>
-                        <label class="form-check-label" for="flexRadioDefault1">
-                            1
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
-                        <label class="form-check-label" for="flexRadioDefault2">
-                            2
-                        </label>
-                    </div>
+                <form th:action="@{/user/buy/addressSelecting}" method="post">
+                    <div class="ps-3 pe-3">
 
-                    <div class="">
-                        <div class="float-start">
-                            <a class="btn btn-outline-dark mt-3 mb-3" th:href="@{/user/profile/addAddress}">
-                                Add new
-                            </a>
+                        <div th:each="address : ${deliveryAddressList}" class="form-check">
+                            <input class="form-check-input" type="radio" name="id" th:value="${address.id}" id="flexRadioDefault1" >
+                            <label class="form-check-label" for="flexRadioDefault1">[[${address}]]</label>
                         </div>
-                        <div class="float-end">
-                            <button class="btn btn-outline-dark mt-3 mb-3" type="submit" name="submit" value="value" >
-                                Continue
-                            </button>
+
+                        <div class="">
+                            <div class="float-start">
+                                <a class="btn btn-outline-dark mt-3 mb-3" th:href="@{/user/profile/addAddress}">
+                                    Add new
+                                </a>
+                            </div>
+                            <div class="float-end">
+                                <button class="btn btn-outline-dark mt-3 mb-3" type="submit">
+                                    Continue
+                                </button>
+                            </div>
                         </div>
+
                     </div>
-                </div>
+                </form>
+
 
             </div>
         </div>

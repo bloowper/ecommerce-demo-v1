@@ -14,10 +14,7 @@ import orchowski.tomasz.ecommercedemo.services.UserService;
 import orchowski.tomasz.ecommercedemo.session.ShoppingCart;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
@@ -81,15 +78,18 @@ public class CartController {
         }
         List<DeliveryAddress> deliveryAddressList = user.getDeliveryAddressList();
         model.addAttribute("deliveryAddressList", deliveryAddressList);
-
         return "user/buyAddressSelecting";
     }
+
+
 
     @isAuthenticated
     @PostMapping("buy/addressSelecting")
     public String addressSelectingPost(Model model,
-                                   Principal principal,
-                                   HttpSession session) {
+                                       Principal principal,
+                                       HttpSession session,
+                                       @RequestParam Long id) {
+        log.debug("chosen id: " + id);
 
         return "redirect:/";
     }

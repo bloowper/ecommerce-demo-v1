@@ -12,15 +12,19 @@ import orchowski.tomasz.ecommercedemo.domain.User;
 import orchowski.tomasz.ecommercedemo.services.DeliveryAddressService;
 import orchowski.tomasz.ecommercedemo.services.OrderService;
 import orchowski.tomasz.ecommercedemo.services.UserService;
+import orchowski.tomasz.ecommercedemo.utilities.PageUtilities;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.Optional;
 
 
 /**
@@ -60,13 +64,13 @@ public class CustomerController {
     }
 
 
-
     @PostMapping("/profile/addAddress")
     private String addAddress(Model model,
                               Principal principal,
                               @ModelAttribute("address") @Valid DeliveryAddressCommand addressCommand,
                               BindingResult bindingResult,
-                              RedirectAttributes redirectAttributes) {
+                              RedirectAttributes redirectAttributes,
+                              HttpServletRequest httpServletRequest) {
         if (bindingResult.hasErrors()) {
             bindingResult.getAllErrors().forEach(objectError -> log.error(objectError.toString()));
             log.debug("Binding error");

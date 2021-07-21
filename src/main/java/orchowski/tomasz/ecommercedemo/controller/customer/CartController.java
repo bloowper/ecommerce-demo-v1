@@ -80,7 +80,17 @@ public class CartController {
             return "redirect:/";
         }
         List<DeliveryAddress> deliveryAddressList = user.getDeliveryAddressList();
+        model.addAttribute("deliveryAddressList", deliveryAddressList);
 
         return "user/buyAddressSelecting";
+    }
+
+    @isAuthenticated
+    @PostMapping("buy/addressSelecting")
+    public String addressSelectingPost(Model model,
+                                   Principal principal,
+                                   HttpSession session) {
+
+        return "redirect:/";
     }
 }

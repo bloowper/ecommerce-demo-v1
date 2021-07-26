@@ -27,12 +27,15 @@ import java.util.UUID;
 @Controller
 @Slf4j
 @RequiredArgsConstructor
+@SessionAttributes("order")
 public class CartController {
 
     private final ItemService itemService;
     private final UserService userService;
 
     private final ItemToItemCommand toItemCommand;
+
+
 
     @isAuthenticated
     @GetMapping("/cart")
@@ -82,15 +85,17 @@ public class CartController {
     }
 
 
-
     @isAuthenticated
     @PostMapping("buy/addressSelecting")
     public String addressSelectingPost(Model model,
                                        Principal principal,
                                        HttpSession session,
                                        @RequestParam Long id) {
+        //i guss that exist better solution for choosing one element from list by checkbox, but
+        // i have no idea how to do that
         log.debug("chosen id: " + id);
-
         return "redirect:/";
     }
+
+
 }

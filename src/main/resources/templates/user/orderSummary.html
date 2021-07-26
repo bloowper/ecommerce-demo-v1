@@ -27,30 +27,6 @@
         <div class="row ">
             <div class="col-lg-8 whiteBackgroundShadowSubtle me-lg-3" >
                 <p class="list-group-item list-group-item-action active bg-dark h4">Order information</p>
-                <p class="h4  m-4">General information </p>
-                <table class="table  table-striped">
-                        <thead>
-                        <tr>
-                            <th scope="col">Order id</th>
-                            <th scope="col">Total cost</th>
-                            <th scope="col">Create</th>
-                            <th scope="col">Update</th>
-                            <th scope="col">Status</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <!--TODO-->
-                            <th scope="row" th:text="${order.id}">1</th>
-                            <td th:text="|${order.getOrderCost()} $|">1999/02/25</td>
-                            <td th:text="${#dates.format(order.createdDate, 'yyyy-MM-dd hh:mm')}">1999/02/25</td>
-                            <td th:text="${#dates.format(order.lastModifiedDate, 'yyyy-MM-dd hh:mm')}">1999/02/25</td>
-                            <th th:text="${order.orderState}">SEND</th>
-                        </tr>
-                        </tbody>
-                    </table>
-                <hr class="dropdown-divider">
-                <p class="h4  m-4">Item list</p>
                 <table class="table  table-striped">
                     <!--TODO-->
                     <thead>

@@ -24,13 +24,13 @@
     <div class="container-lg ">
         <div class="row justify-content-lg-center">
             <div class="col-lg-6 whiteBackgroundShadowSubtle mt-3 ">
-                <p class="list-group-item list-group-item-action active bg-secondary h4 ">Choose delivery address</p>
+                <p class="list-group-item list-group-item-action active bg-secondary h4 ">Delivery address</p>
                 <!--                check boxes-->
                 <form th:action="@{/user/buy/addressSelecting}" method="post">
                     <div class="ps-3 pe-3">
 
                         <div th:each="address : ${deliveryAddressList}" class="form-check">
-                            <input class="form-check-input" type="radio" name="id" th:value="${address.id}" id="flexRadioDefault1" >
+                            <input class="form-check-input" type="radio" th:id="|id${address.id}|" th:name="id" th:value="${address.id}" id="flexRadioDefault1" >
                             <label class="form-check-label" for="flexRadioDefault1">[[${address}]]</label>
                         </div>
 

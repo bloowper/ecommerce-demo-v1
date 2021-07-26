@@ -25,7 +25,7 @@
 
     <div class="container-lg mt-3">
         <div class="row ">
-            <div class="col-lg-8 whiteBackgroundShadowSubtle me-lg-3" >
+            <section class="col-lg-8 whiteBackgroundShadowSubtle me-lg-3 position-relative" >
                 <p class="list-group-item list-group-item-action active bg-dark h4">Order information</p>
                 <table class="table  table-striped">
                     <!--TODO-->
@@ -44,7 +44,11 @@
                     </tr>
                     </tbody>
                 </table>
-            </div>
+                <div class="position-absolute bottom-0 end-0">
+                    <a th:href="@{/user/buy/orderAccept}" type="button" class="btn btn-outline-success float-end m-3">Accept</a>
+                </div>
+
+            </section>
             <div class="col  ms-lg-3">
                 <p class="list-group-item list-group-item-action active bg-dark h4">Delivery detail</p>
                 <ul class="list-group">

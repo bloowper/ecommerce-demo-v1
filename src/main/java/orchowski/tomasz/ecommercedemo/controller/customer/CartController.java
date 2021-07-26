@@ -13,6 +13,7 @@ import orchowski.tomasz.ecommercedemo.repository.DeliveryAddressRepository;
 import orchowski.tomasz.ecommercedemo.security.permision.isAuthenticated;
 import orchowski.tomasz.ecommercedemo.services.DeliveryAddressService;
 import orchowski.tomasz.ecommercedemo.services.ItemService;
+import orchowski.tomasz.ecommercedemo.services.OrderService;
 import orchowski.tomasz.ecommercedemo.services.UserService;
 import orchowski.tomasz.ecommercedemo.session.ShoppingCart;
 import org.springframework.stereotype.Controller;
@@ -22,7 +23,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 
@@ -38,7 +41,7 @@ public class CartController {
     private final ItemService itemService;
     private final UserService userService;
     private final DeliveryAddressService deliveryAddressService;
-
+    private final OrderService orderService;
 
     private final ItemToItemCommand toItemCommand;
 
@@ -120,7 +123,7 @@ public class CartController {
         order.setUser(user);
         order.setOrderState(OrderState.PLACED);
         order.setDeliveryAddress(address);
-
+        order.setItems(cart.getMapItemInt());
 
         return "redirect:/user/buy/orderSummary";
     }
@@ -135,5 +138,27 @@ public class CartController {
         return "user/orderSummary";
     }
 
+    @isAuthenticated
+    @GetMapping("/buy/orderAccept")
+    public String orderAccept(Model model,
+                               Principal principal,
+                               HttpSession session,
+                               Order order) {
+        order.setId(null);
+        Order saveOrder = orderService.save(order);
+        ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
+        //TODO HIGH PRIORITY transactional layer in service
+        // IM SURE in 99% that current implementation would make many problems
+        for (Map.Entry<Item, Integer> itemIntegerEntry : cart.getMapItemInt().entrySet()) {
+            Item key = itemIntegerEntry.getKey();
+            Integer value = itemIntegerEntry.getValue();
+            Item item = itemService.findById(key.getId()).orElseThrow(() -> new RuntimeException("Item not exist"));
+            item.setStock(item.getStock() - value);
+            itemService.save(item);
+        }
+        cart.setMapItemInt(new HashMap<>());
+        //TODO change item quantity in Item table
+        return "redirect:/user/order/" + saveOrder.getId();
+    }
 
 }
